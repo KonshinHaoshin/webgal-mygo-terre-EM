@@ -1,3 +1,13 @@
+# WebGAL_MYGO专版可视化编辑器
+
+此仓库用于维护WebGAL的MYGO专版可视化编辑器。
+
+---
+
+以下为原仓库README.md文件
+
+---
+
 ![WebGAL Terre Slogan CN](https://github.com/OpenWebGAL/WebGAL_Terre/assets/30483415/69919753-9068-4465-8b11-a0de89b5a244)
 
 
