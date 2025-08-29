@@ -240,7 +240,7 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
   // 是否展示动作/表情区域：json / jsonl / spine
   const fileLower = (figureFile.value || "").toLowerCase();
   const isModelMetaFile =
-      fileLower.endsWith(".json") || fileLower.endsWith(".jsonl") || fileLower.includes(".json?");
+    fileLower.endsWith(".json") || fileLower.endsWith(".jsonl") || fileLower.includes(".json?");
 
   return (
     <div className={styles.sentenceEditorContent}>
