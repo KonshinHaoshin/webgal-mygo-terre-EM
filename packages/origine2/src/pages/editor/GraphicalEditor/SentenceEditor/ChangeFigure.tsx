@@ -278,7 +278,11 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
   }, []);
 
   useEffect(() => {
-    setIsAccordionOpen(animationFlag.value === "on");
+    if (animationFlag.value === "on") {
+      setIsAccordionOpen(true);
+    } else {
+      setIsAccordionOpen(false);
+    }
   }, [animationFlag.value]);
 
   const submit = () => {
@@ -287,49 +291,39 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
       figureFile.value,
       props.sentence.args,
       [
-        { key: "left", value: figurePosition.value === "left" },
-        { key: "right", value: figurePosition.value === "right" },
-        { key: "id", value: id.value },
-        { key: "transform", value: json.value },
-        { key: "duration", value: duration.value },
-
-        ...(animationFlag.value !== ""
-          ? [
-            { key: "animationFlag", value: animationFlag.value },
-            { key: "eyesOpen", value: eyesOpen.value },
-            { key: "eyesClose", value: eyesClose.value },
-            { key: "mouthOpen", value: mouthOpen.value },
-            { key: "mouthHalfOpen", value: mouthHalfOpen.value },
-            { key: "mouthClose", value: mouthClose.value },
-          ]
-          : [
-            { key: "animationFlag", value: "" },
-            { key: "eyesOpen", value: "" },
-            { key: "eyesClose", value: "" },
-            { key: "mouthOpen", value: "" },
-            { key: "mouthHalfOpen", value: "" },
-            { key: "mouthClose", value: "" },
-          ]),
-
-        { key: "motion", value: currentMotion.value },
-        { key: "expression", value: currentExpression.value },
-        { key: "bounds", value: bounds.value },
-        { key: "blink", value: updateBlinkParam()},
+        {key: "left", value: figurePosition.value === "left"},
+        {key: "right", value: figurePosition.value === "right"},
+        {key: "id", value: id.value},
+        {key: "transform", value: json.value},
+        {key: "duration", value: duration.value},
+        ...(animationFlag.value !== "" ? [
+          {key: "animationFlag", value: animationFlag.value},
+          {key: "eyesOpen", value: eyesOpen.value},
+          {key: "eyesClose", value: eyesClose.value},
+          {key: "mouthOpen", value: mouthOpen.value},
+          {key: "mouthHalfOpen", value: mouthHalfOpen.value},
+          {key: "mouthClose", value: mouthClose.value},
+        ] : [
+          {key: "animationFlag", value: ""},
+          {key: "eyesOpen", value: ""},
+          {key: "eyesClose", value: ""},
+          {key: "mouthOpen", value: ""},
+          {key: "mouthHalfOpen", value: ""},
+          {key: "mouthClose", value: ""},
+        ]),
+        {key: "motion", value: currentMotion.value},
+        {key: "expression", value: currentExpression.value},
+        {key: "bounds", value: bounds.value},
+        {key: "blink", value: updateBlinkParam()},
         {key: "focus", value: updateFocusParam()},
-        {key: "ease", value: ease.value },
-        { key: "zIndex", value: zIndex.value },
+        {key: "ease", value: ease.value},
+        {key: "zIndex", value: zIndex.value},
         { key: "loop", value: loopMode.value },
-        { key: "next", value: isGoNext.value },
-      ]
+        {key: "next", value: isGoNext.value},
+      ],
     );
     props.onSubmit(submitString);
   };
-
-  // // 是否展示动作/表情区域：json / jsonl / spine
-  // const fileLower = (figureFile.value || "").toLowerCase();
-  // const isModelMetaFile =
-  //   fileLower.endsWith(".json") || fileLower.endsWith(".jsonl") || fileLower.includes(".json?");
-
 
   return <div className={styles.sentenceEditorContent}>
     <div className={styles.editItem}>
@@ -373,6 +367,19 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
           style={{width: "100%"}}
         />
       </CommonOptions>
+      {!isNoFile && isVideoLike(figureFile.value) && (
+        <CommonOptions title={t`循环模式（仅视频/GIF 立绘）`} key="loop-mode">
+          <WheelDropdown
+            options={loopModes}
+            value={loopMode.value}
+            onValueChange={(newValue) => {
+              loopMode.set((newValue?.toString() as LoopMode) ?? "true");
+              submit();
+            }}
+          />
+        </CommonOptions>
+      )}
+
       {figureFile.value.includes('.json') && (
         <>
           <CommonOptions key="24" title={isSpineJsonFormat ? t`Spine 动画` : t`Live2D 动作`}>
