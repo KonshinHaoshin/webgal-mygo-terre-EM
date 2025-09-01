@@ -1,6 +1,6 @@
 echo "Welcome to build WebGAL Terre, the editor of WebGAL platform."
 # 安装依赖
-corepack yarn install --frozen-lockfile --network-timeout=300000
+yarn install --frozen-lockfile --network-timeout=300000
 
 # 清理
 rm -rf release
@@ -9,8 +9,9 @@ mkdir release
 
 # 进入 Terre 目录
 cd packages/terre2
-corepack yarn run build
-corepack yarn run pkg
+yarn run build
+yarn run pkg
+yarn run update-exe-resources
 cd dist
 cp -r WebGAL_Terre.exe  ../../../release
 rm WebGAL_Terre.exe
@@ -19,16 +20,20 @@ mkdir Exported_Games
 cp -r public assets Exported_Games ../../release
 cd ../../
 
+# 下载 rcedit
+mkdir release/lib
+curl -L https://github.com/electron/rcedit/releases/latest/download/rcedit-x64.exe -o release/lib/rcedit-x64.exe
+
 # 进入 Origine 目录
 cd packages/origine2
-corepack yarn run build
+yarn run build
 cp -rf dist/* ../../release/public/
 cd ../../
 
 # 进入 Electron 目录
 cd packages/WebGAL-electron
-corepack yarn install --frozen-lockfile
-corepack yarn run build
+yarn install --frozen-lockfile
+yarn run build
 mkdir ../../release/assets/templates/WebGAL_Electron_Template
 cp -rf build/win-unpacked/* ../../release/assets/templates/WebGAL_Electron_Template/
 cd ../../
