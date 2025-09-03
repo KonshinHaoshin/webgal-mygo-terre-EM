@@ -354,7 +354,7 @@ msgstr "Save"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:592
 msgid "保持闭眼(毫秒)"
-msgstr ""
+msgstr "Closed duration (ms)"
 
 #: src/components/Assets/Assets.tsx:498
 msgid "修改时间"
@@ -636,7 +636,7 @@ msgstr "Cancel"
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:237
 msgid "取消固定"
-msgstr ""
+msgstr "Unpin"
 
 #: src/pages/editor/GraphicalEditor/utils/useEffectEditorConfig.ts:108
 msgid "变换"
@@ -688,7 +688,7 @@ msgstr "Lip sync and blinking"
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:236
 msgid "固定弹窗"
-msgstr ""
+msgstr "Pin popup"
 
 #: src/pages/templateEditor/TemplateGraphicalEditor/WebgalClassEditor/propertyEditor/WGBackgroundEditor.tsx:51
 msgid "图像"
@@ -1004,11 +1004,11 @@ msgstr "Current version"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:74
 msgid "循环播放"
-msgstr ""
+msgstr "Loop Playback"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:371
 msgid "循环模式（仅视频/GIF 立绘）"
-msgstr ""
+msgstr "Loop Mode"
 
 #: src/pages/editor/Topbar/tabs/GameConfig/GameConfig.tsx:240
 msgid "德语"
@@ -1122,7 +1122,7 @@ msgstr "Tips: Resources used in styles are placed in the assets directory"
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:208
 msgid "搜索选项"
-msgstr ""
+msgstr "Search options"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/index.tsx:120
 msgid "播放一小段视频"
@@ -1130,11 +1130,11 @@ msgstr "Play a short video"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:76
 msgid "播放一次后消失"
-msgstr ""
+msgstr "Play once and disappear"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:75
 msgid "播放一次并停在最后一帧"
-msgstr ""
+msgstr "Play once and stop at last frame"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/index.tsx:184
 msgid "播放一段效果音"
@@ -1344,7 +1344,7 @@ msgstr "None"
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:169
 msgid "无匹配选项"
-msgstr ""
+msgstr "No matching options"
 
 #: src/pages/editor/Topbar/tabs/GameConfig/GameConfig.tsx:238
 msgid "日语"
@@ -1353,12 +1353,12 @@ msgstr "Japanese"
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:232
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:234
 msgid "是否固定弹窗"
-msgstr ""
+msgstr "Pin popup"
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:218
 #: src/pages/editor/Topbar/tabs/Settings/SettingsTab.tsx:149
 msgid "是否自定义分隔符"
-msgstr ""
+msgstr "Use custom separator"
 
 #: src/components/Assets/FileElement.tsx:210
 msgid "是否要删除 \"{0}\" ？"
@@ -1519,11 +1519,11 @@ msgstr "Bloom"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:602
 msgid "注视点X(-1~1)"
-msgstr ""
+msgstr "Focus X (-1~1)"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:612
 msgid "注视点Y(-1~1)"
-msgstr ""
+msgstr "Focus Y (-1~1)"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/Comment.tsx:21
 msgid "注释"
@@ -1648,7 +1648,7 @@ msgstr "Click or drag file to this area to upload"
 
 #: src/pages/editor/Topbar/tabs/Settings/SettingsTab.tsx:167
 msgid "点击或按退格键以删除旧的分隔符，输入新的分隔符后请按回车键确认。"
-msgstr ""
+msgstr "Click or press Backspace to delete the old separator. Enter a new separator and press Enter to confirm."
 
 #: src/pages/editor/GraphicalEditor/utils/useEffectEditorConfig.ts:100
 msgid "点状电影滤镜"
@@ -1673,11 +1673,11 @@ msgstr "Relative"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:552
 msgid "眨眼间隔(毫秒)"
-msgstr ""
+msgstr "Blink interval (ms)"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:562
 msgid "眨眼间隔随机变化(毫秒)"
-msgstr ""
+msgstr "Blink interval random variation (ms)"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:517
 msgid "睁开眼睛"
@@ -1685,7 +1685,7 @@ msgstr "Open eyes"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:572
 msgid "睁眼(毫秒)"
-msgstr ""
+msgstr "Opening duration (ms)"
 
 #: src/components/ColorPickerPopup/ColorPickerPopup.tsx:124
 msgid "确定"
@@ -1730,7 +1730,7 @@ msgstr "Disabled"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:622
 msgid "立即注视"
-msgstr ""
+msgstr "Focus instantly"
 
 #: src/pages/editor/EditorSidebar/EditorSidebar.tsx:115
 msgid "立绘"
@@ -1955,7 +1955,7 @@ msgstr "Custom Value "
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:216
 msgid "自定义分隔符"
-msgstr ""
+msgstr "Custom separator"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/PixiPerform.tsx:61
 #: src/pages/editor/GraphicalEditor/SentenceEditor/PixiPerform.tsx:69
@@ -1964,7 +1964,7 @@ msgstr "Custom effect name"
 
 #: src/pages/editor/Topbar/tabs/Settings/SettingsTab.tsx:146
 msgid "自定义级联选择器分隔符"
-msgstr ""
+msgstr "Custom cascade selector separator"
 
 #: src/pages/editor/Topbar/tabs/AddSentence/AddSentenceTab.tsx:45
 msgid "舞台对象控制"
@@ -2084,7 +2084,7 @@ msgstr "Setting the animation of the figure or background."
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:243
 msgid "设置自定义级联选择器分隔符（输入后按回车键确认）"
-msgstr ""
+msgstr "Set custom cascade selector separator (press Enter to confirm after input)"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/index.tsx:228
 #~ msgid "设置转场"
@@ -2116,7 +2116,7 @@ msgstr "Voice"
 
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:211
 msgid "请输入搜索提示词..."
-msgstr ""
+msgstr "Please enter a search hint..."
 
 #: src/components/IconCreator/IconCreator.tsx:670
 msgid "调整前景图片"
@@ -2413,7 +2413,7 @@ msgstr "Close Eyes"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:582
 msgid "闭眼(毫秒)"
-msgstr ""
+msgstr "Closing duration (ms)"
 
 #: src/pages/editor/GraphicalEditor/utils/useEffectEditorConfig.ts:89
 msgid "阈值"
@@ -2530,23 +2530,23 @@ msgstr "Default 1"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:584
 msgid "默认值100"
-msgstr ""
+msgstr "Default 100"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:564
 msgid "默认值1000"
-msgstr ""
+msgstr "Default 1000"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:574
 msgid "默认值150"
-msgstr ""
+msgstr "Default 150"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:554
 msgid "默认值24小时"
-msgstr ""
+msgstr "Default 24 hours"
 
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:594
 msgid "默认值50"
-msgstr ""
+msgstr "Default 50"
 
 #: src/pages/editor/Topbar/tabs/GameConfig/GameConfig.tsx:229
 msgid "默认语言"
