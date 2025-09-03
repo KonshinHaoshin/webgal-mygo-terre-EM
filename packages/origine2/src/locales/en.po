@@ -429,6 +429,7 @@ msgstr "About"
 msgid "关联立绘"
 msgstr "Associated figure"
 
+#: src/pages/editor/GraphicalEditor/components/EffectEditor.tsx:334
 #: src/pages/editor/GraphicalEditor/components/SearchableCascader.tsx:228
 #: src/pages/editor/GraphicalEditor/SentenceEditor/ChangeFigure.tsx:159
 #: src/pages/editor/GraphicalEditor/SentenceEditor/SetAnimation.tsx:96
@@ -974,7 +975,7 @@ msgstr "Apply"
 msgid "应用的模板"
 msgstr "Applied template"
 
-#: src/pages/editor/GraphicalEditor/components/EffectEditor.tsx:259
+#: src/pages/editor/GraphicalEditor/components/EffectEditor.tsx:385
 #: src/pages/editor/GraphicalEditor/SentenceEditor/Intro.tsx:311
 msgid "应用颜色变化"
 msgstr "Apply color changes"
