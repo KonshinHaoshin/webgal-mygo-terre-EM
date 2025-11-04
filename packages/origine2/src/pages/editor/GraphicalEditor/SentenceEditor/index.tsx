@@ -43,6 +43,7 @@ import SetTransition from "@/pages/editor/GraphicalEditor/SentenceEditor/SetTran
 import SetTransform from "@/pages/editor/GraphicalEditor/SentenceEditor/SetTransform";
 import styles from "./sentenceEditor.module.scss";
 import GetUserInput from "@/pages/editor/GraphicalEditor/SentenceEditor/GetUserInput";
+import Manopedia from "@/pages/editor/GraphicalEditor/SentenceEditor/Manopedia";
 import { t } from "@lingui/macro";
 
 export interface ISentenceEditorProps {
@@ -246,6 +247,14 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     component:GetUserInput,
     icon: <EnterTheKeyboard theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`获取来自用户的字符输入`
+  },
+  {
+    type: commandType.manopedia,
+    title: () => t`魔女图鉴`,
+    initialText: () => t`manopedia:on;`,
+    component: Manopedia,
+    icon: <ListCheckbox theme="multi-color" className={styles.iconSvg} size="24" />,
+    descText: () => t`控制是否要开启魔女图鉴`
   }
 ];
 
