@@ -108,6 +108,9 @@ jobs:
       - name: Build
         shell: bash
         run: ./release.sh
+      - name: Install NSIS
+        shell: powershell
+        run: choco install nsis -y
       - name: Build Setup
         shell: bash
         run: mkdir bundle && yarn nsis-bundle
