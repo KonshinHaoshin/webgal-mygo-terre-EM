@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: package.json
+          node-version: '20'
           cache: 'yarn'
       - name: Build
         env:
@@ -112,8 +112,14 @@ jobs:
         shell: powershell
         run: choco install nsis -y
       - name: Build Setup
-        shell: bash
-        run: mkdir bundle && yarn nsis-bundle
+        shell: powershell
+        run: |
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+          if (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe") {
+            $env:Path += ";C:\Program Files (x86)\NSIS"
+          }
+          mkdir bundle
+          yarn nsis-bundle
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
