@@ -112,6 +112,9 @@ export function getArgsKey(
     case commandType.unlockBgm: {
       return [whenKey, nameKey, seriesKey];
     }
+    case commandType.manopedia: {
+      return [whenKey];
+    }
     default: {
       return [whenKey];
     }
