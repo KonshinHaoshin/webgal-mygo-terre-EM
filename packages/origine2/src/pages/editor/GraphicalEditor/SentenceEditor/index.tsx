@@ -249,7 +249,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     descText: () => t`获取来自用户的字符输入`
   },
   {
-    type: commandType.manopedia,
+    type: 34 as commandType,
     title: () => t`魔女图鉴`,
     initialText: () => t`manopedia:on;`,
     component: Manopedia,
