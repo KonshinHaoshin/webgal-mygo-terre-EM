@@ -27,11 +27,11 @@ export function AddSentenceTab() {
   const btsCommon1 = pickSentenceType([0, 1, 2]);
   const btsCommon2 = pickSentenceType([4, 5]);
   const btsSpecial = pickSentenceType([8, 12, 13]);
-  const btsSpecial2 = pickSentenceType([6, 7, 21]);
+  const btsSpecial2 = pickSentenceType([6, 7, 22]);
   const btsBranch = pickSentenceType([9, 10, 11]);
   const btsExtra = pickSentenceType([14, 15]);
-  const btsSystem = pickSentenceType([16, 17]);
-  const btsControl = pickSentenceType([3, 19, 20]);
+  const btsSystem = pickSentenceType([16, 17, 18]);
+  const btsControl = pickSentenceType([3, 20, 21]);
 
   return <TopbarTab>
     <TabItem title={t`常规演出`}>

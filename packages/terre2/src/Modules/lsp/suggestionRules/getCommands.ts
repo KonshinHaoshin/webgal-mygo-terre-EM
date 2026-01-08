@@ -189,6 +189,18 @@ setTextbox:[hide] [others];
   },
   {
     kind: CompletionItemKind.Function,
+    label: 'manopedia',
+    insertText: makeInsertText('manopedia'),
+    detail: `é­”å¥³å›¾é‰´æ˜¾ç¤º`,
+    documentation: markdown(
+      `\`\`\`
+manopedia:on;æ˜¾ç¤ºé­”å¥³å›¾é‰´
+manopedia:off;éšè—?é­”å¥³å›¾é‰´
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
     label: 'setAnimation',
     insertText: makeInsertText('setAnimation'),
     detail: `设置动画`,

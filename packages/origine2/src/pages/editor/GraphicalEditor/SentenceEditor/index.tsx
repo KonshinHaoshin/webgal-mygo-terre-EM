@@ -35,6 +35,7 @@ import MiniAvatar from "./MiniAvatar";
 import Comment from "./Comment";
 import PlayEffect from "./PlayEffect";
 import SetTextbox from "./SetTextbox";
+import Manopedia from "./Manopedia";
 import UnlockExtra from "./UnlockExtra";
 import SetAnimation from "./SetAnimation";
 import ChangeCallScene from "./ChangeCallScene";
@@ -44,6 +45,7 @@ import SetTransform from "@/pages/editor/GraphicalEditor/SentenceEditor/SetTrans
 import styles from "./sentenceEditor.module.scss";
 import GetUserInput from "@/pages/editor/GraphicalEditor/SentenceEditor/GetUserInput";
 import { t } from "@lingui/macro";
+import { CUSTOM_COMMAND_TYPES } from "@/utils/webgalScriptConfig";
 
 export interface ISentenceEditorProps {
   sentence: ISentence;
@@ -206,6 +208,14 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     component: SetTextbox,
     icon: <AlignTextBottomOne theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`控制是否要显示文本框`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.manopedia,
+    title: () => t`魔女图鉴`,
+    initialText: () => t`manopedia:on;`,
+    component: Manopedia,
+    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`控制是否要显示魔女图鉴`
   },
   {
     type: commandType.end,
