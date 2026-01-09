@@ -14,6 +14,8 @@ import ThinkingOptionsEditor, {
   ThinkingValue,
 } from "../components/ThinkingOptionsEditor";
 import { combineSubmitString } from "@/utils/combineSubmitString";
+import { ColorPickerPopup } from "@/components/ColorPickerPopup/ColorPickerPopup";
+import { tinycolor } from "@ctrl/tinycolor";
 
 type TestimonyTag = {
   key: string;
@@ -196,17 +198,18 @@ export default function Testimony(props: ISentenceEditorProps) {
                       onBlur={submit}
                       placeholder={t`匹配文本`}
                     />
-                    <Input
-                      value={tag.color}
-                      onChange={(_, data) => {
-                        const nextValue = cloneDeep(tags.value);
-                        nextValue[index].color = data.value;
-                        tags.set(nextValue);
-                      }}
-                      onBlur={submit}
-                      placeholder={t`#RRGGBB`}
-                      style={{ width: "120px" }}
-                    />
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <ColorPickerPopup
+                        color={tag.color && COLOR_REGEX.test(tag.color) ? tag.color : "#F594A8"}
+                        onChange={(newColor) => {
+                          const nextValue = cloneDeep(tags.value);
+                          nextValue[index].color = tinycolor(newColor).toHexString().toUpperCase();
+                          tags.set(nextValue);
+                          submit();
+                        }}
+                      />
+                      <span>{tag.color || "#F594A8"}</span>
+                    </div>
                   </div>
                   <div style={{ width: "100%" }}>
                     <ThinkingOptionsEditor
@@ -226,7 +229,7 @@ export default function Testimony(props: ISentenceEditorProps) {
                   const nextValue = cloneDeep(tags.value);
                   nextValue.push({
                     key: "",
-                    color: "",
+                    color: "#F594A8",
                     thinking: parseThinkingValue(""),
                   });
                   tags.set(nextValue);
