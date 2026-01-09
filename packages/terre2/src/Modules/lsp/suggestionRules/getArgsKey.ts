@@ -119,6 +119,15 @@ export function getArgsKey(
     case commandType.refute: {
       return [whenKey, gotoKey];
     }
+    case commandType.thinking: {
+      return [whenKey];
+    }
+    case commandType.testimony: {
+      return [whenKey, testimonyLeftKey, refutesKey, colorsKey, yKey];
+    }
+    case commandType.clearTestimony: {
+      return [whenKey];
+    }
     default: {
       return [whenKey];
     }
@@ -565,6 +574,46 @@ const gotoKey: CompletionItem = {
   detail: 'jump target',
   documentation: markdown(`
 jump to a scene file or label
+  `),
+};
+
+const testimonyLeftKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'left',
+  insertText: 'left',
+  detail: '证词位置',
+  documentation: markdown(`
+证词显示在左侧
+  `),
+};
+
+const refutesKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'refutes',
+  insertText: 'refutes=',
+  detail: '反驳配置',
+  documentation: markdown(`
+配置可反驳的关键词与对应的 thinking 语句
+  `),
+};
+
+const colorsKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'colors',
+  insertText: 'colors=',
+  detail: '高亮颜色',
+  documentation: markdown(`
+配置关键词高亮颜色，格式为 #RRGGBB
+  `),
+};
+
+const yKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'y',
+  insertText: 'y=',
+  detail: 'Y 轴位置',
+  documentation: markdown(`
+设置证词显示位置的 Y 坐标
   `),
 };
 

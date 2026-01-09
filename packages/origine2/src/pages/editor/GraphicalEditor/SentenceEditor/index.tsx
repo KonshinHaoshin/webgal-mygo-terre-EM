@@ -43,6 +43,9 @@ import PresentTheEvidence from "./PresentTheEvidence";
 import LabelCommand from "./LabelCommand";
 import Judgment from "./Judgment";
 import Refute from "./Refute";
+import Thinking from "./Thinking";
+import Testimony from "./Testimony";
+import ClearTestimony from "./ClearTestimony";
 import UnlockExtra from "./UnlockExtra";
 import SetAnimation from "./SetAnimation";
 import ChangeCallScene from "./ChangeCallScene";
@@ -335,6 +338,30 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     component: Refute,
     icon: <VideoTwo theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`播放反驳素材并跳转`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.thinking,
+    title: () => t`思考`,
+    initialText: () => t`thinking:soyo.png 思考内容:label@icon=objection.png|@back;`,
+    component: Thinking,
+    icon: <ListCheckbox theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`弹出思考选项`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.testimony,
+    title: () => t`证词`,
+    initialText: () => t`testimony:证词文本 -left -y=400;`,
+    component: Testimony,
+    icon: <CommentOne theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`展示证词并配置反驳与高亮`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.clearTestimony,
+    title: () => t`清除证词`,
+    initialText: () => t`clearTestimony:;`,
+    component: ClearTestimony,
+    icon: <Erase theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`清除证词展示`
   }
 ];
 

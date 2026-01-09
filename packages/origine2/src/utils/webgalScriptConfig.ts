@@ -10,6 +10,9 @@ export const CUSTOM_COMMAND_TYPES = {
   presentTheEvidence: 39,
   judgment: 40,
   refute: 41,
+  thinking: 42,
+  testimony: 43,
+  clearTestimony: 44,
 } as const;
 
 export const CUSTOM_SCRIPT_CONFIG = [
@@ -24,6 +27,12 @@ export const CUSTOM_SCRIPT_CONFIG = [
   },
   { scriptString: "judgment", scriptType: CUSTOM_COMMAND_TYPES.judgment },
   { scriptString: "refute", scriptType: CUSTOM_COMMAND_TYPES.refute },
+  { scriptString: "thinking", scriptType: CUSTOM_COMMAND_TYPES.thinking },
+  { scriptString: "testimony", scriptType: CUSTOM_COMMAND_TYPES.testimony },
+  {
+    scriptString: "clearTestimony",
+    scriptType: CUSTOM_COMMAND_TYPES.clearTestimony,
+  },
 ];
 
 export const SCRIPT_CONFIG_EXTENDED = [

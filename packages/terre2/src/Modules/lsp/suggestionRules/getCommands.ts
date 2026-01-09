@@ -286,6 +286,41 @@ refute:<file> -goto=<labelOrScene>;
   },
   {
     kind: CompletionItemKind.Function,
+    label: 'thinking',
+    insertText: makeInsertText('thinking'),
+    detail: `思考`,
+    documentation: markdown(
+      `\`\`\`
+thinking:soyo.png 很简单:zhengchang@icon=objection.png@refute=refute/soyo.webm|@back;
+thinking:<image> <optionText>:<labelOrScene>@icon=agree.png|@back;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'testimony',
+    insertText: makeInsertText('testimony'),
+    detail: `证词`,
+    documentation: markdown(
+      `\`\`\`
+testimony:证词文本 -left -refutes={"关键词":"thinking:soyo.png 文本:label@icon=objection.png|@back"} -colors={"关键词":"#BB9955"} -y=400;
+testimony:<text> [-left] [-refutes={...}] [-colors={...}] [-y=<number>];
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'clearTestimony',
+    insertText: makeInsertText('clearTestimony'),
+    detail: `清除证词`,
+    documentation: markdown(
+      `\`\`\`
+clearTestimony:;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
     label: 'setAnimation',
     insertText: makeInsertText('setAnimation'),
     detail: `设置动画`,
