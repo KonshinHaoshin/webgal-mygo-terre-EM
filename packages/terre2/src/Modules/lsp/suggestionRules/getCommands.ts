@@ -201,6 +201,66 @@ manopedia:off;éšè—?é­”å¥³å›¾é‰´
   },
   {
     kind: CompletionItemKind.Function,
+    label: 'pediaUpdate',
+    insertText: makeInsertText('pediaUpdate'),
+    detail: `魔女图鉴更新`,
+    documentation: markdown(
+      `\`\`\`
+pediaUpdate:;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'addItem',
+    insertText: makeInsertText('addItem'),
+    detail: `添加证物`,
+    documentation: markdown(
+      `\`\`\`
+addItem:SAPPHO;
+addItem:<itemId>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'showItem',
+    insertText: makeInsertText('showItem'),
+    detail: `展示证物`,
+    documentation: markdown(
+      `\`\`\`
+showItem:SAPPHO;
+showItem:<itemId>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'clearItem',
+    insertText: makeInsertText('clearItem'),
+    detail: `清除证物`,
+    documentation: markdown(
+      `\`\`\`
+clearItem:SAPPHO;
+clearItem:<itemId>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'presentTheEvidence',
+    insertText: makeInsertText('presentTheEvidence'),
+    detail: `出示证物`,
+    documentation: markdown(
+      `\`\`\`
+presentTheEvidence:1.txt|2.txt @SAPPHO;
+presentTheEvidence:|uika @SAPPHO;
+presentTheEvidence:<success>|<fail> @<itemId>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
     label: 'setAnimation',
     insertText: makeInsertText('setAnimation'),
     detail: `设置动画`,

@@ -36,6 +36,9 @@ import Comment from "./Comment";
 import PlayEffect from "./PlayEffect";
 import SetTextbox from "./SetTextbox";
 import Manopedia from "./Manopedia";
+import PediaUpdate from "./PediaUpdate";
+import ItemCommand from "./ItemCommand";
+import PresentTheEvidence from "./PresentTheEvidence";
 import UnlockExtra from "./UnlockExtra";
 import SetAnimation from "./SetAnimation";
 import ChangeCallScene from "./ChangeCallScene";
@@ -256,6 +259,46 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     component:GetUserInput,
     icon: <EnterTheKeyboard theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`获取来自用户的字符输入`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.pediaUpdate,
+    title: () => t`魔女图鉴更新`,
+    initialText: () => t`pediaUpdate:;`,
+    component: PediaUpdate,
+    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`显示魔女图鉴更新`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.addItem,
+    title: () => t`添加证物`,
+    initialText: () => t`addItem:SAPPHO;`,
+    component: ItemCommand,
+    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`将证物加入魔女图鉴`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.showItem,
+    title: () => t`展示证物`,
+    initialText: () => t`showItem:SAPPHO;`,
+    component: ItemCommand,
+    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`展示魔女图鉴中的证物`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.clearItem,
+    title: () => t`清除证物`,
+    initialText: () => t`clearItem:SAPPHO;`,
+    component: ItemCommand,
+    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`将指定证物移出魔女图鉴`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.presentTheEvidence,
+    title: () => t`出示证物`,
+    initialText: () => t`presentTheEvidence:|uika @SAPPHO;`,
+    component: PresentTheEvidence,
+    icon: <ListCheckbox theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`强制弹出魔女图鉴选择证物`
   }
 ];
 

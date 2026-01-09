@@ -3,10 +3,23 @@ import { SCRIPT_CONFIG } from "webgal-parser/src/config/scriptConfig";
 
 export const CUSTOM_COMMAND_TYPES = {
   manopedia: 34,
+  pediaUpdate: 35,
+  addItem: 36,
+  showItem: 37,
+  clearItem: 38,
+  presentTheEvidence: 39,
 } as const;
 
 export const CUSTOM_SCRIPT_CONFIG = [
   { scriptString: "manopedia", scriptType: CUSTOM_COMMAND_TYPES.manopedia },
+  { scriptString: "pediaUpdate", scriptType: CUSTOM_COMMAND_TYPES.pediaUpdate },
+  { scriptString: "addItem", scriptType: CUSTOM_COMMAND_TYPES.addItem },
+  { scriptString: "showItem", scriptType: CUSTOM_COMMAND_TYPES.showItem },
+  { scriptString: "clearItem", scriptType: CUSTOM_COMMAND_TYPES.clearItem },
+  {
+    scriptString: "presentTheEvidence",
+    scriptType: CUSTOM_COMMAND_TYPES.presentTheEvidence,
+  },
 ];
 
 export const SCRIPT_CONFIG_EXTENDED = [

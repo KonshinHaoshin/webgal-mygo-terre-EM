@@ -30,7 +30,8 @@ export function AddSentenceTab() {
   const btsSpecial2 = pickSentenceType([6, 7, 22]);
   const btsBranch = pickSentenceType([9, 10, 11]);
   const btsExtra = pickSentenceType([14, 15]);
-  const btsSystem = pickSentenceType([16, 17, 18]);
+  const btsSystem1 = pickSentenceType([16, 17, 23, 24]);
+  const btsSystem2 = pickSentenceType([25, 26, 27, 18]);
   const btsControl = pickSentenceType([3, 20, 21]);
 
   return <TopbarTab>
@@ -67,7 +68,10 @@ export function AddSentenceTab() {
     </TabItem>
     <TabItem title={t`游戏控制`}>
       <div>
-        {btsSystem}
+        {btsSystem1}
+      </div>
+      <div>
+        {btsSystem2}
       </div>
     </TabItem>
   </TopbarTab>;

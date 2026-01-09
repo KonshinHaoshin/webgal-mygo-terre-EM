@@ -3,6 +3,15 @@ import SceneParser, {
   SCRIPT_CONFIG,
 } from 'webgal-parser/build/cjs/index.cjs';
 
+const CUSTOM_SCRIPT_CONFIG = [
+  { scriptString: 'manopedia', scriptType: 34 },
+  { scriptString: 'pediaUpdate', scriptType: 35 },
+  { scriptString: 'addItem', scriptType: 36 },
+  { scriptString: 'showItem', scriptType: 37 },
+  { scriptString: 'clearItem', scriptType: 38 },
+  { scriptString: 'presentTheEvidence', scriptType: 39 },
+];
+
 export const webgalParser = new SceneParser(
   (assetList) => {
     return;
@@ -11,5 +20,5 @@ export const webgalParser = new SceneParser(
     return fileName;
   },
   ADD_NEXT_ARG_LIST,
-  [...SCRIPT_CONFIG],
+  [...SCRIPT_CONFIG, ...CUSTOM_SCRIPT_CONFIG],
 );
