@@ -47,3 +47,11 @@
 .iconParkIcon > svg > path{
   stroke: var(--text);
 }
+
+.hoverCard {
+  transition: background-color 0.2s ease;
+}
+
+.hoverCard:hover {
+  background: var(--bg-button-hover);
+}

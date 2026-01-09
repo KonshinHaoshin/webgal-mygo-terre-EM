@@ -162,11 +162,12 @@ export default function Testimony(props: ISentenceEditorProps) {
           </CommonOptions>
         </div>
         <div style={{ width: "100%" }}>
-          <CommonOptions title={t`反驳与高亮`}>
+          <CommonOptions title={t`反驳与高亮`} disableHover>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "100%" }}>
               {tags.value.map((tag, index) => (
                 <div
                   key={`testimony-tag-${index}`}
+                  className={styles.hoverCard}
                   style={{
                     display: "flex",
                     flexDirection: "column",
