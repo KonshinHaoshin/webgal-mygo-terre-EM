@@ -8,6 +8,8 @@ export const CUSTOM_COMMAND_TYPES = {
   showItem: 37,
   clearItem: 38,
   presentTheEvidence: 39,
+  judgment: 40,
+  refute: 41,
 } as const;
 
 export const CUSTOM_SCRIPT_CONFIG = [
@@ -20,6 +22,8 @@ export const CUSTOM_SCRIPT_CONFIG = [
     scriptString: "presentTheEvidence",
     scriptType: CUSTOM_COMMAND_TYPES.presentTheEvidence,
   },
+  { scriptString: "judgment", scriptType: CUSTOM_COMMAND_TYPES.judgment },
+  { scriptString: "refute", scriptType: CUSTOM_COMMAND_TYPES.refute },
 ];
 
 export const SCRIPT_CONFIG_EXTENDED = [

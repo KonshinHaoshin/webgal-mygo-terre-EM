@@ -260,6 +260,30 @@ presentTheEvidence:<success>|<fail> @<itemId>;
   },
   {
     kind: CompletionItemKind.Function,
+    label: 'judgment',
+    insertText: makeInsertText('judgment'),
+    detail: `审判`,
+    documentation: markdown(
+      `\`\`\`
+judgment:begins -timer=13:20:000 -timeout=1.txt;
+judgment:concluded;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'refute',
+    insertText: makeInsertText('refute'),
+    detail: `反驳`,
+    documentation: markdown(
+      `\`\`\`
+refute:refute/soyo.webm -goto=114514;
+refute:<file> -goto=<labelOrScene>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
     label: 'setAnimation',
     insertText: makeInsertText('setAnimation'),
     detail: `设置动画`,

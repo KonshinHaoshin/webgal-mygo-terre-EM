@@ -41,6 +41,8 @@ import ItemCommand from "./ItemCommand";
 import ClearItem from "./ClearItem";
 import PresentTheEvidence from "./PresentTheEvidence";
 import LabelCommand from "./LabelCommand";
+import Judgment from "./Judgment";
+import Refute from "./Refute";
 import UnlockExtra from "./UnlockExtra";
 import SetAnimation from "./SetAnimation";
 import ChangeCallScene from "./ChangeCallScene";
@@ -317,6 +319,22 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     component: LabelCommand,
     icon: <CornerRightUp theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`跳转到指定标签`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.judgment,
+    title: () => t`审判`,
+    initialText: () => t`judgment:begins -timer=13:20:000 -timeout=1.txt;`,
+    component: Judgment,
+    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`开始或结束审判流程`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.refute,
+    title: () => t`反驳`,
+    initialText: () => t`refute:refute/soyo.webm -goto=114514;`,
+    component: Refute,
+    icon: <VideoTwo theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`播放反驳素材并跳转`
   }
 ];
 

@@ -10,6 +10,8 @@ const CUSTOM_SCRIPT_CONFIG = [
   { scriptString: 'showItem', scriptType: 37 },
   { scriptString: 'clearItem', scriptType: 38 },
   { scriptString: 'presentTheEvidence', scriptType: 39 },
+  { scriptString: 'judgment', scriptType: 40 },
+  { scriptString: 'refute', scriptType: 41 },
 ];
 
 export const webgalParser = new SceneParser(

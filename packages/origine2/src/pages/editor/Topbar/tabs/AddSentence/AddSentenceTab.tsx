@@ -33,6 +33,7 @@ export function AddSentenceTab() {
   const btsExtra = pickSentenceType([14, 15]);
   const btsSystem1 = pickSentenceType([16, 17, 23, 24]);
   const btsSystem2 = pickSentenceType([25, 26, 27, 18]);
+  const btsSystem3 = pickSentenceType([30, 31]);
   const btsControl = pickSentenceType([3, 20, 21]);
 
   return <TopbarTab>
@@ -76,6 +77,9 @@ export function AddSentenceTab() {
       </div>
       <div>
         {btsSystem2}
+      </div>
+      <div>
+        {btsSystem3}
       </div>
     </TabItem>
   </TopbarTab>;

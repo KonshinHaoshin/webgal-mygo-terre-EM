@@ -45,7 +45,9 @@ export enum commandType {
   addItem = 36,
   showItem = 37,
   clearItem = 38,
-  presentTheEvidence = 39
+  presentTheEvidence = 39,
+  judgment = 40,
+  refute = 41
 }
 
 export function markdown(content: string): MarkupContent {

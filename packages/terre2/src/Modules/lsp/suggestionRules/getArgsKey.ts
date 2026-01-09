@@ -112,6 +112,12 @@ export function getArgsKey(
     case commandType.unlockBgm: {
       return [whenKey, nameKey, seriesKey];
     }
+    case commandType.judgment: {
+      return [whenKey, timerKey, timeoutKey];
+    }
+    case commandType.refute: {
+      return [whenKey, gotoKey];
+    }
     default: {
       return [whenKey];
     }
@@ -169,6 +175,26 @@ const durationKey: CompletionItem = {
   detail: '持续时间',
   documentation: markdown(`
 这个时间片的持续时间，单位为毫秒(ms)
+  `),
+};
+
+const timerKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'timer',
+  insertText: 'timer=',
+  detail: 'judgment timer',
+  documentation: markdown(`
+set the judgment timer, e.g. 13:20:000
+  `),
+};
+
+const timeoutKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'timeout',
+  insertText: 'timeout=',
+  detail: 'timeout scene',
+  documentation: markdown(`
+scene file to jump to when timeout
   `),
 };
 
@@ -518,6 +544,16 @@ const seriesKey: CompletionItem = {
   detail: '鉴赏系列名称',
   documentation: markdown(`
 CG或音乐解锁进鉴赏模式后应当放在哪个系列
+  `),
+};
+
+const gotoKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'goto',
+  insertText: 'goto=',
+  detail: 'jump target',
+  documentation: markdown(`
+jump to a scene file or label
   `),
 };
 
