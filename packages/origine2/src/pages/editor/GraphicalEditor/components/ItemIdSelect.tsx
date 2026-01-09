@@ -24,7 +24,7 @@ export default function ItemIdSelect({
 
   const { data: itemDirs } = useSWR(itemRootPath, async () => {
     const res = await api.assetsControllerReadAssets(itemRootPath);
-    const data = res.data as { dirInfo?: IFile[] };
+    const data = res.data as unknown as { dirInfo?: IFile[] };
     return data?.dirInfo ?? [];
   });
 

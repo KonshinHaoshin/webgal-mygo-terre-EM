@@ -187,7 +187,7 @@ export default function DashBoard() {
   return (
     <div className={styles.dashboard_container}>
       <div className={styles.topBar}>
-        WebGAL Terre MyGO
+        WebGAL Terre MYGO/魔裁
         <Toolbar>
           <About/>
           <Menu>

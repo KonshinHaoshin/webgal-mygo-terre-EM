@@ -1,6 +1,6 @@
-# WebGAL_MYGO专版可视化编辑器
+# WebGAL MYGO/魔裁 专版可视化编辑器
 
-此仓库用于维护WebGAL的MYGO专版可视化编辑器。
+此仓库用于维护WebGAL的 MYGO/魔裁 专版可视化编辑器。
 
 ---
 
