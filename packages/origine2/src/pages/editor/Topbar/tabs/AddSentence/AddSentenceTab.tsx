@@ -28,7 +28,8 @@ export function AddSentenceTab() {
   const btsCommon2 = pickSentenceType([4, 5]);
   const btsSpecial = pickSentenceType([8, 12, 13]);
   const btsSpecial2 = pickSentenceType([6, 7, 22]);
-  const btsBranch = pickSentenceType([9, 10, 11]);
+  const btsBranch1 = pickSentenceType([9, 10, 11]);
+  const btsBranch2 = pickSentenceType([28, 29]);
   const btsExtra = pickSentenceType([14, 15]);
   const btsSystem1 = pickSentenceType([16, 17, 23, 24]);
   const btsSystem2 = pickSentenceType([25, 26, 27, 18]);
@@ -58,7 +59,10 @@ export function AddSentenceTab() {
     </TabItem>
     <TabItem title={t`场景与分支`}>
       <div>
-        {btsBranch}
+        {btsBranch1}
+      </div>
+      <div>
+        {btsBranch2}
       </div>
     </TabItem>
     <TabItem title={t`鉴赏`}>

@@ -39,6 +39,7 @@ import Manopedia from "./Manopedia";
 import PediaUpdate from "./PediaUpdate";
 import ItemCommand from "./ItemCommand";
 import PresentTheEvidence from "./PresentTheEvidence";
+import LabelCommand from "./LabelCommand";
 import UnlockExtra from "./UnlockExtra";
 import SetAnimation from "./SetAnimation";
 import ChangeCallScene from "./ChangeCallScene";
@@ -299,6 +300,22 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     component: PresentTheEvidence,
     icon: <ListCheckbox theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`强制弹出魔女图鉴选择证物`
+  },
+  {
+    type: commandType.label,
+    title: () => t`标签`,
+    initialText: () => t`label:label_1;`,
+    component: LabelCommand,
+    icon: <Code theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`创建可被 jumpLabel 跳转的标签`
+  },
+  {
+    type: commandType.jumpLabel,
+    title: () => t`跳转标签`,
+    initialText: () => t`jumpLabel:label_1;`,
+    component: LabelCommand,
+    icon: <CornerRightUp theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`跳转到指定标签`
   }
 ];
 
