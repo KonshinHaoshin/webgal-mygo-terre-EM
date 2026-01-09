@@ -8,6 +8,7 @@ import { combineSubmitString } from "@/utils/combineSubmitString";
 import { getArgByKey } from "../utils/getArgByKey";
 import ChooseFile from "../../ChooseFile/ChooseFile";
 import { extNameMap } from "../../ChooseFile/chooseFileConfig";
+import SceneOrLabelPicker from "../components/SceneOrLabelPicker";
 
 export default function Refute(props: ISentenceEditorProps) {
   const commandKey = props.sentence.commandRaw.trim();
@@ -49,28 +50,11 @@ export default function Refute(props: ISentenceEditorProps) {
           </>
         </CommonOptions>
         <CommonOptions title={t`跳转目标`} key="refute-goto">
-          <div style={{ display: "flex", gap: "8px", alignItems: "center", width: "100%" }}>
-            <input
-              value={gotoTarget.value}
-              onChange={(ev) => {
-                gotoTarget.set(ev.target.value ?? "");
-              }}
-              onBlur={submit}
-              className={styles.sayInput}
-              placeholder={t`场景文件或标签名`}
-              style={{ width: "100%" }}
-            />
-            <ChooseFile
-              title={t`选择场景文件`}
-              basePath={["scene"]}
-              selectedFilePath={gotoTarget.value}
-              onChange={(file) => {
-                gotoTarget.set(file?.name ?? "");
-                submit();
-              }}
-              extNames={extNameMap.get("scene")}
-            />
-          </div>
+          <SceneOrLabelPicker
+            value={gotoTarget.value}
+            onValueChange={(newValue) => gotoTarget.set(newValue)}
+            onSubmit={submit}
+          />
         </CommonOptions>
       </div>
     </div>

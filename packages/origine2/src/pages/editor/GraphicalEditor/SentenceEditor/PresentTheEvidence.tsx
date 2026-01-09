@@ -6,6 +6,7 @@ import { useValue } from "../../../../hooks/useValue";
 import { t } from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
 import ItemIdSelect from "@/pages/editor/GraphicalEditor/components/ItemIdSelect";
+import SceneOrLabelPicker from "../components/SceneOrLabelPicker";
 
 function parseEvidenceContent(content: string) {
   const trimmed = content.trim();
@@ -54,27 +55,17 @@ export default function PresentTheEvidence(props: ISentenceEditorProps) {
       <CommonTips text={t`强制弹出魔女图鉴，选择证物后跳转`} />
       <div className={styles.editItem}>
         <CommonOptions title={t`正确触发`} key="evidence-success">
-          <input
+          <SceneOrLabelPicker
             value={successTarget.value}
-            onChange={(ev) => {
-              successTarget.set(ev.target.value ?? "");
-            }}
-            onBlur={submit}
-            className={styles.sayInput}
-            placeholder={t`场景文件或标签名`}
-            style={{ width: "100%" }}
+            onValueChange={(newValue) => successTarget.set(newValue)}
+            onSubmit={submit}
           />
         </CommonOptions>
         <CommonOptions title={t`错误触发`} key="evidence-fail">
-          <input
+          <SceneOrLabelPicker
             value={failTarget.value}
-            onChange={(ev) => {
-              failTarget.set(ev.target.value ?? "");
-            }}
-            onBlur={submit}
-            className={styles.sayInput}
-            placeholder={t`场景文件或标签名`}
-            style={{ width: "100%" }}
+            onValueChange={(newValue) => failTarget.set(newValue)}
+            onSubmit={submit}
           />
         </CommonOptions>
         <CommonOptions title={t`证物 ID`} key="evidence-item">

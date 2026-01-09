@@ -64,7 +64,11 @@ export default function ChooseFile(props: IChooseFile) {
     >
       <PopoverTrigger>
         <div style={{display: 'inline-block'}}>
-          { props.button ?? <Button style={{minWidth: 0}}>{isShowChooseFileCallout.value ? t`取消` : t`选择`}</Button>}      
+          { props.button ?? (
+            <Button style={{ minWidth: 52, whiteSpace: "nowrap" }}>
+              {isShowChooseFileCallout.value ? t`取消` : t`选择`}
+            </Button>
+          )}
         </div>
       </PopoverTrigger>
       <PopoverSurface style={{padding: 0}}>
