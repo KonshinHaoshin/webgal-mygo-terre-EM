@@ -38,6 +38,7 @@ import SetTextbox from "./SetTextbox";
 import Manopedia from "./Manopedia";
 import PediaUpdate from "./PediaUpdate";
 import ItemCommand from "./ItemCommand";
+import ClearItem from "./ClearItem";
 import PresentTheEvidence from "./PresentTheEvidence";
 import LabelCommand from "./LabelCommand";
 import UnlockExtra from "./UnlockExtra";
@@ -288,10 +289,10 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
   {
     type: CUSTOM_COMMAND_TYPES.clearItem,
     title: () => t`清除证物`,
-    initialText: () => t`clearItem:SAPPHO;`,
-    component: ItemCommand,
+    initialText: () => t`clearItem:;`,
+    component: ClearItem,
     icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
-    descText: () => t`将指定证物移出魔女图鉴`
+    descText: () => t`清除魔女图鉴中的所有证物`
   },
   {
     type: CUSTOM_COMMAND_TYPES.presentTheEvidence,

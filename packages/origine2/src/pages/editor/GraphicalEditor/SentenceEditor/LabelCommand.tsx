@@ -8,7 +8,7 @@ import { combineSubmitString } from "@/utils/combineSubmitString";
 
 function getLabelTips(commandKey: string) {
   if (commandKey === "label") {
-    return t`创建标签供 jumpLabel 跳转`;
+    return t`创建标签供 jumpLabel 或分支选项跳转`;
   }
   return t`跳转到指定标签`;
 }

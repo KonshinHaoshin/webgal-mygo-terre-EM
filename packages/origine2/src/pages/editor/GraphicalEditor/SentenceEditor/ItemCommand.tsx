@@ -5,6 +5,7 @@ import styles from "./sentenceEditor.module.scss";
 import { useValue } from "../../../../hooks/useValue";
 import { t } from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
+import ItemIdSelect from "@/pages/editor/GraphicalEditor/components/ItemIdSelect";
 
 function getItemTips(commandKey: string) {
   switch (commandKey) {
@@ -12,8 +13,6 @@ function getItemTips(commandKey: string) {
       return t`将物品加入魔女图鉴`;
     case "showItem":
       return t`展示魔女图鉴中的物品`;
-    case "clearItem":
-      return t`从魔女图鉴移除物品`;
     default:
       return t`编辑魔女图鉴物品`;
   }
@@ -37,15 +36,12 @@ export default function ItemCommand(props: ISentenceEditorProps) {
       <CommonTips text={getItemTips(commandKey)} />
       <div className={styles.editItem}>
         <CommonOptions title={t`物品 ID`} key="item-id">
-          <input
+          <ItemIdSelect
             value={itemId.value}
-            onChange={(ev) => {
-              itemId.set(ev.target.value ?? "");
+            onChange={(newValue) => {
+              itemId.set(newValue);
+              submit();
             }}
-            onBlur={submit}
-            className={styles.sayInput}
-            placeholder={t`例如：SAPPHO`}
-            style={{ width: "100%" }}
           />
         </CommonOptions>
       </div>

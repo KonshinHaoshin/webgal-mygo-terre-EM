@@ -5,6 +5,7 @@ import styles from "./sentenceEditor.module.scss";
 import { useValue } from "../../../../hooks/useValue";
 import { t } from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
+import ItemIdSelect from "@/pages/editor/GraphicalEditor/components/ItemIdSelect";
 
 function parseEvidenceContent(content: string) {
   const trimmed = content.trim();
@@ -77,15 +78,13 @@ export default function PresentTheEvidence(props: ISentenceEditorProps) {
           />
         </CommonOptions>
         <CommonOptions title={t`证物 ID`} key="evidence-item">
-          <input
+          <ItemIdSelect
             value={itemId.value}
-            onChange={(ev) => {
-              itemId.set(ev.target.value ?? "");
+            onChange={(newValue) => {
+              itemId.set(newValue);
+              submit();
             }}
-            onBlur={submit}
-            className={styles.sayInput}
-            placeholder={t`例如：SAPPHO`}
-            style={{ width: "100%" }}
+            placeholder={t`选择证物`}
           />
         </CommonOptions>
       </div>

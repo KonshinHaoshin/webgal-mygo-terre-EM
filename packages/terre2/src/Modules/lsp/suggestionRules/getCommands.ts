@@ -241,8 +241,7 @@ showItem:<itemId>;
     detail: `清除证物`,
     documentation: markdown(
       `\`\`\`
-clearItem:SAPPHO;
-clearItem:<itemId>;
+clearItem:;
 \`\`\``,
     ),
   },
