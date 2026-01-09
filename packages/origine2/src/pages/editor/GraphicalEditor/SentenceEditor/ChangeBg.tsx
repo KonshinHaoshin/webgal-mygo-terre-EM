@@ -25,7 +25,12 @@ export default function ChangeBg(props: ISentenceEditorProps) {
   const json = useValue<string>(getArgByKey(props.sentence, 'transform') as string);
   const duration = useValue<number | string>(getArgByKey(props.sentence, 'duration') as number);
   const ease = useValue(getArgByKey(props.sentence, 'ease').toString() ?? '');
+  const typeValue = useValue(getArgByKey(props.sentence, 'type').toString() ?? '');
   const easeTypeOptions = useEaseTypeOptions();
+  const typeOptions = new Map<string, string>([
+    ["", t`默认`],
+    ["blinds", t`百叶窗`],
+  ]);
   
   const updateExpand = useEditorStore.use.updateExpand();
   const submit = () => {
@@ -37,11 +42,13 @@ export default function ChangeBg(props: ISentenceEditorProps) {
         ...(bgFile.value !== "none" ? [
           {key: "transform", value: json.value},
           {key: "ease", value: ease.value},
+          {key: "type", value: typeValue.value},
           {key: "unlockname", value: unlockName.value},
           {key: "series", value: unlockSeries.value},
         ] : [
           {key: "transform", value: ""},
           {key: "ease", value: ""},
+          {key: "type", value: ""},
           {key: "unlockname", value: ""},
           {key: "series", value: ""},
         ]),
@@ -72,6 +79,16 @@ export default function ChangeBg(props: ISentenceEditorProps) {
           }}
           extNames={[...extNameMap.get('image') ?? [], ...extNameMap.get('video') ?? []]}/>
         </>
+      </CommonOptions>}
+      {!isNoFile && <CommonOptions key="1-1" title={t`转场类型`}>
+        <WheelDropdown
+          options={typeOptions}
+          value={typeValue.value}
+          onValueChange={(newValue) => {
+            typeValue.set(newValue?.toString() ?? "");
+            submit();
+          }}
+        />
       </CommonOptions>}
       <CommonOptions key="2" title={t`连续执行`}>
         <TerreToggle title="" onChange={(newValue) => {

@@ -32,7 +32,8 @@ intro:<text> [|<text of line 2>] ...;
     documentation: markdown(
       `\`\`\`
 changeBg:testBG03.jpg -next;
-changeBg:<fileName> [-next];
+changeBg:RGB/Background_e02_001.png -type=blinds;
+changeBg:<fileName> [-next] [-type=default|blinds];
 \`\`\``,
     ),
   },
@@ -98,6 +99,7 @@ callScene:<newSceneFileName>;
 其中，|是分隔符。
 \`\`\`
 choose:叫住她:Chapter-2.txt|回家:Chapter-3.txt;
+choose:要乐奈:Chapter-3.txt @skeleton|三角初华:Chapter-4.txt;
 choose:<chooseText:newSceneName> [|<chooseText:newSceneName>] ...;
 \`\`\``,
     ),

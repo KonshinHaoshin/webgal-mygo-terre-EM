@@ -25,6 +25,7 @@ export function getArgsKey(
         nextKey,
         durationKey,
         transformKey,
+        typeKey,
         unlocknameKey,
         seriesKey,
         enterAnimationKey,
@@ -175,6 +176,16 @@ const durationKey: CompletionItem = {
   detail: '持续时间',
   documentation: markdown(`
 这个时间片的持续时间，单位为毫秒(ms)
+  `),
+};
+
+const typeKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'type',
+  insertText: 'type=',
+  detail: '背景切换类型',
+  documentation: markdown(`
+背景切换类型：default 或 blinds
   `),
 };
 

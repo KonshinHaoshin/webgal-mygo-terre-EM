@@ -7,13 +7,51 @@ import { Button } from "@fluentui/react-components";
 import {t} from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
 import { extNameMap } from "../../ChooseFile/chooseFileConfig";
+import TerreToggle from "../../../../components/terreToggle/TerreToggle";
+
+type ChooseItem = {
+  label: string;
+  target: string;
+  skeleton: boolean;
+};
+
+function parseChooseItems(content: string): ChooseItem[] {
+  if (!content.trim()) {
+    return [];
+  }
+  return content.split("|").map((item) => {
+    const trimmed = item.trim();
+    const colonIndex = trimmed.indexOf(":");
+    const label = colonIndex === -1 ? trimmed : trimmed.slice(0, colonIndex).trim();
+    let targetRaw = colonIndex === -1 ? "" : trimmed.slice(colonIndex + 1);
+    let skeleton = false;
+    if (targetRaw.includes("@skeleton")) {
+      skeleton = true;
+      targetRaw = targetRaw.replace(/\s*@skeleton\s*/g, " ");
+    }
+    const target = targetRaw.trim();
+    return {
+      label,
+      target,
+      skeleton,
+    };
+  });
+}
+
+function formatChooseItems(items: ChooseItem[]): string {
+  return items
+    .map((item) => {
+      const skeletonSuffix = item.skeleton ? " @skeleton" : "";
+      return `${item.label}:${item.target}${skeletonSuffix}`;
+    })
+    .join("|");
+}
 
 export default function Choose(props: ISentenceEditorProps) {
-  const chooseItems = useValue(props.sentence.content.split("|").map(e => e.split(":")));
+  const chooseItems = useValue(parseChooseItems(props.sentence.content));
 
   const submit = () => {
-    const chooseItemsStr = chooseItems.value.map(e => e.join(":"));
-    const contentStr = chooseItemsStr.join("|");
+    const contentStr = formatChooseItems(chooseItems.value);
     const submitString = combineSubmitString(
       props.sentence.commandRaw,
       contentStr,
@@ -24,7 +62,7 @@ export default function Choose(props: ISentenceEditorProps) {
   };
 
   const chooseList = chooseItems.value.map((item, i) => {
-    return <div style={{ display: "flex", width:'100%', alignItems: "center",padding:'0 0 4px 0' }} key={i}>
+    return <div style={{ display: "flex", width:'100%', alignItems: "center", padding:'0 0 4px 0', gap: "6px" }} key={i}>
       <Button
         onClick={()=>{
           const newList = cloneDeep(chooseItems.value);
@@ -35,28 +73,40 @@ export default function Choose(props: ISentenceEditorProps) {
       >
         {t`删除本句`}
       </Button>
-      <input value={item[0]}
+      <input value={item.label}
         onChange={(ev) => {
           const newValue = ev.target.value;
           const newList = cloneDeep(chooseItems.value);
-          newList[i][0] = newValue;
+          newList[i].label = newValue;
           chooseItems.set(newList);
         }}
         onBlur={submit}
         className={styles.sayInput}
         placeholder={t`选项名称`}
-        style={{ width: "50%", margin: "0 6px 0 6px" }}
+        style={{ width: "40%" }}
       />
       {
-        item[1] + "\u00a0"
+        item.target + "\u00a0"
       }
-      <ChooseFile title={t`选择场景文件`} basePath={['scene']} selectedFilePath={item[1]} onChange={(newFile) => {
+      <ChooseFile title={t`选择场景文件`} basePath={['scene']} selectedFilePath={item.target} onChange={(newFile) => {
         const newValue = newFile?.name ?? "";
         const newList = cloneDeep(chooseItems.value);
-        newList[i][1] = newValue;
+        newList[i].target = newValue;
         chooseItems.set(newList);
         submit();
       }} extNames={extNameMap.get('scene')} />
+      <TerreToggle
+        title=""
+        onChange={(newValue) => {
+          const newList = cloneDeep(chooseItems.value);
+          newList[i].skeleton = newValue;
+          chooseItems.set(newList);
+          submit();
+        }}
+        onText={t`骷髅`}
+        offText={t`正常`}
+        isChecked={item.skeleton}
+      />
     </div>;
   });
   return <div className={styles.sentenceEditorContent}>
@@ -64,7 +114,7 @@ export default function Choose(props: ISentenceEditorProps) {
     <Button
       onClick={() => {
         const newList = cloneDeep(chooseItems.value);
-        newList.push([t`选项`,t`选择场景文件`]);
+        newList.push({ label: t`选项`, target: t`选择场景文件`, skeleton: false });
         chooseItems.set(newList);
         submit();
       }}>
