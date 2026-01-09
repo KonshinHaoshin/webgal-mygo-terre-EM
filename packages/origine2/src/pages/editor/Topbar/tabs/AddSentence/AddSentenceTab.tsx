@@ -46,7 +46,7 @@ export function AddSentenceTab() {
   const btsBranch1 = pickSentenceType([9, 10, 11]);
   const btsBranch2 = pickSentenceType([28, 29]);
   const btsExtra = pickSentenceType([14, 15]);
-  const btsSystemAll = pickSentenceTypeWithKey([16, 17, 23, 24, 25, 26, 27, 18, 30, 31, 32, 33, 34], "system");
+  const btsSystemAll = pickSentenceTypeWithKey([16, 17, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 18], "system");
   const btsSystemColumns = chunkList(btsSystemAll, 3);
   const btsControl = pickSentenceType([3, 20, 21]);
 
