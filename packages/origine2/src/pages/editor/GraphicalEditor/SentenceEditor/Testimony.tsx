@@ -134,6 +134,7 @@ export default function Testimony(props: ISentenceEditorProps) {
               }}
               onBlur={submit}
               placeholder={t`输入证词文本`}
+              style={{ width: "560px", minWidth: "260px" }}
             />
           </CommonOptions>
           <CommonOptions title={t`位置`}>

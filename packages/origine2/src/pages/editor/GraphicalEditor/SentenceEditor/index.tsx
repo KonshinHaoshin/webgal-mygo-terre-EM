@@ -9,19 +9,30 @@ import {
   AlignTextBottomOne, ApplicationEffect,
   AutoWidth,
   Avatar,
+  Audit,
+  BookOne,
+  BookOpen,
+  Clear,
   Code,
   CommentOne,
   CornerRightUp,
+  DeleteOne,
   Effects,
   EnterTheKeyboard,
   Erase,
+  Gavel,
+  AddItem,
   ListCheckbox,
   Logout,
   Music,
   NewPicture,
+  NotebookAndPen,
   People,
+  Reject,
   SwitchThemes, Transform,
-  VideoTwo
+  VideoTwo,
+  ViewList,
+  ThinkingProblem
 } from "@icon-park/react";
 import ChangeBg from "./ChangeBg";
 import ChangeFigure from "./ChangeFigure";
@@ -224,7 +235,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`魔女图鉴`,
     initialText: () => t`manopedia:on;`,
     component: Manopedia,
-    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <BookOpen theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`控制是否要显示魔女图鉴`
   },
   {
@@ -272,7 +283,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`魔女图鉴更新`,
     initialText: () => t`pediaUpdate:;`,
     component: PediaUpdate,
-    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <BookOne theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`显示魔女图鉴更新`
   },
   {
@@ -280,7 +291,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`添加证物`,
     initialText: () => t`addItem:SAPPHO;`,
     component: ItemCommand,
-    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <AddItem theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`将证物加入魔女图鉴`
   },
   {
@@ -288,7 +299,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`展示证物`,
     initialText: () => t`showItem:SAPPHO;`,
     component: ItemCommand,
-    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <ViewList theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`展示魔女图鉴中的证物`
   },
   {
@@ -296,7 +307,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`清除证物`,
     initialText: () => t`clearItem:;`,
     component: ClearItem,
-    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <DeleteOne theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`清除魔女图鉴中的所有证物`
   },
   {
@@ -304,7 +315,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`出示证物`,
     initialText: () => t`presentTheEvidence:|uika @SAPPHO;`,
     component: PresentTheEvidence,
-    icon: <ListCheckbox theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <Audit theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`强制弹出魔女图鉴选择证物`
   },
   {
@@ -328,7 +339,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`审判`,
     initialText: () => t`judgment:begins -timer=13:20:000 -timeout=1.txt;`,
     component: Judgment,
-    icon: <ApplicationEffect theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <Gavel theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`开始或结束审判流程`
   },
   {
@@ -336,7 +347,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`反驳`,
     initialText: () => t`refute:refute/soyo.webm -goto=114514;`,
     component: Refute,
-    icon: <VideoTwo theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <Reject theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`播放反驳素材并跳转`
   },
   {
@@ -344,7 +355,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`思考`,
     initialText: () => t`thinking:soyo.png 思考内容:label@icon=objection.png|@back;`,
     component: Thinking,
-    icon: <ListCheckbox theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <ThinkingProblem theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`弹出思考选项`
   },
   {
@@ -352,7 +363,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`证词`,
     initialText: () => t`testimony:证词文本 -left -y=400;`,
     component: Testimony,
-    icon: <CommentOne theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <NotebookAndPen theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`展示证词并配置反驳与高亮`
   },
   {
@@ -360,7 +371,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     title: () => t`清除证词`,
     initialText: () => t`clearTestimony:;`,
     component: ClearTestimony,
-    icon: <Erase theme="multi-color" className={styles.iconSvg} size="24"/>,
+    icon: <Clear theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`清除证词展示`
   }
 ];
