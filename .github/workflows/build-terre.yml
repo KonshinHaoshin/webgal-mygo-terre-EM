@@ -110,6 +110,8 @@ jobs:
         with:
           node-version-file: package.json
           cache: 'yarn'
+      - name: Install NSIS
+        run: choco install nsis -y
       - name: Build
         shell: bash
         run: ./release.sh
