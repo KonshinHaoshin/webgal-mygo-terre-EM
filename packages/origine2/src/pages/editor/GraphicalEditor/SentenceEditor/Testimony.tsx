@@ -188,7 +188,7 @@ export default function Testimony(props: ISentenceEditorProps) {
                         submit();
                       }}
                     >
-                      {t`删除`}
+                      {t`删除关键词`}
                     </Button>
                     <Input
                       value={tag.key}
@@ -237,6 +237,8 @@ export default function Testimony(props: ISentenceEditorProps) {
                   tags.set(nextValue);
                   submit();
                 }}
+                style={{ width: "200px" }}
+                appearance="primary"
               >
                 {t`添加关键词`}
               </Button>

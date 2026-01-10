@@ -226,7 +226,7 @@ export default function ThinkingOptionsEditor({
                   updateValue(nextValue, true);
                 }}
               >
-                {t`删除`}
+                {t`删除选项`}
               </Button>
               <input
                 value={option.text}
@@ -252,7 +252,7 @@ export default function ThinkingOptionsEditor({
               />
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-              <div style={{ flex: 1, minWidth: "260px" }}>
+              <div style={{ width: "260px" }}>
                 <SceneOrLabelPicker
                   value={option.target}
                   onValueChange={(newValue) => {
@@ -310,6 +310,8 @@ export default function ThinkingOptionsEditor({
             });
             updateValue(nextValue, true);
           }}
+          style={{ width: "160px" }}
+          appearance="primary"
         >
           {t`添加选项`}
         </Button>
