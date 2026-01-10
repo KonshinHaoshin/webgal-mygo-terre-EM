@@ -193,11 +193,11 @@ setTextbox:[hide] [others];
     kind: CompletionItemKind.Function,
     label: 'manopedia',
     insertText: makeInsertText('manopedia'),
-    detail: `é­”å¥³å›¾é‰´æ˜¾ç¤º`,
+    detail: `魔女图鉴显示`,
     documentation: markdown(
       `\`\`\`
-manopedia:on;æ˜¾ç¤ºé­”å¥³å›¾é‰´
-manopedia:off;éšè—?é­”å¥³å›¾é‰´
+manopedia:on;显示魔女图鉴
+manopedia:off;隐藏魔女图鉴
 \`\`\``,
     ),
   },

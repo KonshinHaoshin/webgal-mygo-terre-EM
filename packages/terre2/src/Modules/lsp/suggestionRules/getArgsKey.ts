@@ -202,9 +202,9 @@ const timerKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'timer',
   insertText: 'timer=',
-  detail: 'judgment timer',
+  detail: '审判计时',
   documentation: markdown(`
-set the judgment timer, e.g. 13:20:000
+设置审判计时，例如 13:20:000
   `),
 };
 
@@ -212,9 +212,9 @@ const timeoutKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'timeout',
   insertText: 'timeout=',
-  detail: 'timeout scene',
+  detail: '超时跳转场景',
   documentation: markdown(`
-scene file to jump to when timeout
+超时后跳转到的场景文件
   `),
 };
 
