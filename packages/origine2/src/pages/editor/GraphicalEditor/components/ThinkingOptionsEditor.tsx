@@ -4,7 +4,6 @@ import { cloneDeep } from "lodash";
 import ChooseFile from "../../ChooseFile/ChooseFile";
 import { extNameMap } from "../../ChooseFile/chooseFileConfig";
 import SceneOrLabelPicker from "./SceneOrLabelPicker";
-import WheelDropdown from "./WheelDropdown";
 import TerreToggle from "../../../../components/terreToggle/TerreToggle";
 import styles from "../SentenceEditor/sentenceEditor.module.scss";
 
@@ -151,14 +150,6 @@ export default function ThinkingOptionsEditor({
   onChange,
   onSubmit,
 }: ThinkingOptionsEditorProps) {
-  const iconOptions = new Map<string, string>([
-    ["", t`无`],
-    ["agree.png", t`赞同`],
-    ["objection.png", t`反驳`],
-    ["perjury.png", t`伪证`],
-    ["question.png", t`疑问`],
-  ]);
-
   const updateValue = (nextValue: ThinkingValue, shouldSubmit = false) => {
     onChange(nextValue);
     if (shouldSubmit) {
@@ -241,15 +232,34 @@ export default function ThinkingOptionsEditor({
                 placeholder={t`选项文本`}
                 style={{ width: "40%", flex: 1, minWidth: 0 }}
               />
-              <WheelDropdown
-                options={iconOptions}
-                value={option.icon}
-                onValueChange={(newValue) => {
-                  updateOption(index, (item) => {
-                    item.icon = newValue?.toString() ?? "";
-                  }, true);
-                }}
-              />
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+                <span>{t`选项图标`}</span>
+                <span style={{ maxWidth: "200px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {option.icon || t`无`}
+                </span>
+                <ChooseFile
+                  title={t`选择选项图标`}
+                  basePath={["thinking_button"]}
+                  selectedFilePath={option.icon}
+                  onChange={(fileDesc) => {
+                    updateOption(index, (item) => {
+                      item.icon = fileDesc?.name ?? "";
+                    }, true);
+                  }}
+                  extNames={extNameMap.get("image")}
+                />
+                {option.icon && (
+                  <Button
+                    onClick={() => {
+                      updateOption(index, (item) => {
+                        item.icon = "";
+                      }, true);
+                    }}
+                  >
+                    {t`清除`}
+                  </Button>
+                )}
+              </div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
               <div style={{ width: "260px" }}>

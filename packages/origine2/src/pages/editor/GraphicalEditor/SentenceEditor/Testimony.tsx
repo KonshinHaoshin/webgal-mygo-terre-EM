@@ -133,7 +133,6 @@ export default function Testimony(props: ISentenceEditorProps) {
 
   return (
     <div className={styles.sentenceEditorContent}>
-      <CommonTips text={t`提示：颜色仅支持 #RRGGBB，反驳内容使用完整的 thinking 语法`} />
       <div className={styles.editItem}>
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", width: "100%" }}>
           <CommonOptions title={t`证词文本`}>
