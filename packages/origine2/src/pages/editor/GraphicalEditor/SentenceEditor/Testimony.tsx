@@ -8,6 +8,8 @@ import { getArgByKey } from "../utils/getArgByKey";
 import TerreToggle from "../../../../components/terreToggle/TerreToggle";
 import { Button, Input } from "@fluentui/react-components";
 import { cloneDeep } from "lodash";
+import ChooseFile from "../../ChooseFile/ChooseFile";
+import { extNameMap } from "../../ChooseFile/chooseFileConfig";
 import ThinkingOptionsEditor, {
   formatThinkingValue,
   parseThinkingValue,
@@ -72,6 +74,7 @@ export default function Testimony(props: ISentenceEditorProps) {
   const isLeft = useValue(!!getArgByKey(props.sentence, "left"));
   const yValueRaw = getArgByKey(props.sentence, "y");
   const yValue = useValue(yValueRaw === "" ? "" : String(yValueRaw));
+  const vocal = useValue(getArgByKey(props.sentence, "vocal").toString() ?? "");
 
   const refutesRaw = getArgByKey(props.sentence, "refutes");
   const colorsRaw = getArgByKey(props.sentence, "colors");
@@ -116,6 +119,8 @@ export default function Testimony(props: ISentenceEditorProps) {
         { key: "y", value: Number.isNaN(parsedY) ? "" : parsedY },
         { key: "refutes", value: refutesValue },
         { key: "colors", value: colorsValue },
+        { key: "vocal", value: false },
+        ...(vocal.value !== "" ? [{ key: vocal.value, value: true }] : []),
       ],
     );
     props.onSubmit(submitString);
@@ -160,6 +165,21 @@ export default function Testimony(props: ISentenceEditorProps) {
                 style={{ width: "140px" }}
               />
             </div>
+          </CommonOptions>
+          <CommonOptions title={t`语音`}>
+            <>
+              {vocal.value !== "" ? `${vocal.value}\u00a0\u00a0` : ""}
+              <ChooseFile
+                title={t`选择语音文件`}
+                basePath={["vocal"]}
+                selectedFilePath={vocal.value}
+                onChange={(newName) => {
+                  vocal.set(newName?.name ?? "");
+                  submit();
+                }}
+                extNames={extNameMap.get("audio")}
+              />
+            </>
           </CommonOptions>
         </div>
         <div style={{ width: "100%" }}>

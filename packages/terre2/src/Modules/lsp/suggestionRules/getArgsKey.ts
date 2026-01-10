@@ -123,7 +123,7 @@ export function getArgsKey(
       return [whenKey];
     }
     case commandType.testimony: {
-      return [whenKey, testimonyLeftKey, refutesKey, colorsKey, yKey];
+      return [whenKey, testimonyLeftKey, refutesKey, colorsKey, yKey, vocalKey];
     }
     case commandType.clearTestimony: {
       return [whenKey];
