@@ -183,7 +183,7 @@ export default function ThinkingOptionsEditor({
         <span>{value.image || t`未选择`}</span>
         <ChooseFile
           title={t`选择思考图片`}
-          basePath={["figure"]}
+          basePath={["thinking"]}
           selectedFilePath={value.image}
           onChange={(fileDesc) => {
             const nextValue = cloneDeep(value);
