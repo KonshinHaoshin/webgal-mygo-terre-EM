@@ -1,4 +1,5 @@
 import SceneParser from "webgal-parser";
+import type { ConfigItem } from "webgal-parser/build/types/config/scriptConfig";
 import { logger } from "../../../utils/logger";
 import { IScene } from "webgal-parser/src/interface/sceneInterface";
 import {
@@ -9,7 +10,7 @@ import {
 export const WebgalParser = new SceneParser(() => {
 }, (fileName, assetType) => {
   return fileName;
-}, [], SCRIPT_CONFIG_EXTENDED);
+}, [], SCRIPT_CONFIG_EXTENDED as unknown as ConfigItem[]);
 /**
  * 场景解析器 - 编辑器版
  * @param rawScene 原始场景
