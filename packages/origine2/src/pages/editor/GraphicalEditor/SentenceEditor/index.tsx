@@ -66,7 +66,7 @@ import SetTransform from "@/pages/editor/GraphicalEditor/SentenceEditor/SetTrans
 import styles from "./sentenceEditor.module.scss";
 import GetUserInput from "@/pages/editor/GraphicalEditor/SentenceEditor/GetUserInput";
 import { t } from "@lingui/macro";
-import { CUSTOM_COMMAND_TYPES } from "@/utils/webgalScriptConfig";
+import { CUSTOM_COMMAND_TYPES, type ExtendedCommandType } from "@/utils/webgalScriptConfig";
 
 export interface ISentenceEditorProps {
   sentence: ISentence;
@@ -75,7 +75,7 @@ export interface ISentenceEditorProps {
 }
 
 export interface ISentenceEditorConfig {
-  type: commandType,
+  type: ExtendedCommandType,
   title: () => string,
   initialText: () => string,
   component: FC<ISentenceEditorProps>,

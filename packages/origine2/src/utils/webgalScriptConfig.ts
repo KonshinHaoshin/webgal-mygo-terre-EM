@@ -1,5 +1,5 @@
-import { ISentence } from "webgal-parser/src/interface/sceneInterface";
-import { SCRIPT_CONFIG } from "webgal-parser/src/config/scriptConfig";
+import { type ISentence, type commandType } from "webgal-parser/src/interface/sceneInterface";
+import { type ConfigItem, SCRIPT_CONFIG } from "webgal-parser/src/config/scriptConfig";
 
 export const CUSTOM_COMMAND_TYPES = {
   manopedia: 34,
@@ -15,7 +15,13 @@ export const CUSTOM_COMMAND_TYPES = {
   clearTestimony: 44,
 } as const;
 
-export const CUSTOM_SCRIPT_CONFIG = [
+export type CustomCommandType = (typeof CUSTOM_COMMAND_TYPES)[keyof typeof CUSTOM_COMMAND_TYPES];
+export type ExtendedCommandType = commandType | CustomCommandType;
+
+export const CUSTOM_SCRIPT_CONFIG: Array<{
+  scriptString: string;
+  scriptType: CustomCommandType;
+}> = [
   { scriptString: "manopedia", scriptType: CUSTOM_COMMAND_TYPES.manopedia },
   { scriptString: "pediaUpdate", scriptType: CUSTOM_COMMAND_TYPES.pediaUpdate },
   { scriptString: "addItem", scriptType: CUSTOM_COMMAND_TYPES.addItem },
@@ -38,7 +44,7 @@ export const CUSTOM_SCRIPT_CONFIG = [
 export const SCRIPT_CONFIG_EXTENDED = [
   ...SCRIPT_CONFIG,
   ...CUSTOM_SCRIPT_CONFIG,
-];
+] as unknown as ConfigItem[];
 
 const CUSTOM_COMMAND_MAP = new Map(
   CUSTOM_SCRIPT_CONFIG.map((config) => [config.scriptString, config.scriptType]),
@@ -47,14 +53,17 @@ const CUSTOM_COMMAND_MAP = new Map(
 export function normalizeSentenceCommand(sentence: ISentence): ISentence {
   const commandKey = sentence.commandRaw.trim();
   const overrideType = CUSTOM_COMMAND_MAP.get(commandKey);
-  if (overrideType === undefined || sentence.command === overrideType) {
+  if (
+    overrideType === undefined ||
+    (sentence.command as number) === overrideType
+  ) {
     return sentence;
   }
 
   const args = sentence.args.filter((arg) => arg.key !== "speaker");
   return {
     ...sentence,
-    command: overrideType,
+    command: overrideType as commandType,
     args,
   };
 }
