@@ -76,7 +76,7 @@ const About: React.FunctionComponent = () => {
             <Link href="https://docs.openwebgal.com/" target="_blank">
               {t`文档`}
             </Link>
-            <Link href="https://github.com/OpenWebGAL/WebGAL_Terre" target="_blank">
+            <Link href="https://github.com/KonshinHaoshin/webgal-mygo-terre-EM" target="_blank">
               GitHub
             </Link>
           </div>

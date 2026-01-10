@@ -133,7 +133,7 @@ export default function TopBar() {
       </Menu>
       <ToolbarButton
         icon={<img src={GithubIcon} height={20} width={20} alt="GitHub Repo"/>}
-        onClick={() => window.open("https://github.com/OpenWebGAL/WebGAL_Terre", "_blank")}
+        onClick={() => window.open("https://github.com/KonshinHaoshin/webgal-mygo-terre-EM", "_blank")}
         style={{
           fontWeight: 'normal',
           fontSize: '14px',
