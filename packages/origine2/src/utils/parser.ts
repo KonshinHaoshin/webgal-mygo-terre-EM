@@ -1,12 +1,17 @@
 import SceneParser from "webgal-parser";
+import type { ConfigItem } from "webgal-parser/build/types/config/scriptConfig";
 import { IScene } from "webgal-parser/src/interface/sceneInterface";
 import { logger } from "./logger";
-import { ADD_NEXT_ARG_LIST, SCRIPT_CONFIG } from "webgal-parser/src/config/scriptConfig";
+import { ADD_NEXT_ARG_LIST } from "webgal-parser/src/config/scriptConfig";
+import {
+  normalizeSentenceCommand,
+  SCRIPT_CONFIG_EXTENDED,
+} from "./webgalScriptConfig";
 
 const parser = new SceneParser((assetList) => {
 }, (fileName, assetType) => {
   return fileName;
-}, ADD_NEXT_ARG_LIST, [...SCRIPT_CONFIG]);
+}, ADD_NEXT_ARG_LIST, SCRIPT_CONFIG_EXTENDED as unknown as ConfigItem[]);
 
 /**
  * 场景解析器
@@ -17,6 +22,10 @@ const parser = new SceneParser((assetList) => {
  */
 export const sceneParser = (rawScene: string, sceneName: string, sceneUrl: string): IScene => {
   const parsedScene = parser.parse(rawScene, sceneName, sceneUrl);
+  const sentenceList = parsedScene.sentenceList.map(normalizeSentenceCommand);
   logger.info(`解析场景：${sceneName}，数据为：`, parsedScene);
-  return parsedScene;
+  return {
+    ...parsedScene,
+    sentenceList,
+  };
 };

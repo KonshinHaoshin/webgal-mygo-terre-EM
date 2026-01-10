@@ -25,6 +25,7 @@ export function getArgsKey(
         nextKey,
         durationKey,
         transformKey,
+        typeKey,
         unlocknameKey,
         seriesKey,
         enterAnimationKey,
@@ -112,6 +113,21 @@ export function getArgsKey(
     case commandType.unlockBgm: {
       return [whenKey, nameKey, seriesKey];
     }
+    case commandType.judgment: {
+      return [whenKey, timerKey, timeoutKey];
+    }
+    case commandType.refute: {
+      return [whenKey, gotoKey];
+    }
+    case commandType.thinking: {
+      return [whenKey];
+    }
+    case commandType.testimony: {
+      return [whenKey, testimonyLeftKey, testimonyRightKey, refutesKey, colorsKey, yKey, vocalKey];
+    }
+    case commandType.clearTestimony: {
+      return [whenKey];
+    }
     default: {
       return [whenKey];
     }
@@ -169,6 +185,36 @@ const durationKey: CompletionItem = {
   detail: '持续时间',
   documentation: markdown(`
 这个时间片的持续时间，单位为毫秒(ms)
+  `),
+};
+
+const typeKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'type',
+  insertText: 'type=',
+  detail: '背景切换类型',
+  documentation: markdown(`
+背景切换类型：default 或 blinds
+  `),
+};
+
+const timerKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'timer',
+  insertText: 'timer=',
+  detail: '审判计时',
+  documentation: markdown(`
+设置审判计时，例如 13:20:000
+  `),
+};
+
+const timeoutKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'timeout',
+  insertText: 'timeout=',
+  detail: '超时跳转场景',
+  documentation: markdown(`
+超时后跳转到的场景文件
   `),
 };
 
@@ -518,6 +564,66 @@ const seriesKey: CompletionItem = {
   detail: '鉴赏系列名称',
   documentation: markdown(`
 CG或音乐解锁进鉴赏模式后应当放在哪个系列
+  `),
+};
+
+const gotoKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'goto',
+  insertText: 'goto=',
+  detail: 'jump target',
+  documentation: markdown(`
+jump to a scene file or label
+  `),
+};
+
+const testimonyLeftKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'left',
+  insertText: 'left',
+  detail: '证词位置',
+  documentation: markdown(`
+证词显示在左侧
+  `),
+};
+
+const testimonyRightKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'right',
+  insertText: 'right',
+  detail: '证词位置',
+  documentation: markdown(`
+证词显示在右侧
+  `),
+};
+
+const refutesKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'refutes',
+  insertText: 'refutes=',
+  detail: '反驳配置',
+  documentation: markdown(`
+配置可反驳的关键词与对应的 thinking 语句
+  `),
+};
+
+const colorsKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'colors',
+  insertText: 'colors=',
+  detail: '高亮颜色',
+  documentation: markdown(`
+配置关键词高亮颜色，格式为 #RRGGBB
+  `),
+};
+
+const yKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'y',
+  insertText: 'y=',
+  detail: 'Y 轴位置',
+  documentation: markdown(`
+设置证词显示位置的 Y 坐标
   `),
 };
 

@@ -32,7 +32,8 @@ intro:<text> [|<text of line 2>] ...;
     documentation: markdown(
       `\`\`\`
 changeBg:testBG03.jpg -next;
-changeBg:<fileName> [-next];
+changeBg:RGB/Background_e02_001.png -type=blinds;
+changeBg:<fileName> [-next] [-type=default|blinds];
 \`\`\``,
     ),
   },
@@ -98,6 +99,7 @@ callScene:<newSceneFileName>;
 其中，|是分隔符。
 \`\`\`
 choose:叫住她:Chapter-2.txt|回家:Chapter-3.txt;
+choose:要乐奈:Chapter-3.txt @skeleton|三角初华:Chapter-4.txt;
 choose:<chooseText:newSceneName> [|<chooseText:newSceneName>] ...;
 \`\`\``,
     ),
@@ -184,6 +186,136 @@ unlockBgm:<fileName> -name=bgmName;
 setTextbox:hide;关闭文本框
 setTextbox:on;开启文本框，可以是除 hide 以外的任意值。
 setTextbox:[hide] [others];
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'manopedia',
+    insertText: makeInsertText('manopedia'),
+    detail: `魔女图鉴显示`,
+    documentation: markdown(
+      `\`\`\`
+manopedia:on;显示魔女图鉴
+manopedia:off;隐藏魔女图鉴
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'pediaUpdate',
+    insertText: makeInsertText('pediaUpdate'),
+    detail: `魔女图鉴更新`,
+    documentation: markdown(
+      `\`\`\`
+pediaUpdate:;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'addItem',
+    insertText: makeInsertText('addItem'),
+    detail: `添加证物`,
+    documentation: markdown(
+      `\`\`\`
+addItem:SAPPHO;
+addItem:<itemId>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'showItem',
+    insertText: makeInsertText('showItem'),
+    detail: `展示证物`,
+    documentation: markdown(
+      `\`\`\`
+showItem:SAPPHO;
+showItem:<itemId>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'clearItem',
+    insertText: makeInsertText('clearItem'),
+    detail: `清除证物`,
+    documentation: markdown(
+      `\`\`\`
+clearItem:;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'presentTheEvidence',
+    insertText: makeInsertText('presentTheEvidence'),
+    detail: `出示证物`,
+    documentation: markdown(
+      `\`\`\`
+presentTheEvidence:1.txt|2.txt @SAPPHO;
+presentTheEvidence:|uika @SAPPHO;
+presentTheEvidence:<success>|<fail> @<itemId>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'judgment',
+    insertText: makeInsertText('judgment'),
+    detail: `审判`,
+    documentation: markdown(
+      `\`\`\`
+judgment:begins -timer=13:20:000 -timeout=1.txt;
+judgment:concluded;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'refute',
+    insertText: makeInsertText('refute'),
+    detail: `反驳`,
+    documentation: markdown(
+      `\`\`\`
+refute:refute/soyo.webm -goto=114514;
+refute:<file> -goto=<labelOrScene>;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'thinking',
+    insertText: makeInsertText('thinking'),
+    detail: `思考`,
+    documentation: markdown(
+      `\`\`\`
+thinking:soyo.png 很简单:zhengchang@icon=objection.png@refute=refute/soyo.webm|@back;
+thinking:<image> <optionText>:<labelOrScene>@icon=agree.png|@back;
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'testimony',
+    insertText: makeInsertText('testimony'),
+    detail: `证词`,
+    documentation: markdown(
+      `\`\`\`
+testimony:证词文本 -left -refutes={"关键词":"thinking:soyo.png 文本:label@icon=objection.png|@back"} -colors={"关键词":"#BB9955"} -y=400;
+testimony:<text> [-left] [-refutes={...}] [-colors={...}] [-y=<number>];
+\`\`\``,
+    ),
+  },
+  {
+    kind: CompletionItemKind.Function,
+    label: 'clearTestimony',
+    insertText: makeInsertText('clearTestimony'),
+    detail: `清除证词`,
+    documentation: markdown(
+      `\`\`\`
+clearTestimony:;
 \`\`\``,
     ),
   },

@@ -9,19 +9,30 @@ import {
   AlignTextBottomOne, ApplicationEffect,
   AutoWidth,
   Avatar,
+  Audit,
+  BookOne,
+  BookOpen,
+  Clear,
   Code,
   CommentOne,
   CornerRightUp,
+  DeleteOne,
   Effects,
   EnterTheKeyboard,
   Erase,
+  Gavel,
+  AddItem,
   ListCheckbox,
   Logout,
   Music,
   NewPicture,
+  NotebookAndPen,
   People,
+  Reject,
   SwitchThemes, Transform,
-  VideoTwo
+  VideoTwo,
+  ViewList,
+  ThinkingProblem
 } from "@icon-park/react";
 import ChangeBg from "./ChangeBg";
 import ChangeFigure from "./ChangeFigure";
@@ -35,6 +46,17 @@ import MiniAvatar from "./MiniAvatar";
 import Comment from "./Comment";
 import PlayEffect from "./PlayEffect";
 import SetTextbox from "./SetTextbox";
+import Manopedia from "./Manopedia";
+import PediaUpdate from "./PediaUpdate";
+import ItemCommand from "./ItemCommand";
+import ClearItem from "./ClearItem";
+import PresentTheEvidence from "./PresentTheEvidence";
+import LabelCommand from "./LabelCommand";
+import Judgment from "./Judgment";
+import Refute from "./Refute";
+import Thinking from "./Thinking";
+import Testimony from "./Testimony";
+import ClearTestimony from "./ClearTestimony";
 import UnlockExtra from "./UnlockExtra";
 import SetAnimation from "./SetAnimation";
 import ChangeCallScene from "./ChangeCallScene";
@@ -44,6 +66,7 @@ import SetTransform from "@/pages/editor/GraphicalEditor/SentenceEditor/SetTrans
 import styles from "./sentenceEditor.module.scss";
 import GetUserInput from "@/pages/editor/GraphicalEditor/SentenceEditor/GetUserInput";
 import { t } from "@lingui/macro";
+import { CUSTOM_COMMAND_TYPES, type ExtendedCommandType } from "@/utils/webgalScriptConfig";
 
 export interface ISentenceEditorProps {
   sentence: ISentence;
@@ -52,7 +75,7 @@ export interface ISentenceEditorProps {
 }
 
 export interface ISentenceEditorConfig {
-  type: commandType,
+  type: ExtendedCommandType,
   title: () => string,
   initialText: () => string,
   component: FC<ISentenceEditorProps>,
@@ -208,6 +231,14 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     descText: () => t`控制是否要显示文本框`
   },
   {
+    type: CUSTOM_COMMAND_TYPES.manopedia,
+    title: () => t`魔女图鉴`,
+    initialText: () => t`manopedia:on;`,
+    component: Manopedia,
+    icon: <BookOpen theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`控制是否要显示魔女图鉴`
+  },
+  {
     type: commandType.end,
     title: () => t`结束游戏`,
     initialText: () => t`end;`,
@@ -246,6 +277,102 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     component:GetUserInput,
     icon: <EnterTheKeyboard theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`获取来自用户的字符输入`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.pediaUpdate,
+    title: () => t`魔女图鉴更新`,
+    initialText: () => t`pediaUpdate:;`,
+    component: PediaUpdate,
+    icon: <BookOne theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`显示魔女图鉴更新`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.addItem,
+    title: () => t`添加证物`,
+    initialText: () => t`addItem:SAPPHO;`,
+    component: ItemCommand,
+    icon: <AddItem theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`将证物加入魔女图鉴`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.showItem,
+    title: () => t`展示证物`,
+    initialText: () => t`showItem:SAPPHO;`,
+    component: ItemCommand,
+    icon: <ViewList theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`展示魔女图鉴中的证物`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.clearItem,
+    title: () => t`清除证物`,
+    initialText: () => t`clearItem:;`,
+    component: ClearItem,
+    icon: <DeleteOne theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`清除魔女图鉴中的所有证物`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.presentTheEvidence,
+    title: () => t`出示证物`,
+    initialText: () => t`presentTheEvidence:|uika @SAPPHO;`,
+    component: PresentTheEvidence,
+    icon: <Audit theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`强制弹出魔女图鉴选择证物`
+  },
+  {
+    type: commandType.label,
+    title: () => t`标签`,
+    initialText: () => t`label:label_1;`,
+    component: LabelCommand,
+    icon: <Code theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`创建可被 jumpLabel 跳转的标签`
+  },
+  {
+    type: commandType.jumpLabel,
+    title: () => t`跳转标签`,
+    initialText: () => t`jumpLabel:label_1;`,
+    component: LabelCommand,
+    icon: <CornerRightUp theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`跳转到指定标签`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.judgment,
+    title: () => t`审判`,
+    initialText: () => t`judgment:begins -timer=13:20:000 -timeout=1.txt;`,
+    component: Judgment,
+    icon: <Gavel theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`开始或结束审判流程`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.refute,
+    title: () => t`反驳`,
+    initialText: () => t`refute:refute/soyo.webm -goto=114514;`,
+    component: Refute,
+    icon: <Reject theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`播放反驳素材并跳转`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.thinking,
+    title: () => t`思考`,
+    initialText: () => t`thinking:soyo.png 思考内容:label@icon=objection.png|@back;`,
+    component: Thinking,
+    icon: <ThinkingProblem theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`弹出思考选项`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.testimony,
+    title: () => t`证词`,
+    initialText: () => t`testimony:证词文本 -left -y=400;`,
+    component: Testimony,
+    icon: <NotebookAndPen theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`展示证词并配置反驳与高亮`
+  },
+  {
+    type: CUSTOM_COMMAND_TYPES.clearTestimony,
+    title: () => t`清除证词`,
+    initialText: () => t`clearTestimony:;`,
+    component: ClearTestimony,
+    icon: <Clear theme="multi-color" className={styles.iconSvg} size="24"/>,
+    descText: () => t`清除证词展示`
   }
 ];
 

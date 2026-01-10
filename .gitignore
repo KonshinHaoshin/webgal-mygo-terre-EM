@@ -13,3 +13,6 @@ packages/origine2/src/locales/en.ts
 packages/origine2/src/locales/ja.ts
 packages/origine2/src/locales/zhCn.ts
 release.sh
+/packages/terre2/assets
+/release-local
+/packages/terre2/public
