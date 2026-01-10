@@ -3,25 +3,35 @@ import CommonTips from "../components/CommonTips";
 import { ISentenceEditorProps } from "./index";
 import styles from "./sentenceEditor.module.scss";
 import { useValue } from "../../../../hooks/useValue";
-import TerreToggle from "../../../../components/terreToggle/TerreToggle";
 import { t } from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
 import { getArgByKey } from "../utils/getArgByKey";
 import ChooseFile from "../../ChooseFile/ChooseFile";
 import { extNameMap } from "../../ChooseFile/chooseFileConfig";
+import WheelDropdown from "../components/WheelDropdown";
 
 export default function Judgment(props: ISentenceEditorProps) {
   const commandKey = props.sentence.commandRaw.trim();
-  const isBegins = useValue(props.sentence.content !== "concluded");
+  const initialMode =
+    props.sentence.content === "concluded" || props.sentence.content === "exit"
+      ? props.sentence.content
+      : "begins";
+  const mode = useValue(initialMode);
+  const modeOptions = new Map<string, string>([
+    ["begins", t`开始审判`],
+    ["concluded", t`结束审判 (会播放动画)`],
+    ["exit", t`退出审判 (不会播放动画)`],
+  ]);
   const timerFromArgs = getArgByKey(props.sentence, "timer");
   const timeoutFromArgs = getArgByKey(props.sentence, "timeout");
   const timer = useValue(((timerFromArgs === 0 ? "" : timerFromArgs) ?? "").toString());
   const timeout = useValue(((timeoutFromArgs === 0 ? "" : timeoutFromArgs) ?? "").toString());
 
   const submit = () => {
-    const content = isBegins.value ? "begins" : "concluded";
-    const timerValue = isBegins.value ? timer.value : "";
-    const timeoutValue = isBegins.value ? timeout.value : "";
+    const content = mode.value || "begins";
+    const isBeginsMode = content === "begins";
+    const timerValue = isBeginsMode ? timer.value : "";
+    const timeoutValue = isBeginsMode ? timeout.value : "";
     const submitString = combineSubmitString(
       commandKey,
       content,
@@ -39,18 +49,17 @@ export default function Judgment(props: ISentenceEditorProps) {
       <CommonTips text={t`审判流程控制`} />
       <div className={styles.editItem}>
         <CommonOptions title={t`审判状态`} key="judgment-mode">
-          <TerreToggle
-            title=""
-            onChange={(newValue) => {
-              isBegins.set(newValue);
+          <WheelDropdown
+            options={modeOptions}
+            value={mode.value}
+            onValueChange={(newValue) => {
+              mode.set(newValue?.toString() ?? "begins");
               submit();
             }}
-            onText={t`开始审判`}
-            offText={t`结束审判`}
-            isChecked={isBegins.value}
+            style={{ width: "200px" }}
           />
         </CommonOptions>
-        {isBegins.value && (
+        {mode.value === "begins" && (
           <>
             <CommonOptions title={t`审判时间`} key="judgment-timer">
               <input
