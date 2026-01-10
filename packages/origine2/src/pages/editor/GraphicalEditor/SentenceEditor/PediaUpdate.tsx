@@ -6,7 +6,7 @@ import { t } from "@lingui/macro";
 export default function PediaUpdate(props: ISentenceEditorProps) {
   return (
     <div className={styles.sentenceEditorContent}>
-      <CommonTips text={t`此指令将显示魔女图鉴更新`} />
+      <CommonTips text={t`此指令将弹出魔女图鉴更新的提示`} />
     </div>
   );
 }

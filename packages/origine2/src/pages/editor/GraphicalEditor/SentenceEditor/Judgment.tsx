@@ -6,9 +6,8 @@ import { useValue } from "../../../../hooks/useValue";
 import { t } from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
 import { getArgByKey } from "../utils/getArgByKey";
-import ChooseFile from "../../ChooseFile/ChooseFile";
-import { extNameMap } from "../../ChooseFile/chooseFileConfig";
 import WheelDropdown from "../components/WheelDropdown";
+import SceneOrLabelPicker from "../components/SceneOrLabelPicker";
 
 export default function Judgment(props: ISentenceEditorProps) {
   const commandKey = props.sentence.commandRaw.trim();
@@ -74,20 +73,17 @@ export default function Judgment(props: ISentenceEditorProps) {
               />
             </CommonOptions>
             <CommonOptions title={t`超时跳转`} key="judgment-timeout">
-              <>
-                {timeout.value}
-                {"\u00a0"}
-                <ChooseFile
-                  title={t`选择场景文件`}
-                  basePath={["scene"]}
-                  selectedFilePath={timeout.value}
-                  onChange={(file) => {
-                    timeout.set(file?.name ?? "");
-                    submit();
+              <div style={{ width: "260px" }}>
+                <SceneOrLabelPicker
+                  value={timeout.value}
+                  onValueChange={(newValue) => {
+                    timeout.set(newValue);
                   }}
-                  extNames={extNameMap.get("scene")}
+                  onSubmit={submit}
+                  placeholder={t`跳转场景或标签`}
+                  chooseTitle={t`选择场景文件`}
                 />
-              </>
+              </div>
             </CommonOptions>
           </>
         )}

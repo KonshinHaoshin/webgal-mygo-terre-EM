@@ -9,12 +9,12 @@ import ItemIdSelect from "@/pages/editor/GraphicalEditor/components/ItemIdSelect
 
 function getItemTips(commandKey: string) {
   switch (commandKey) {
-    case "addItem":
-      return t`将物品加入魔女图鉴`;
-    case "showItem":
-      return t`展示魔女图鉴中的物品`;
-    default:
-      return t`编辑魔女图鉴物品`;
+  case "addItem":
+    return t`将物品加入魔女图鉴, 物品放置在Item文件夹下`;
+  case "showItem":
+    return t`展示魔女图鉴中的物品, 物品放置在Item文件夹下`;
+  default:
+    return t`编辑魔女图鉴物品, 物品放置在Item文件夹下`;
   }
 }
 

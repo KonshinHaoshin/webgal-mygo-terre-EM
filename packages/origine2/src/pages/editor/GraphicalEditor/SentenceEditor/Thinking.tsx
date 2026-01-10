@@ -28,7 +28,7 @@ export default function Thinking(props: ISentenceEditorProps) {
   return (
     <div className={styles.sentenceEditorContent}>
       <CommonTips
-        text={t`提示：每个选项的跳转目标支持场景文件或标签名，返回选项会生成 @back`}
+        text={t`提示：每个选项的跳转目标支持场景文件或标签名，思考图片放在thinking文件夹内，选项图标放在thinking_button文件夹内`}
       />
       <div className={styles.editItem}>
         <div style={{ width: "100%" }}>
