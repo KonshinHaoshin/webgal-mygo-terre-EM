@@ -5,11 +5,11 @@ import CommonTips from "../components/CommonTips";
 import { t } from "@lingui/macro";
 import { useValue } from "../../../../hooks/useValue";
 import { getArgByKey } from "../utils/getArgByKey";
-import TerreToggle from "../../../../components/terreToggle/TerreToggle";
 import { Button, Input } from "@fluentui/react-components";
 import { cloneDeep } from "lodash";
 import ChooseFile from "../../ChooseFile/ChooseFile";
 import { extNameMap } from "../../ChooseFile/chooseFileConfig";
+import WheelDropdown from "../components/WheelDropdown";
 import ThinkingOptionsEditor, {
   formatThinkingValue,
   parseThinkingValue,
@@ -24,6 +24,8 @@ type TestimonyTag = {
   color: string;
   thinking: ThinkingValue;
 };
+
+type TestimonyPosition = "" | "left" | "right";
 
 const COLOR_REGEX = /^#[0-9A-Fa-f]{6}$/;
 
@@ -71,7 +73,9 @@ function mergeTags(
 
 export default function Testimony(props: ISentenceEditorProps) {
   const content = useValue(props.sentence.content);
-  const isLeft = useValue(!!getArgByKey(props.sentence, "left"));
+  const isLeftArg = !!getArgByKey(props.sentence, "left");
+  const isRightArg = !!getArgByKey(props.sentence, "right");
+  const position = useValue<TestimonyPosition>(isRightArg ? "right" : (isLeftArg ? "left" : ""));
   const yValueRaw = getArgByKey(props.sentence, "y");
   const yValue = useValue(yValueRaw === "" ? "" : String(yValueRaw));
   const vocal = useValue(getArgByKey(props.sentence, "vocal").toString() ?? "");
@@ -115,7 +119,8 @@ export default function Testimony(props: ISentenceEditorProps) {
       content.value,
       props.sentence.args,
       [
-        { key: "left", value: isLeft.value },
+        { key: "left", value: position.value === "left" },
+        { key: "right", value: position.value === "right" },
         { key: "y", value: Number.isNaN(parsedY) ? "" : parsedY },
         { key: "refutes", value: refutesValue },
         { key: "colors", value: colorsValue },
@@ -142,18 +147,24 @@ export default function Testimony(props: ISentenceEditorProps) {
               style={{ width: "560px", minWidth: "260px" }}
             />
           </CommonOptions>
-          <CommonOptions title={t`位置`}>
+          <CommonOptions title={t`X 轴位置`}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <TerreToggle
-                title=""
-                onChange={(checked) => {
-                  isLeft.set(checked);
+              <WheelDropdown
+                options={new Map<TestimonyPosition, string>([
+                  ["", t`中间`],
+                  ["left", t`左侧`],
+                  ["right", t`右侧`],
+                ])}
+                value={position.value}
+                onValueChange={(newValue) => {
+                  position.set((newValue ?? "") as TestimonyPosition);
                   submit();
                 }}
-                onText={t`左侧`}
-                offText={t`默认`}
-                isChecked={isLeft.value}
               />
+            </div>
+          </CommonOptions>
+          <CommonOptions title={t`Y 轴高度`}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
               <Input
                 type="number"
                 value={yValue.value}

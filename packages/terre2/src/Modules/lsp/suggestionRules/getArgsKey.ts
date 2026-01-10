@@ -123,7 +123,7 @@ export function getArgsKey(
       return [whenKey];
     }
     case commandType.testimony: {
-      return [whenKey, testimonyLeftKey, refutesKey, colorsKey, yKey, vocalKey];
+      return [whenKey, testimonyLeftKey, testimonyRightKey, refutesKey, colorsKey, yKey, vocalKey];
     }
     case commandType.clearTestimony: {
       return [whenKey];
@@ -584,6 +584,16 @@ const testimonyLeftKey: CompletionItem = {
   detail: '证词位置',
   documentation: markdown(`
 证词显示在左侧
+  `),
+};
+
+const testimonyRightKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'right',
+  insertText: 'right',
+  detail: '证词位置',
+  documentation: markdown(`
+证词显示在右侧
   `),
 };
 
