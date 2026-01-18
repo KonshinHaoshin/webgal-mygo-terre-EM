@@ -31,35 +31,41 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
 
   const isGoNext = useValue(!!getArgByKey(props.sentence, "next"));
   const figureFile = useValue(props.sentence.content);
-  const isHaveSpineArg = figureFile.value.includes('?type=spine');
   const figurePosition = useValue<FigurePosition>("");
   const isNoFile = props.sentence.content === "";
-  const id = useValue(getArgByKey(props.sentence, "id").toString() ?? "");
+  const initialFigureType = useMemo(() => {
+    const match = props.sentence.content.match(/[?&]type=([^&]+)/);
+    return match?.[1] ?? "";
+  }, [props.sentence.content]);
+  const figureType = useValue(initialFigureType);
+  const isManoType = figureType.value === "webgal_mano";
+  const id = useValue(String(getArgByKey(props.sentence, "id") ?? ""));
   const json = useValue<string>(getArgByKey(props.sentence, "transform") as string);
   const duration = useValue<number | string>(getArgByKey(props.sentence, "duration") as number);
 
-  const mouthOpen = useValue(getArgByKey(props.sentence, "mouthOpen").toString() ?? "");
-  const mouthHalfOpen = useValue(getArgByKey(props.sentence, "mouthHalfOpen").toString() ?? "");
-  const mouthClose = useValue(getArgByKey(props.sentence, "mouthClose").toString() ?? "");
-  const eyesOpen = useValue(getArgByKey(props.sentence, "eyesOpen").toString() ?? "");
-  const eyesClose = useValue(getArgByKey(props.sentence, "eyesClose").toString() ?? "");
-  const animationFlag = useValue(getArgByKey(props.sentence, "animationFlag").toString() ?? "");
-  const bounds = useValue(getArgByKey(props.sentence, "bounds").toString() ?? "");
+  const mouthOpen = useValue(String(getArgByKey(props.sentence, "mouthOpen") ?? ""));
+  const mouthHalfOpen = useValue(String(getArgByKey(props.sentence, "mouthHalfOpen") ?? ""));
+  const mouthClose = useValue(String(getArgByKey(props.sentence, "mouthClose") ?? ""));
+  const eyesOpen = useValue(String(getArgByKey(props.sentence, "eyesOpen") ?? ""));
+  const eyesClose = useValue(String(getArgByKey(props.sentence, "eyesClose") ?? ""));
+  const animationFlag = useValue(String(getArgByKey(props.sentence, "animationFlag") ?? ""));
+  const bounds = useValue(String(getArgByKey(props.sentence, "bounds") ?? ""));
   const zIndex = useValue(String(getArgByKey(props.sentence, "zIndex") ?? ""));
   const loopMode = useValue<LoopMode>(
     ((getArgByKey(props.sentence, "loop") as string) || "") as LoopMode
   );
 
-  const blink = useValue<string>(getArgByKey(props.sentence, "blink").toString() ?? "");
-  const focus = useValue<string>(getArgByKey(props.sentence, "focus").toString() ?? "");
+  const blink = useValue<string>(String(getArgByKey(props.sentence, "blink") ?? ""));
+  const focus = useValue<string>(String(getArgByKey(props.sentence, "focus") ?? ""));
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [l2dMotionsList, setL2dMotionsList] = useState<string[]>([]);
   const [l2dExpressionsList, setL2dExpressionsList] = useState<string[]>([]);
   const [isSpineJsonFormat, setIsSpineJsonFormat] = useState(false);
   const [isJsonlFormat, setIsJsonlFormat] = useState(false);
 
-  const currentMotion = useValue(getArgByKey(props.sentence, "motion").toString() ?? "");
-  const currentExpression = useValue(getArgByKey(props.sentence, "expression").toString() ?? "");
+  const currentMotion = useValue(String(getArgByKey(props.sentence, "motion") ?? ""));
+  const currentExpression = useValue(String(getArgByKey(props.sentence, "expression") ?? ""));
+  const pose = useValue(String(getArgByKey(props.sentence, "pose") ?? ""));
 
   const figurePositions = new Map<FigurePosition, string>([
     ["", t`中间`],
@@ -76,6 +82,11 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
     ["false",    t`播放一次并停在最后一帧`],
     ["disappear",t`播放一次后消失`],
   ]);
+  const figureTypes = useMemo(() => new Map<string, string>([
+    ["", t`默认`],
+    ["spine", t`Spine`],
+    ["webgal_mano", t`WebGAL Mano`],
+  ]), []);
 
   const ease = useValue(getArgByKey(props.sentence, "ease").toString() ?? "");
   const easeTypeOptions = useEaseTypeOptions();
@@ -195,6 +206,18 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
     return { motions: [], expressions: [] };
   }
 
+  const stripFigureType = (value: string) => value.split("?")[0];
+  const applyFigureType = (value: string, type: string) => {
+    const base = stripFigureType(value);
+    if (!base || base === "none") {
+      return base;
+    }
+    if (!type) {
+      return base;
+    }
+    return `${base}?type=${type}`;
+  };
+
   // 载入 motions / expressions（支持 .jsonl / .json / spine）
   useEffect(() => {
     // reset
@@ -207,6 +230,7 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
     const pathLower = pathRaw.toLowerCase();
 
     if (!pathRaw || pathRaw === "none") return;
+    if (figureType.value === "webgal_mano") return;
 
     // JSONL
     if (isJsonlPath(pathRaw)) {
@@ -265,7 +289,7 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
         }
       });
     }
-  }, [figureFile.value, gameDir]);
+  }, [figureFile.value, gameDir, figureType.value]);
 
   useEffect(() => {
     /**
@@ -278,6 +302,14 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
       figurePosition.set("right");
     }
   }, []);
+
+  useEffect(() => {
+    const match = figureFile.value.match(/[?&]type=([^&]+)/);
+    const nextType = match?.[1] ?? "";
+    if (nextType !== figureType.value) {
+      figureType.set(nextType);
+    }
+  }, [figureFile.value]);
 
   useEffect(() => {
     if (animationFlag.value === "on") {
@@ -315,6 +347,7 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
         ]),
         {key: "motion", value: currentMotion.value},
         {key: "expression", value: currentExpression.value},
+        {key: "pose", value: isManoType ? pose.value : ""},
         {key: "bounds", value: bounds.value},
         {key: "blink", value: updateBlinkParam()},
         {key: "focus", value: updateFocusParam()},
@@ -343,13 +376,26 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
           <>
             {figureFile.value + "\u00a0\u00a0"}
             <ChooseFile title={t`选择立绘文件`} basePath={['figure']} selectedFilePath={figureFile.value} onChange={(fileDesc) => {
-              figureFile.set(fileDesc?.name ?? "");
+              figureFile.set(applyFigureType(fileDesc?.name ?? "", figureType.value));
               submit();
             }}
-            // jsonl已经在extNameMap被定义为json类型
             extNames={[...extNameMap.get('image') ?? [], ...extNameMap.get('json') ?? [] ]}/>
           </>
         </CommonOptions>}
+      {!isNoFile && (
+        <CommonOptions key="1-1" title={t`立绘类型`}>
+          <WheelDropdown
+            options={figureTypes}
+            value={figureType.value}
+            onValueChange={(newValue) => {
+              const nextType = newValue?.toString() ?? "";
+              figureType.set(nextType);
+              figureFile.set(applyFigureType(figureFile.value, nextType));
+              submit();
+            }}
+          />
+        </CommonOptions>
+      )}
       <CommonOptions key="2" title={t`连续执行`}>
         <TerreToggle title="" onChange={(newValue) => {
           isGoNext.set(newValue);
@@ -382,7 +428,7 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
         </CommonOptions>
       )}
 
-      {figureFile.value.includes('.json') && (
+      {figureFile.value.includes('.json') && !isManoType && (
         <>
           <CommonOptions key="24" title={isSpineJsonFormat ? t`Spine 动画` : t`Live2D 动作`}>
             <SearchableCascader
@@ -407,6 +453,19 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
             </CommonOptions>
           )}
         </>
+      )}
+      {isManoType && (
+        <CommonOptions key="mano-pose" title={t`姿势（pose）`}>
+          <Input
+            value={pose.value}
+            onChange={(_, data) => {
+              pose.set(data.value);
+            }}
+            onBlur={submit}
+            placeholder="例如：{ArmL1,Cry}"
+            style={{ width: "100%" }}
+          />
+        </CommonOptions>
       )}
 
       <CommonOptions title={t`立绘位置`} key="3">
