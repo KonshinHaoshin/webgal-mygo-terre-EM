@@ -65,7 +65,8 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
 
   const currentMotion = useValue(String(getArgByKey(props.sentence, "motion") ?? ""));
   const currentExpression = useValue(String(getArgByKey(props.sentence, "expression") ?? ""));
-  const pose = useValue(String(getArgByKey(props.sentence, "pose") ?? ""));
+  const stripPoseBraces = (value: string) => value.replace(/[{}]/g, "").trim();
+  const pose = useValue(stripPoseBraces(String(getArgByKey(props.sentence, "pose") ?? "")));
 
   const figurePositions = new Map<FigurePosition, string>([
     ["", t`中间`],
@@ -319,6 +320,13 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
     }
   }, [animationFlag.value]);
 
+  const normalizePoseValue = (value: string) => {
+    const trimmed = value.trim();
+    if (!trimmed) return "";
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) return trimmed;
+    return `{${trimmed}}`;
+  };
+
   const submit = () => {
     const submitString = combineSubmitString(
       props.sentence.commandRaw,
@@ -347,7 +355,7 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
         ]),
         {key: "motion", value: currentMotion.value},
         {key: "expression", value: currentExpression.value},
-        {key: "pose", value: isManoType ? pose.value : ""},
+        {key: "pose", value: isManoType ? normalizePoseValue(pose.value) : ""},
         {key: "bounds", value: bounds.value},
         {key: "blink", value: updateBlinkParam()},
         {key: "focus", value: updateFocusParam()},
@@ -382,20 +390,18 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
             extNames={[...extNameMap.get('image') ?? [], ...extNameMap.get('json') ?? [] ]}/>
           </>
         </CommonOptions>}
-      {!isNoFile && (
-        <CommonOptions key="1-1" title={t`立绘类型`}>
-          <WheelDropdown
-            options={figureTypes}
-            value={figureType.value}
-            onValueChange={(newValue) => {
-              const nextType = newValue?.toString() ?? "";
-              figureType.set(nextType);
-              figureFile.set(applyFigureType(figureFile.value, nextType));
-              submit();
-            }}
-          />
-        </CommonOptions>
-      )}
+      <CommonOptions key="1-1" title={t`立绘类型`}>
+        <WheelDropdown
+          options={figureTypes}
+          value={figureType.value}
+          onValueChange={(newValue) => {
+            const nextType = newValue?.toString() ?? "";
+            figureType.set(nextType);
+            figureFile.set(applyFigureType(figureFile.value, nextType));
+            submit();
+          }}
+        />
+      </CommonOptions>
       <CommonOptions key="2" title={t`连续执行`}>
         <TerreToggle title="" onChange={(newValue) => {
           isGoNext.set(newValue);
@@ -428,7 +434,7 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
         </CommonOptions>
       )}
 
-      {figureFile.value.includes('.json') && !isManoType && (
+      {figureFile.value.includes('.json') && figureType.value === "spine" && (
         <>
           <CommonOptions key="24" title={isSpineJsonFormat ? t`Spine 动画` : t`Live2D 动作`}>
             <SearchableCascader
@@ -459,10 +465,10 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
           <Input
             value={pose.value}
             onChange={(_, data) => {
-              pose.set(data.value);
+              pose.set(stripPoseBraces(data.value));
             }}
             onBlur={submit}
-            placeholder="例如：{ArmL1,Cry}"
+            placeholder="例如：ArmL1,Cry"
             style={{ width: "100%" }}
           />
         </CommonOptions>
