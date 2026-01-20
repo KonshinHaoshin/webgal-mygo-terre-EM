@@ -1,4 +1,4 @@
-name: Release WebGAL Terre
+﻿name: Release WebGAL Terre
 
 on:
   workflow_dispatch:
@@ -250,3 +250,16 @@ jobs:
           asset_path: WebGAL_Terre_Android/WebGAL_Terre_Android.apk
           asset_name: WebGAL_Terre_Android_${{ github.ref_name }}.apk
           asset_content_type: application/vnd.android.package-archive
+
+      - name: Upload Android Debug Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          KEYSTORE: ${{ secrets.KEYSTORE }}
+        if: ${{ env.KEYSTORE == '' }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: WebGAL_Terre_Android_debug/WebGAL_Terre_Android_debug.apk
+          asset_name: WebGAL_Terre_Android_debug_${{ github.ref_name }}.apk
+          asset_content_type: application/vnd.android.package-archive
+
