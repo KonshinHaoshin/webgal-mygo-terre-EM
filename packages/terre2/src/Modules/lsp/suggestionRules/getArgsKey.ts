@@ -54,6 +54,7 @@ export function getArgsKey(
         zIndexKey,
         motionKey,
         expressionKey,
+        poseKey,
         boundsKey,
         animationFlagKey,
         eyesOpenKey,
@@ -530,6 +531,16 @@ const expressionKey: CompletionItem = {
 \`\`\`
 changeFigure:xxx.json -motion=angry -expression=angry01;
 \`\`\`
+  `),
+};
+
+const poseKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'pose',
+  insertText: 'pose=',
+  detail: 'webgal_mano 姿势',
+  documentation: markdown(`
+WebGAL Mano 立绘的姿势列表，例如：{ArmL1,Cry}
   `),
 };
 
