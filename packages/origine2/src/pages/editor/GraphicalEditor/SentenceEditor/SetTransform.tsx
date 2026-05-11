@@ -12,6 +12,7 @@ import useEditorStore from "@/store/useEditorStore";
 import { t } from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
 import { useEaseTypeOptions } from "@/hooks/useEaseTypeOptions";
+import { WsUtil } from "@/utils/wsUtil";
 
 type PresetTarget = "fig-left" | "fig-center" | "fig-right" | "bg-main";
 
@@ -65,6 +66,9 @@ export default function SetTransform(props: ISentenceEditorProps) {
           <EffectEditor json={transform.value} onChange={(newJson)=>{
             transform.set(newJson);
             submit();
+          }} onUpdate={(transform)=>{
+            const newEffect = { target: target.value, transform: transform };
+            WsUtil.sendSetEffectCommand(JSON.stringify(newEffect));
           }}/>
         </TerrePanel>
       </CommonOptions>

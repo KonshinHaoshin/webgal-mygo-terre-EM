@@ -23,10 +23,12 @@ const useEditorStoreBase = create<IEditorState & IEditorAction>()(
       sortBy: 'name',
       sortOrder: 'asc',
       isAutoHideToolbar: false,
+      isShowPreview: true,
       isEnableLivePreview: false,
       isAutoWarp: false,
       isUseExpFastSync:false,
       isUseFontOptimization: false,
+      isUseRealtimeEffect: true,
       ignoreVersion: '',
       isCascaderDelimitersCustomizable: false,
       cascaderDelimiters: ['/'],
@@ -65,7 +67,9 @@ const useEditorStoreBase = create<IEditorState & IEditorAction>()(
       updateIsUseFontOptimization: (isUseFontOptimization) => set({ isUseFontOptimization }),
       updateIgnoreVersion: (ignoreVersion) => set({ignoreVersion}),
       updateIsCascaderDelimitersCustomizable: (isCascaderDelimitersCustomizable) => set({isCascaderDelimitersCustomizable}) ,
-      updateCascaderDelimiters: (cascaderDelimiters) => set({cascaderDelimiters})
+      updateCascaderDelimiters: (cascaderDelimiters) => set({cascaderDelimiters}),
+      updateIsShowPreview: (isShowPreview) => set({isShowPreview}),
+      updateIsUseRealtimeEffect: (isUseRealtimeEffect) => set({isUseRealtimeEffect})
     }),
     {
       name: 'editor-storage',

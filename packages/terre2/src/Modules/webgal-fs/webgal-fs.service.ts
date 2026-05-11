@@ -1,6 +1,14 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises';
-import { dirname, extname, join } from 'path';
+import {
+  basename,
+  dirname,
+  extname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+} from 'path';
 
 export interface IFileInfo {
   name: string;
@@ -26,6 +34,35 @@ interface FileList {
 @Injectable()
 export class WebgalFsService {
   constructor(private readonly logger: ConsoleLogger) {}
+
+  static checkFileName(name: string): boolean {
+    return name.search(/[\/\\\:\*\?"\<\>\|]/) === -1;
+  }
+
+  static hasInvalidPathSegments(
+    rawPath: string,
+    platform: NodeJS.Platform = process.platform,
+  ): boolean {
+    const segments = rawPath.replace(/\\/g, '/').split('/');
+    return segments.some((segment, index) => {
+      if (segment === '' || segment === '.') return false;
+      if (segment === '..') return true;
+      if (platform === 'win32' && index === 0 && /^[a-zA-Z]:$/.test(segment)) {
+        return false;
+      }
+      return !WebgalFsService.checkFileName(segment);
+    });
+  }
+
+  private isPathInsideWorkingDirectory(pathToCheck: string): boolean {
+    const rootPath = resolve(process.cwd());
+    const resolvedPath = resolve(pathToCheck);
+    const relativePath = relative(rootPath, resolvedPath);
+    return (
+      relativePath === '' ||
+      (!relativePath.startsWith('..') && !isAbsolute(relativePath))
+    );
+  }
 
   greet() {
     this.logger.log('Welcome to WebGAl Files System Service!');

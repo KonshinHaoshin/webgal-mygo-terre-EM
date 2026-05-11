@@ -10,6 +10,7 @@ import {EffectEditor} from "@/pages/editor/GraphicalEditor/components/EffectEdit
 import {TerrePanel} from "@/pages/editor/GraphicalEditor/components/TerrePanel";
 import { Button, Input } from "@fluentui/react-components";
 import useEditorStore from "@/store/useEditorStore";
+import { WsUtil } from "@/utils/wsUtil";
 import { t } from "@lingui/macro";
 import { combineSubmitString } from "@/utils/combineSubmitString";
 import { extNameMap } from "../../ChooseFile/chooseFileConfig";
@@ -154,6 +155,9 @@ export default function ChangeBg(props: ISentenceEditorProps) {
           <EffectEditor json={json.value.toString()} onChange={(newJson) => {
             json.set(newJson);
             submit();
+          }} onUpdate={(transform) => {
+            const newEffect = { target: 'bg-main', transform: transform };
+            WsUtil.sendSetEffectCommand(JSON.stringify(newEffect));
           }}/>
         </div>
       </TerrePanel>

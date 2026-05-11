@@ -14,3 +14,4 @@ packages/origine2/src/locales/ja.ts
 packages/origine2/src/locales/zhCn.ts
 release.sh
 /release-local
+CLAUDE.md

@@ -10,6 +10,7 @@ import { EffectEditor } from "@/pages/editor/GraphicalEditor/components/EffectEd
 import CommonTips from "@/pages/editor/GraphicalEditor/components/CommonTips";
 import axios from "axios";
 import { TerrePanel } from "@/pages/editor/GraphicalEditor/components/TerrePanel";
+import { WsUtil } from "@/utils/wsUtil";
 import { Button, Input } from "@fluentui/react-components";
 import useEditorStore from "@/store/useEditorStore";
 import { t } from "@lingui/macro";
@@ -706,6 +707,19 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
         <EffectEditor json={json.value.toString()} onChange={(newJson) => {
           json.set(newJson);
           submit();
+        }} onUpdate={(transform) => {
+          let target = id.value;
+          if (target === "") {
+            if (figurePosition.value === "left") {
+              target = "fig-left";
+            } else if (figurePosition.value === "right") {
+              target = "fig-right";
+            } else {
+              target = "fig-center";
+            }
+          }
+          const newEffect = { target: target, transform: transform };
+          WsUtil.sendSetEffectCommand(JSON.stringify(newEffect));
         }}/>
       </TerrePanel>
 

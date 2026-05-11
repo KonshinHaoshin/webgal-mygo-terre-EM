@@ -15,6 +15,7 @@ import { api } from '@/api';
 import { GameInfoDto } from '@/api/Api';
 import { List, ListItem } from "@fluentui/react-list-preview";
 import useSWR, { mutate } from 'swr';
+import { createId } from "@/utils/createId";
 
 const ArrowLeftIcon = bundleIcon(ArrowLeftFilled, ArrowLeftRegular);
 const NavigationIcon = bundleIcon(NavigationFilled, NavigationRegular);
@@ -51,7 +52,7 @@ export default function TemplateEditorSidebar() {
     if (templateConfig && !templateConfig.id) {
       const newTemplateConfig = {
         ...templateConfig,
-        id: crypto.randomUUID(),
+        id: createId(),
       };
       api.manageTemplateControllerUpdateTemplateConfig({templateDir, newTemplateConfig});
       mutate(`/templateConfig/${templateDir}`);

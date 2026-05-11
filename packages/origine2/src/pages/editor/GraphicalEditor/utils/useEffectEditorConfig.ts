@@ -44,6 +44,13 @@ export type EffectKey =
   | 'rgbFilm'
   | 'godrayFilm';
 
+export interface EffectSliderConfig {
+  min: number;
+  max: number;
+  defaultValue: number;
+  toFixed?: number;
+}
+
 /**
  * 效果参数的配置信息接口
  * 用于定义每个参数的路径、显示名称、输入类型等元信息
@@ -53,6 +60,7 @@ export interface EffectConfig {
   label?: string;
   placeholder?: string;
   type?: 'number' | 'checkbox' | 'dropdown';
+  slider?: EffectSliderConfig;
 }
 
 /** 所有效果参数的键值对类型，值为数值或undefined */
