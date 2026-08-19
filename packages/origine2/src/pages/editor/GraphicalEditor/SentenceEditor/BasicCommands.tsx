@@ -1,0 +1,325 @@
+import { commandType } from "webgal-parser/src/interface/sceneInterface";
+import { ISentenceEditorProps } from "./index";
+import styles from "./sentenceEditor.module.scss";
+import CommonOptions from "../components/CommonOption";
+import CommonTips from "../components/CommonTips";
+import TerreToggle from "@/components/terreToggle/TerreToggle";
+import WheelDropdown from "@/pages/editor/GraphicalEditor/components/WheelDropdown";
+import { useValue } from "@/hooks/useValue";
+import { getArgByKey } from "../utils/getArgByKey";
+import { combineSubmitString } from "@/utils/combineSubmitString";
+import { t } from "@lingui/macro";
+import { usePresetTargetOptions } from "@/hooks/usePresetTargetOptions";
+
+function TextInput(props: {
+  title: string;
+  value: string;
+  placeholder?: string;
+  onChange: (value: string) => void;
+  onBlur: () => void;
+  multiline?: boolean;
+}) {
+  return <CommonOptions title={props.title}>
+    {props.multiline ? <textarea
+      value={props.value}
+      onChange={(ev) => props.onChange(ev.target.value ?? "")}
+      onBlur={props.onBlur}
+      className={styles.sayArea}
+      placeholder={props.placeholder}
+      style={{ width: "100%" }}
+    /> : <input
+      value={props.value}
+      onChange={(ev) => props.onChange(ev.target.value ?? "")}
+      onBlur={props.onBlur}
+      className={styles.sayInput}
+      placeholder={props.placeholder}
+      style={{ width: "100%" }}
+    />}
+  </CommonOptions>;
+}
+
+function LabelCommand(props: ISentenceEditorProps) {
+  const labelName = useValue(props.sentence.content);
+  const submit = () => {
+    props.onSubmit(combineSubmitString(
+      props.sentence.commandRaw,
+      labelName.value,
+      props.sentence.args,
+      [],
+      props.sentence.inlineComment,
+    ));
+  };
+
+  return <div className={styles.sentenceEditorContent}>
+    <div className={styles.editItem}>
+      <TextInput
+        title={t`标签名`}
+        value={labelName.value}
+        onChange={(value) => labelName.set(value)}
+        onBlur={submit}
+        placeholder={t`本场景内唯一的 label 名称`}
+      />
+      {props.extraOptions}
+    </div>
+  </div>;
+}
+
+function JumpLabelCommand(props: ISentenceEditorProps) {
+  const labelName = useValue(props.sentence.content);
+  const labelOptions = new Map((props.sceneLabels ?? []).map(label => [label, label]));
+  const submit = () => {
+    props.onSubmit(combineSubmitString(
+      props.sentence.commandRaw,
+      labelName.value,
+      props.sentence.args,
+      [],
+      props.sentence.inlineComment,
+    ));
+  };
+
+  return <div className={styles.sentenceEditorContent}>
+    <div className={styles.editItem}>
+      <TextInput
+        title={t`跳转 label`}
+        value={labelName.value}
+        onChange={(value) => labelName.set(value)}
+        onBlur={submit}
+        placeholder={t`输入本场景内的 label 名称`}
+      />
+      {labelOptions.size > 0 && <CommonOptions title={t`从本场景选择`}>
+        <WheelDropdown
+          options={labelOptions}
+          value={labelName.value}
+          onValueChange={(newValue) => {
+            labelName.set(newValue?.toString() ?? "");
+            submit();
+          }}
+        />
+      </CommonOptions>}
+      {props.extraOptions}
+    </div>
+  </div>;
+}
+
+/** 三种作用域互斥，用一个下拉框而不是两个开关，避免出现同时勾选的无效状态 */
+type VarScope = "stage" | "global" | "local";
+
+const getVarScope = (props: ISentenceEditorProps): VarScope => {
+  if (getArgByKey(props.sentence, "global") === true) return "global";
+  return getArgByKey(props.sentence, "local") === true ? "local" : "stage";
+};
+
+function SetVarCommand(props: ISentenceEditorProps) {
+  const expression = useValue(props.sentence.content);
+  const scope = useValue<VarScope>(getVarScope(props));
+  const scopeOptions = new Map<string, string>([
+    ["stage", t`存档变量`],
+    ["global", t`全局变量`],
+    ["local", t`局部变量`],
+  ]);
+  const submit = () => {
+    props.onSubmit(combineSubmitString(
+      props.sentence.commandRaw,
+      expression.value,
+      props.sentence.args,
+      [
+        { key: "global", value: scope.value === "global" },
+        { key: "local", value: scope.value === "local" },
+      ],
+      props.sentence.inlineComment,
+    ));
+  };
+
+  return <div className={styles.sentenceEditorContent}>
+    {scope.value === "local"
+      && <CommonTips text={t`局部变量即 callScene 传入的参数，随场景调用结束而消失。要改传进来的参数，必须选择局部变量。`} />}
+    <div className={styles.editItem}>
+      <TextInput
+        title={t`变量表达式`}
+        value={expression.value}
+        onChange={(value) => expression.set(value)}
+        onBlur={submit}
+        placeholder={t`例如：a=1 或 name=WebGAL`}
+      />
+      <CommonOptions title={t`写入哪里`}>
+        <WheelDropdown
+          options={scopeOptions}
+          value={scope.value}
+          onValueChange={(newValue) => {
+            scope.set((newValue?.toString() ?? "stage") as VarScope);
+            submit();
+          }}
+        />
+      </CommonOptions>
+      {props.extraOptions}
+    </div>
+  </div>;
+}
+
+function ReturnCommand(props: ISentenceEditorProps) {
+  // 不写冒号时（`return;`）解析器会把整条命令留在 content 里，此时视为没有返回值
+  const isEmptyReturn = props.sentence.content === props.sentence.commandRaw;
+  const returnValue = useValue(isEmptyReturn ? "" : props.sentence.content);
+  const submit = () => {
+    props.onSubmit(combineSubmitString(
+      props.sentence.commandRaw,
+      returnValue.value,
+      props.sentence.args,
+      [],
+      props.sentence.inlineComment,
+    ));
+  };
+
+  return <div className={styles.sentenceEditorContent}>
+    <CommonTips text={t`提前结束当前被调用的场景并回到调用处。返回值会写入调用方 callScene 指定的变量。`} />
+    <div className={styles.editItem}>
+      <TextInput
+        title={t`返回值`}
+        value={returnValue.value}
+        onChange={(value) => returnValue.set(value)}
+        onBlur={submit}
+        placeholder={t`留空表示不返回值。可填数字、true/false、字符串或表达式`}
+      />
+      {props.extraOptions}
+    </div>
+  </div>;
+}
+
+function SetComplexAnimationCommand(props: ISentenceEditorProps) {
+  const animationName = useValue(props.sentence.content);
+  const target = useValue(getArgByKey(props.sentence, "target")?.toString() ?? "");
+  const duration = useValue(getArgByKey(props.sentence, "duration")?.toString() ?? "");
+  const isGoNext = useValue(getArgByKey(props.sentence, "next") === true);
+  const targets = usePresetTargetOptions();
+  const isUsePreset = useValue(Array.from(targets.keys()).includes(target.value));
+
+  const submit = () => {
+    props.onSubmit(combineSubmitString(
+      props.sentence.commandRaw,
+      animationName.value,
+      props.sentence.args,
+      [
+        { key: "target", value: target.value },
+        { key: "duration", value: duration.value },
+        { key: "next", value: isGoNext.value },
+      ],
+      props.sentence.inlineComment,
+    ));
+  };
+
+  return <div className={styles.sentenceEditorContent}>
+    <CommonTips text={t`复杂动画名来自引擎内置动画。若要使用项目动画文件，通常应使用“调用动画”。`} />
+    <div className={styles.editItem}>
+      <TextInput
+        title={t`动画名`}
+        value={animationName.value}
+        onChange={(value) => animationName.set(value)}
+        onBlur={submit}
+        placeholder={t`例如：universalSoftIn`}
+      />
+      <CommonOptions title={t`使用预设目标`}>
+        <TerreToggle
+          title=""
+          onChange={(newValue) => isUsePreset.set(newValue)}
+          onText={t`使用预设目标`}
+          offText={t`手动输入 ID`}
+          isChecked={isUsePreset.value}
+        />
+      </CommonOptions>
+      {isUsePreset.value ? <CommonOptions title={t`目标`}>
+        <WheelDropdown
+          options={targets}
+          value={target.value}
+          onValueChange={(newValue) => {
+            target.set(newValue?.toString() ?? "");
+            submit();
+          }}
+        />
+      </CommonOptions> : <TextInput
+        title={t`目标 ID`}
+        value={target.value}
+        onChange={(value) => target.set(value)}
+        onBlur={submit}
+        placeholder={t`例如：fig-center`}
+      />}
+      <TextInput
+        title={t`持续时间（毫秒）`}
+        value={duration.value}
+        onChange={(value) => duration.set(value)}
+        onBlur={submit}
+        placeholder={t`留空使用默认值`}
+      />
+      <CommonOptions title={t`连续执行`}>
+        <TerreToggle
+          title=""
+          onChange={(newValue) => {
+            isGoNext.set(newValue);
+            submit();
+          }}
+          onText={t`本句执行后执行下一句`}
+          offText={t`本句执行后等待`}
+          isChecked={isGoNext.value}
+        />
+      </CommonOptions>
+      {props.extraOptions}
+    </div>
+  </div>;
+}
+
+function SimpleContentCommand(props: ISentenceEditorProps) {
+  const content = useValue(props.sentence.content);
+  const getMeta = (): { title: string; placeholder: string; multiline?: boolean } => {
+    switch (props.sentence.command) {
+    case commandType.filmMode:
+      return { title: t`电影模式值`, placeholder: t`enable 开启，none 或留空关闭` };
+    case commandType.applyStyle:
+      return { title: t`样式替换`, placeholder: t`原样式->新样式，多个用逗号分隔`, multiline: true };
+    case commandType.showVars:
+      return { title: t`内容`, placeholder: t`showVars 通常不需要内容` };
+    default:
+      return { title: t`内容`, placeholder: t`输入指令内容`, multiline: true };
+    }
+  };
+  const meta = getMeta();
+  const submit = () => {
+    props.onSubmit(combineSubmitString(
+      props.sentence.commandRaw,
+      content.value,
+      props.sentence.args,
+      [],
+      props.sentence.inlineComment,
+    ));
+  };
+
+  return <div className={styles.sentenceEditorContent}>
+    <div className={styles.editItem}>
+      {props.sentence.command === commandType.showVars && <CommonTips text={t`该指令会在文本框显示当前变量。`} />}
+      <TextInput
+        title={meta.title}
+        value={content.value}
+        onChange={(value) => content.set(value)}
+        onBlur={submit}
+        placeholder={meta.placeholder}
+        multiline={meta.multiline}
+      />
+      {props.extraOptions}
+    </div>
+  </div>;
+}
+
+export default function BasicCommands(props: ISentenceEditorProps) {
+  switch (props.sentence.command) {
+  case commandType.label:
+    return <LabelCommand {...props} />;
+  case commandType.jumpLabel:
+    return <JumpLabelCommand {...props} />;
+  case commandType.setVar:
+    return <SetVarCommand {...props} />;
+  case commandType.return:
+    return <ReturnCommand {...props} />;
+  case commandType.setComplexAnimation:
+    return <SetComplexAnimationCommand {...props} />;
+  default:
+    return <SimpleContentCommand {...props} />;
+  }
+}

@@ -13,6 +13,7 @@ import {
 import { TemplateConfigDto } from '../manage-template/manage-template.dto';
 import { promisify } from 'util';
 import { execFile } from 'child_process';
+import { join } from 'path';
 
 @Injectable()
 export class ManageGameService {
@@ -72,7 +73,7 @@ export class ManageGameService {
    */
   async openAssetsDictionary(gameName: string, subFolder?: string) {
     const path = this.webgalFs.getPathFromRoot(
-      `public/games/${gameName}/game/${subFolder}`,
+      `public/games/${gameName}/game/${subFolder ?? ''}`,
     );
     await _open(path);
   }
@@ -82,7 +83,8 @@ export class ManageGameService {
    * @param createGameData
    */
   async createGame(createGameData: CreateGameDto): Promise<boolean> {
-    const { gameName, gameDir, derivative, templateDir } = createGameData;
+    const { gameName, gameDir, derivative, templateDir, ignoreTemplate } =
+      createGameData;
     // 检查是否存在这个游戏
     const checkDir = await this.webgalFs.getDirInfo(
       this.webgalFs.getPathFromRoot(`/public/games`),
@@ -124,9 +126,34 @@ export class ManageGameService {
       `Game_name:${gameName};`,
     );
 
-    if (templateDir) {
+    // 应用模板时删除原有模板
+    if (!ignoreTemplate) {
+      const gameTemplatePath = this.webgalFs.getPathFromRoot(
+        `/public/games/${gameDir}/game/template`,
+      );
+      await this.webgalFs.deleteFileOrDirectory(gameTemplatePath);
+    }
+
+    let templateApplied = false;
+    if (templateDir && !ignoreTemplate) {
+      const templatePath = this.webgalFs.getPathFromRoot(
+        `/public/templates/${templateDir}/`,
+      );
+      if (await this.webgalFs.existsDir(templatePath)) {
+        await this.webgalFs.copy(
+          templatePath,
+          this.webgalFs.getPathFromRoot(
+            `/public/games/${gameDir}/game/template/`,
+          ),
+        );
+        templateApplied = true;
+      }
+    }
+    if (!templateApplied && !ignoreTemplate) {
       await this.webgalFs.copy(
-        this.webgalFs.getPathFromRoot(`/public/templates/${templateDir}/`),
+        this.webgalFs.getPathFromRoot(
+          '/assets/templates/WebGAL_Default_Template/',
+        ),
         this.webgalFs.getPathFromRoot(
           `/public/games/${gameDir}/game/template/`,
         ),
@@ -178,6 +205,97 @@ export class ManageGameService {
           ? 'com.openwebgal.demo'
           : config.Package_name,
     };
+  }
+
+  async updateAnimationTable(gameName: string): Promise<boolean> {
+    const animationDir = this.webgalFs.getPathFromRoot(
+      `/public/games/${gameName}/game/animation`,
+    );
+    if (!(await this.webgalFs.existsDir(animationDir))) {
+      return false;
+    }
+    const animationList = await this.collectAnimationList(animationDir);
+    await this.writeAnimationTable(gameName, animationList);
+    return true;
+  }
+
+  private async collectAnimationList(
+    animationRootDir: string,
+  ): Promise<string[]> {
+    // Collect first, then sort once to keep output stable.
+    const animationList = await this.collectAnimationListFromDir(
+      animationRootDir,
+      '',
+    );
+    return animationList.sort((a, b) => a.localeCompare(b));
+  }
+
+  /**
+   * Depth-first traversal of the animation directory tree.
+   * Returns paths relative to `game/animation` without `.json` suffix.
+   */
+  private async collectAnimationListFromDir(
+    currentDir: string,
+    currentRelativeDir: string,
+  ): Promise<string[]> {
+    const entries = await this.webgalFs.getDirInfo(currentDir);
+    const result: string[] = [];
+
+    for (const entry of entries) {
+      if (this.shouldIgnoreAnimationEntry(entry.name)) {
+        continue;
+      }
+
+      const relativeEntryPath = this.joinRelativePath(
+        currentRelativeDir,
+        entry.name,
+      );
+
+      if (entry.isDir) {
+        const childResult = await this.collectAnimationListFromDir(
+          join(currentDir, entry.name),
+          relativeEntryPath,
+        );
+        result.push(...childResult);
+        continue;
+      }
+
+      if (!this.isAnimationJsonFile(entry)) {
+        continue;
+      }
+
+      result.push(this.stripJsonExtension(relativeEntryPath));
+    }
+
+    return result;
+  }
+
+  private shouldIgnoreAnimationEntry(name: string): boolean {
+    return name.startsWith('.');
+  }
+
+  private isAnimationJsonFile(file: IFileInfo): boolean {
+    if (file.isDir) return false;
+    if (file.name.toLowerCase() === 'animationtable.json') return false;
+    return file.extName.toLowerCase() === '.json';
+  }
+
+  private joinRelativePath(parent: string, child: string): string {
+    return parent ? `${parent}/${child}` : child;
+  }
+
+  private stripJsonExtension(path: string): string {
+    return path.replace(/\.json$/i, '');
+  }
+
+  private async writeAnimationTable(gameName: string, animationList: string[]) {
+    const animationTablePath = this.webgalFs.getPathFromRoot(
+      `/public/games/${gameName}/game/animation/animationTable.json`,
+    );
+    await this.webgalFs.updateTextFile(
+      animationTablePath,
+      `${JSON.stringify(animationList, null, 2)}\n`,
+    );
   }
 
   async getIcons(gameDir: string): Promise<IconsDto> {
@@ -317,12 +435,9 @@ export class ManageGameService {
             }
           }
           // 创建 app.asar
-          await asar.createPackage(
+          await this.packElectronAppAsar(
             `${electronExportDir}/resources/app/`,
             `${electronExportDir}/resources/app.asar`,
-          );
-          await this.webgalFs.deleteFileOrDirectory(
-            `${electronExportDir}/resources/app/`,
           );
           await _open(electronExportDir);
         }
@@ -378,12 +493,9 @@ export class ManageGameService {
             );
           }
           // 创建 app.asar
-          await asar.createPackage(
+          await this.packElectronAppAsar(
             `${electronExportDir}/resources/app/`,
             `${electronExportDir}/resources/app.asar`,
-          );
-          await this.webgalFs.deleteFileOrDirectory(
-            `${electronExportDir}/resources/app/`,
           );
           await _open(electronExportDir);
         }
@@ -439,12 +551,9 @@ export class ManageGameService {
             );
           }
           // 创建 app.asar
-          await asar.createPackage(
+          await this.packElectronAppAsar(
             `${electronExportDir}/Contents/Resources/app/`,
             `${electronExportDir}/Contents/Resources/app.asar`,
-          );
-          await this.webgalFs.deleteFileOrDirectory(
-            `${electronExportDir}/Contents/Resources/app/`,
           );
           await _open(exportDir);
         }
@@ -585,5 +694,12 @@ export class ManageGameService {
       this.logger.error('Error exporting game:', error);
       return false;
     }
+  }
+
+  private async packElectronAppAsar(appDir: string, asarPath: string) {
+    await asar.createPackageWithOptions(appDir, asarPath, {
+      unpack: '**/node_modules/steamworks.js/dist/**',
+    });
+    await this.webgalFs.deleteFileOrDirectory(appDir);
   }
 }

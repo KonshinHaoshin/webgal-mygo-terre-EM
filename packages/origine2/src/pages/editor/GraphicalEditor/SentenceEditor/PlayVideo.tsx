@@ -20,6 +20,7 @@ export default function PlayVideo(props: ISentenceEditorProps) {
       [
         {key: "skipOff", value: isSkipOff.value},
       ],
+      props.sentence.inlineComment,
     );
     props.onSubmit(submitString);
   };
@@ -36,12 +37,13 @@ export default function PlayVideo(props: ISentenceEditorProps) {
           extNames={extNameMap.get('video')} />
         </>
       </CommonOptions>
-      <CommonOptions key="2" title={t`视频选项`}>
+      <CommonOptions key="2" title={t`视频跳过`}>
         <TerreToggle title="" onChange={(newValue) => {
           isSkipOff.set(newValue);
           submit();
         }} onText={t`禁止跳过视频`} offText={t`启用视频跳过`} isChecked={isSkipOff.value} />
       </CommonOptions>
+      {props.extraOptions}
     </div>
   </div>;
 }

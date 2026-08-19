@@ -19,11 +19,15 @@ import {I18nProvider} from "@lingui/react";
 import {messages as enMessages} from "./locales/en";
 import {messages as zhCnMessages} from "./locales/zhCn";
 import {messages as jaMessages} from "./locales/ja";
+import {messages as koMessages} from "./locales/ko";
+import useEditorStore from "./store/useEditorStore";
+import { useEffect } from "react";
 
 i18n.load({
   en: enMessages,
   zhCn: zhCnMessages,
-  ja: jaMessages
+  ja: jaMessages,
+  ko: koMessages
 });
 
 export async function i18nActivate(locale: string) {
@@ -60,17 +64,31 @@ const darkTheme: Theme = {
 
 darkTheme.colorBrandForeground1 = terre[110];
 darkTheme.colorBrandForeground2 = terre[120];
-
 initializeIcons();
 
-i18n.activate('zhCn');
-// 不用 StrictMode，因为会和 react-butiful-dnd 冲突
+i18n.activate(useEditorStore.getState().language);
+
+function Main() {
+  const isDarkMode = useEditorStore.use.isDarkMode();
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+  return (
+    <FluentProvider theme={isDarkMode ? darkTheme : lightTheme} style={{width: '100%', height: '100%'}}>
+      <I18nProvider i18n={i18n}>
+        <App/>
+      </I18nProvider>
+    </FluentProvider>
+  );
+}
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
+  // 不用 StrictMode，因为会和 react-butiful-dnd 冲突
   // <React.StrictMode>
-  <FluentProvider theme={lightTheme} style={{width: '100%', height: '100%'}}>
-    <I18nProvider i18n={i18n}>
-      <App/>
-    </I18nProvider>
-  </FluentProvider>
+  <Main />
   // </React.StrictMode>
 );

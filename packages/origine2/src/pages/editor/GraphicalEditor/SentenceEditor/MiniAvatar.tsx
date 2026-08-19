@@ -10,20 +10,21 @@ import { extNameMap } from "../../ChooseFile/chooseFileConfig";
 
 export default function MiniAvatar(props: ISentenceEditorProps) {
   const fileName = useValue(props.sentence.content);
-  const isNoFile = props.sentence.content === "";
+  const isNoFile = props.sentence.content === "" || props.sentence.content === "none";
   const submit = () => {
     const submitString = combineSubmitString(
       props.sentence.commandRaw,
       fileName.value,
       props.sentence.args,
       [],
+      props.sentence.inlineComment,
     );
     props.onSubmit(submitString);
   };
 
   return <div className={styles.sentenceEditorContent}>
     <div className={styles.editItem}>
-      <CommonOptions key="isNoDialog" title={t`关闭小头像`}>
+      <CommonOptions key="isNoDialog" title={t`小头像显示状态`}>
         <TerreToggle title="" onChange={(newValue) => {
           if(!newValue){
             fileName.set(t`选择小头像`);
@@ -42,6 +43,7 @@ export default function MiniAvatar(props: ISentenceEditorProps) {
           extNames={extNameMap.get('image')?.filter(item => item !== '.jpg')} />
         </>
       </CommonOptions>}
+      {props.extraOptions}
     </div>
   </div>;
 }

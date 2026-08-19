@@ -14,7 +14,7 @@ import WheelDropdown from "@/pages/editor/GraphicalEditor/components/WheelDropdo
 import { combineSubmitString } from "@/utils/combineSubmitString";
 import { extNameMap } from "../../ChooseFile/chooseFileConfig";
 
-type FigurePosition = "" | "left" | "right" | "center" | "id";
+type FigurePosition = "" | "left" | "left14" | "left13" | "center" | "right13" | "right14" | "right" | "id";
 type FontSize = "default" | "small" | "medium" | "large";
 
 export default function Say(props: ISentenceEditorProps) {
@@ -24,11 +24,16 @@ export default function Say(props: ISentenceEditorProps) {
   const volume = useValue(getArgByKey(props.sentence, "volume").toString() ?? "");
   const isNoSpeaker = useValue(props.sentence.commandRaw === "");
   const figureId = useValue(getArgByKey(props.sentence, "figureId").toString() ?? "");
+  const isClearSpeaker = useValue(!!getArgByKey(props.sentence, "clear"));
   const figurePosition = useValue<FigurePosition>("");
   const figurePositions = new Map<FigurePosition, string>([
     [ "", t`未指定` ],
     [ "left", t`左侧立绘` ],
+    [ "left14", t`左侧 1/4 立绘` ],
+    [ "left13", t`左侧 1/3 立绘` ],
     [ "center", t`中间立绘` ],
+    [ "right13", t`右侧 1/3 立绘` ],
+    [ "right14", t`右侧 1/4 立绘` ],
     [ "right", t`右侧立绘` ],
     [ "id",  t`使用立绘ID` ],
   ]);
@@ -40,18 +45,11 @@ export default function Say(props: ISentenceEditorProps) {
     /**
      * 初始化立绘位置
      */
-    if (getArgByKey(props.sentence, "left")) {
-      figurePosition.set("left");
-    }
-    if (getArgByKey(props.sentence, "right")) {
-      figurePosition.set("right");
-    }
-    if (getArgByKey(props.sentence, "center")) {
-      figurePosition.set("center");
-    }
-    if (getArgByKey(props.sentence, "id")) {
-      figurePosition.set("id");
-    }
+    figurePositions.forEach((_, position) => {
+      if (position !== "" && getArgByKey(props.sentence, position)) {
+        figurePosition.set(position);
+      }
+    });
   }, []);
 
   const fontSizes = new Map<FontSize, string>([
@@ -71,9 +69,11 @@ export default function Say(props: ISentenceEditorProps) {
 
   const submit = () => {
     const commitValue = currentValue.value.map(e => e.replaceAll('\n', '|').replaceAll(';', '\\;'));
+    const sayContent = commitValue.join("|");
+    const inheritSpeaker = !isNoSpeaker.value && currentSpeaker.value === "";
     const submitString = combineSubmitString(
-      (isNoSpeaker.value || currentSpeaker.value !== "") ? (isNoSpeaker.value ? "" : currentSpeaker.value) : undefined,
-      commitValue.join("|"),
+      inheritSpeaker ? undefined : (isNoSpeaker.value ? "" : currentSpeaker.value),
+      sayContent,
       props.sentence.args,
       [
         // 移除 -speaker=somebody
@@ -84,16 +84,25 @@ export default function Say(props: ISentenceEditorProps) {
         ...(vocal.value !== "" ? [
           {key: vocal.value, value: true},
         ] : []),
+        {key: "volume", value: vocal.value !== "" ? volume.value : ""},
+        // 如果继承说话者, 并且对话内容为空
+        // 添加一个 -sayPlaceHolder 参数，防止变成注释
+        ...(inheritSpeaker && sayContent === "" ? [
+          {key: "sayPlaceHolder", value: true},
+        ] : [
+          {key: "sayPlaceHolder", value: false},
+        ]),
 
         {key: "concat", value: isConcat.value},
         {key: "notend", value: isNotend.value},
+        {key: "clear", value: isClearSpeaker.value},
         {key: "fontSize", value: (fontSize.value !== "default" ? fontSize.value : "")},
-        {key: "left", value: figurePosition.value === "left"},
-        {key: "right", value: figurePosition.value === "right"},
-        {key: "center", value: figurePosition.value === "center"},
-        {key: "id", value: figurePosition.value === "id"},
+        ...Array.from(figurePositions.keys())
+          .filter((position) => position !== "")
+          .map((position) => ({key: position, value: figurePosition.value === position})),
         {key: "figureId", value: (figurePosition.value === "id" ? figureId.value : "")},
       ],
+      props.sentence.inlineComment,
     );
     props.onSubmit(submitString);
   };
@@ -200,9 +209,21 @@ export default function Say(props: ISentenceEditorProps) {
               isNoSpeaker.set(newValue);
               submit();
             }}
-            onText={t`不显示角色名`}
-            offText={t`显示角色名`}
+            onText={t`旁白模式，不显示角色名`}
+            offText={t`普通对话，显示角色名`}
             isChecked={isNoSpeaker.value}
+          />
+        </CommonOptions>
+        <CommonOptions key="clearSpeaker" title={t`执行后清除角色名`}>
+          <TerreToggle
+            title=""
+            onChange={(newValue) => {
+              isClearSpeaker.set(newValue);
+              submit();
+            }}
+            onText={t`清除角色名，留空角色名的语句不再显示角色名`}
+            offText={t`保留角色名，留空角色名的语句沿用上句的角色名`}
+            isChecked={isClearSpeaker.value}
           />
         </CommonOptions>
         <CommonOptions key="isConcat" title={t`拼接模式`}>
@@ -245,6 +266,19 @@ export default function Say(props: ISentenceEditorProps) {
             />
           </>
         </CommonOptions>
+        {vocal.value !== "" && <CommonOptions key="VocalVolume" title={t`语音音量`}>
+          <input
+            value={volume.value}
+            onChange={(ev) => {
+              const newValue = ev.target.value;
+              volume.set(newValue ?? "");
+            }}
+            onBlur={submit}
+            className={styles.sayInput}
+            placeholder={t`百分比。 0-100 有效`}
+            style={{ width: "100%" }}
+          />
+        </CommonOptions>}
         <CommonOptions title={t`关联立绘`}>
           <WheelDropdown
             options={figurePositions}
@@ -286,6 +320,7 @@ export default function Say(props: ISentenceEditorProps) {
             }}
           />
         </CommonOptions>
+        {props.extraOptions}
       </div>
     </div>
   );

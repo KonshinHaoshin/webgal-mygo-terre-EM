@@ -16,16 +16,23 @@ export function getArgsKey(
         figureIdKey,
         speakerKey,
         vocalKey,
+        volumeKey,
         clearKey,
+        leftSayKey,
+        rightSayKey,
+        centerSayKey,
+        ...centeredPositionSayKeys,
       ];
     }
     case commandType.changeBg: {
       return [
         whenKey,
         nextKey,
+        continueKey,
         durationKey,
+        enterDurationKey,
+        exitDurationKey,
         transformKey,
-        typeKey,
         unlocknameKey,
         seriesKey,
         enterAnimationKey,
@@ -33,28 +40,24 @@ export function getArgsKey(
         easeKey,
       ];
     }
-    case commandType.choose: {
-      return [whenKey];
-    }
-    case commandType.getUserInput: {
-      return [whenKey, nextKey, titleKey, buttonTextKey, defaultValueKey];
-    }
-    case commandType.bgm: {
-      return [whenKey, volumeKey, enterBgmKey, unlocknameKey, seriesKey];
-    }
     case commandType.changeFigure: {
       return [
         whenKey,
         nextKey,
+        continueKey,
         durationKey,
+        enterDurationKey,
+        exitDurationKey,
+        clearKey,
         idFigureKey,
         leftKey,
         rightKey,
+        ...centeredPositionKeys,
         transformKey,
         zIndexKey,
         motionKey,
         expressionKey,
-        poseKey,
+        skinKey,
         boundsKey,
         animationFlagKey,
         eyesOpenKey,
@@ -65,12 +68,28 @@ export function getArgsKey(
         enterAnimationKey,
         exitAnimationKey,
         easeKey,
+        blinkKey,
+        focusKey,
+        blendModeKey,
       ];
+    }
+    case commandType.bgm: {
+      return [whenKey, volumeKey, enterBgmKey, unlocknameKey, seriesKey];
+    }
+    case commandType.video: {
+      return [whenKey, skipOffKey];
+    }
+    case commandType.pixi: {
+      return [whenKey];
+    }
+    case commandType.pixiInit: {
+      return [whenKey];
     }
     case commandType.intro: {
       return [
         whenKey,
         backgroundColorKey,
+        backgroundImageKey,
         fontColorKey,
         fontSizeKey,
         animationKey,
@@ -79,34 +98,45 @@ export function getArgsKey(
         userForwardKey,
       ];
     }
-    case commandType.playEffect: {
-      return [whenKey, volumeKey, idSoundKey];
+    case commandType.miniAvatar: {
+      return [whenKey];
     }
-    case commandType.video: {
-      return [whenKey, skipOffKey];
+    case commandType.changeScene: {
+      return [whenKey];
     }
-    case commandType.setAnimation: {
-      return [whenKey, nextKey, targetKey, writeDefaultKey, keepKey];
+    case commandType.choose: {
+      return [whenKey, defaultChooseKey];
     }
-    case commandType.setTempAnimation: {
-      return [whenKey, nextKey, targetKey, writeDefaultKey, keepKey];
+    case commandType.end: {
+      return [whenKey];
     }
-    case commandType.setTransform: {
-      return [
-        whenKey,
-        nextKey,
-        targetKey,
-        easeKey,
-        writeDefaultKey,
-        keepKey,
-        durationKey,
-      ];
+    case commandType.setComplexAnimation: {
+      return [whenKey, nextKey, continueKey, targetKey, durationKey];
     }
-    case commandType.setTransition: {
-      return [whenKey, targetKey, enterAnimationKey, exitAnimationKey];
+    case commandType.setFilter: {
+      return [];
+    }
+    case commandType.label: {
+      return [whenKey];
+    }
+    case commandType.jumpLabel: {
+      return [whenKey];
+    }
+    case commandType.chooseLabel:
+    case commandType.if: {
+      return [];
     }
     case commandType.setVar: {
-      return [whenKey, globalKey];
+      return [whenKey, globalKey, localKey];
+    }
+    case commandType.callScene: {
+      return [whenKey, writeReturnToKey];
+    }
+    case commandType.return: {
+      return [whenKey];
+    }
+    case commandType.showVars: {
+      return [whenKey];
     }
     case commandType.unlockCg: {
       return [whenKey, nameKey, seriesKey];
@@ -114,23 +144,76 @@ export function getArgsKey(
     case commandType.unlockBgm: {
       return [whenKey, nameKey, seriesKey];
     }
-    case commandType.judgment: {
-      return [whenKey, timerKey, timeoutKey];
-    }
-    case commandType.refute: {
-      return [whenKey, gotoKey];
-    }
-    case commandType.thinking: {
+    case commandType.filmMode: {
       return [whenKey];
     }
-    case commandType.testimony: {
-      return [whenKey, testimonyLeftKey, testimonyRightKey, refutesKey, colorsKey, yKey, vocalKey];
-    }
-    case commandType.clearTestimony: {
+    case commandType.setTextbox: {
       return [whenKey];
+    }
+    case commandType.setAnimation: {
+      return [
+        whenKey,
+        nextKey,
+        continueKey,
+        targetKey,
+        writeDefaultKey,
+        keepKey,
+        parallelKey,
+      ];
+    }
+    case commandType.playEffect: {
+      return [whenKey, volumeKey, idSoundKey];
+    }
+    case commandType.setTempAnimation: {
+      return [
+        whenKey,
+        nextKey,
+        continueKey,
+        targetKey,
+        writeDefaultKey,
+        keepKey,
+        parallelKey,
+      ];
+    }
+    case commandType.setTransform: {
+      return [
+        whenKey,
+        nextKey,
+        continueKey,
+        targetKey,
+        easeKey,
+        writeDefaultKey,
+        keepKey,
+        parallelKey,
+        durationKey,
+      ];
+    }
+    case commandType.setTransition: {
+      return [whenKey, targetKey, enterAnimationKey, exitAnimationKey];
+    }
+    case commandType.getUserInput: {
+      return [
+        whenKey,
+        titleKey,
+        buttonTextKey,
+        defaultValueKey,
+        ruleKey,
+        ruleFlagKey,
+        ruleTextKey,
+        ruleButtonTextKey,
+      ];
+    }
+    case commandType.applyStyle: {
+      return [whenKey];
+    }
+    case commandType.wait: {
+      return [whenKey, nobreakKey];
+    }
+    case commandType.callSteam: {
+      return [whenKey, achievementIdKey];
     }
     default: {
-      return [whenKey];
+      return [whenKey, nextKey, continueKey];
     }
   }
 }
@@ -163,6 +246,22 @@ changeScene:3.txt;
   `),
 };
 
+const defaultChooseKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'defaultChoose',
+  insertText: 'defaultChoose=',
+  detail: '快速预览默认选项',
+  documentation: markdown(`
+用于编辑器快速预览。设置后，快速预览遇到该选项语句时会自动选择指定序号的选项。
+
+示例：
+
+\`\`\`
+choose:选项 1:label_1|选项 2:label_2 -defaultChoose=1;
+\`\`\`
+  `),
+};
+
 const nextKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'next',
@@ -179,6 +278,23 @@ changeBg:testBG03.jpg -next; // 会立刻执行下一条语句
   `),
 };
 
+const continueKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'continue',
+  insertText: 'continue',
+  detail: '继续执行',
+  documentation: markdown(`
+在某些情况下，你可能希望在执行完当前语句后继续执行下一条语句。这时可以使用 \`-continue\` 参数。
+此参数即使在用户未开启自动播放的情况下也会生效。
+
+示例：
+
+\`\`\`
+changeBg:testBG03.jpg -continue; // 会在当前语句执行完后继续执行下一条语句
+\`\`\`
+  `),
+};
+
 const durationKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'duration',
@@ -189,33 +305,24 @@ const durationKey: CompletionItem = {
   `),
 };
 
-const typeKey: CompletionItem = {
+const enterDurationKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
-  label: 'type',
-  insertText: 'type=',
-  detail: '背景切换类型',
+  label: 'enterDuration',
+  insertText: 'enterDuration=',
+  detail: '入场时长',
   documentation: markdown(`
-背景切换类型：default 或 blinds
+入场动画的持续时间，单位为毫秒(ms)。
+若同时设置 \`duration\`，则此项优先生效。
   `),
 };
 
-const timerKey: CompletionItem = {
+const exitDurationKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
-  label: 'timer',
-  insertText: 'timer=',
-  detail: '审判计时',
+  label: 'exitDuration',
+  insertText: 'exitDuration=',
+  detail: '退场时长',
   documentation: markdown(`
-设置审判计时，例如 13:20:000
-  `),
-};
-
-const timeoutKey: CompletionItem = {
-  kind: CompletionItemKind.Constant,
-  label: 'timeout',
-  insertText: 'timeout=',
-  detail: '超时跳转场景',
-  documentation: markdown(`
-超时后跳转到的场景文件
+退场动画的持续时间，单位为毫秒(ms)。
   `),
 };
 
@@ -299,6 +406,90 @@ changeFigure:k2.png -next;
 \`\`\`
 这是第一句......;
 用户点击鼠标后才会转到第二句 -concat;
+\`\`\`
+  `),
+};
+
+/**
+ * 除左右靠边定位以外的立绘位置，均以立绘中心为基准定位
+ */
+const centeredFigurePositions: Array<[string, string]> = [
+  ['left13', '左侧 1/3'],
+  ['right13', '右侧 1/3'],
+  ['left14', '左侧 1/4'],
+  ['right14', '右侧 1/4'],
+];
+
+const centeredPositionKeys: CompletionItem[] = centeredFigurePositions.map(
+  ([position, name]) => ({
+    kind: CompletionItemKind.Constant,
+    label: position,
+    insertText: position,
+    detail: `将立绘置于${name}处`,
+    documentation: markdown(`
+将立绘放置在舞台${name}处，以立绘的中心为基准定位
+
+\`\`\`
+changeFigure:testFigure03.png -${position};
+\`\`\`
+  `),
+  }),
+);
+
+const centeredPositionSayKeys: CompletionItem[] = centeredFigurePositions.map(
+  ([position, name]) => ({
+    kind: CompletionItemKind.Constant,
+    label: position,
+    insertText: position,
+    detail: `对话属于${name}处的立绘`,
+    documentation: markdown(`
+指定该对话所属的立绘为${name}处的立绘
+
+\`\`\`
+WebGAL:这是${name}处立绘的对话 -${position};
+\`\`\`
+  `),
+  }),
+);
+
+const leftSayKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'left',
+  insertText: 'left',
+  detail: '对话属于左侧立绘',
+  documentation: markdown(`
+指定该对话所属的立绘为左侧立绘
+
+\`\`\`
+WebGAL:这是左侧立绘的对话 -left;
+\`\`\`
+  `),
+};
+
+const rightSayKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'right',
+  insertText: 'right',
+  detail: '对话属于右侧立绘',
+  documentation: markdown(`
+指定该对话所属的立绘为右侧立绘
+
+\`\`\`
+WebGAL:这是右侧立绘的对话 -right;
+\`\`\`
+  `),
+};
+
+const centerSayKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'center',
+  insertText: 'center',
+  detail: '对话属于中间立绘',
+  documentation: markdown(`
+指定该对话所属的立绘为中间立绘
+
+\`\`\`
+WebGAL:这是中间立绘的对话 -center;
 \`\`\`
   `),
 };
@@ -412,6 +603,24 @@ const zIndexKey: CompletionItem = {
 \`\`\`
 changeFigure:xxx.png -id=xxx -zIndex=0;
 changeFigure:yyy.png -id=yyy -zIndex=1;
+\`\`\`
+  `),
+};
+
+const blendModeKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'blendMode',
+  insertText: 'blendMode=',
+  detail: '混合模式',
+  documentation: markdown(`
+设置立绘的混合模式，可用的混合模式有
+- normal (默认值, 透明度混合)
+- add (线性减淡)
+- multiply (正片叠底)
+- screen (滤色)
+
+\`\`\`
+changeFigure:xxx.png -blendMode=add;
 \`\`\`
   `),
 };
@@ -534,13 +743,13 @@ changeFigure:xxx.json -motion=angry -expression=angry01;
   `),
 };
 
-const poseKey: CompletionItem = {
+const skinKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
-  label: 'pose',
-  insertText: 'pose=',
-  detail: 'webgal_mano 姿势',
+  label: 'skin',
+  insertText: 'skin=',
+  detail: 'Spine 皮肤',
   documentation: markdown(`
-WebGAL Mano 立绘的姿势列表，例如：{ArmL1,Cry}
+切换 Spine 立绘的皮肤。
   `),
 };
 
@@ -554,6 +763,42 @@ const boundsKey: CompletionItem = {
 
 \`\`\`
 changeFigure:xxx.json -bounds=0,50,0,50;
+\`\`\`
+  `),
+};
+
+const blinkKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'blink',
+  insertText: 'blink=',
+  detail: 'Live2D 立绘眨眼',
+  documentation: markdown(`
+设置 Live2D 立绘眨眼的参数, 参数有
+- blinkInterval: 眨眼间隔时间, 单位毫秒, 默认24小时
+- blinkIntervalRandom: 眨眼间隔时间随机范围, 单位毫秒, 默认1000
+- closingDuration: 眨眼闭合时间, 单位毫秒, 默认100
+- closedDuration: 眨眼闭合保持时间, 单位毫秒, 默认50
+- openingDuration: 眨眼睁开时间, 单位毫秒, 默认150
+
+\`\`\`
+changeFigure:xxx.json -blink={"blinkInterval":5000,"blinkIntervalRandom":2000,"closingDuration":100,"closedDuration":50,"openingDuration":150};
+\`\`\`
+  `),
+};
+
+const focusKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'focus',
+  insertText: 'focus=',
+  detail: 'Live2D 立绘注视',
+  documentation: markdown(`
+设置 Live2D 立绘的注视方向, 参数有
+- x: 注视点 X 坐标, 范围 -1.0 ~ 1.0, 默认 0.0
+- y: 注视点 Y 坐标, 范围 -1.0 ~ 1.0, 默认 0.0
+- instant: 是否立即生效, 布尔值, 默认 false
+
+\`\`\`
+changeFigure:xxx.json -focus={"x":0.5,"y":0.0,"instant":false};
 \`\`\`
   `),
 };
@@ -575,66 +820,6 @@ const seriesKey: CompletionItem = {
   detail: '鉴赏系列名称',
   documentation: markdown(`
 CG或音乐解锁进鉴赏模式后应当放在哪个系列
-  `),
-};
-
-const gotoKey: CompletionItem = {
-  kind: CompletionItemKind.Constant,
-  label: 'goto',
-  insertText: 'goto=',
-  detail: 'jump target',
-  documentation: markdown(`
-jump to a scene file or label
-  `),
-};
-
-const testimonyLeftKey: CompletionItem = {
-  kind: CompletionItemKind.Constant,
-  label: 'left',
-  insertText: 'left',
-  detail: '证词位置',
-  documentation: markdown(`
-证词显示在左侧
-  `),
-};
-
-const testimonyRightKey: CompletionItem = {
-  kind: CompletionItemKind.Constant,
-  label: 'right',
-  insertText: 'right',
-  detail: '证词位置',
-  documentation: markdown(`
-证词显示在右侧
-  `),
-};
-
-const refutesKey: CompletionItem = {
-  kind: CompletionItemKind.Constant,
-  label: 'refutes',
-  insertText: 'refutes=',
-  detail: '反驳配置',
-  documentation: markdown(`
-配置可反驳的关键词与对应的 thinking 语句
-  `),
-};
-
-const colorsKey: CompletionItem = {
-  kind: CompletionItemKind.Constant,
-  label: 'colors',
-  insertText: 'colors=',
-  detail: '高亮颜色',
-  documentation: markdown(`
-配置关键词高亮颜色，格式为 #RRGGBB
-  `),
-};
-
-const yKey: CompletionItem = {
-  kind: CompletionItemKind.Constant,
-  label: 'y',
-  insertText: 'y=',
-  detail: 'Y 轴位置',
-  documentation: markdown(`
-设置证词显示位置的 Y 坐标
   `),
 };
 
@@ -676,7 +861,7 @@ const easeKey: CompletionItem = {
 const writeDefaultKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'writeDefault',
-  insertText: 'writeDefault=',
+  insertText: 'writeDefault',
   detail: '补充默认值',
   documentation: markdown(`
 若变换与效果中有未填写的属性时, 补充默认值, 否则继承现有的值
@@ -686,11 +871,21 @@ const writeDefaultKey: CompletionItem = {
 const keepKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'keep',
-  insertText: 'keep=',
+  insertText: 'keep',
   detail: '跨语句动画',
   documentation: markdown(`
 开启后, 动画可以跨对话播放, 直至被下一个同目标的
 \`setTransform\` \`setAnimation\` \`setTempAnimation\` 打断
+  `),
+};
+
+const parallelKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'parallel',
+  insertText: 'parallel',
+  detail: '并行动画',
+  documentation: markdown(`
+开启后，同目标上的动画不会打断已有动画，而是并行播放。
   `),
 };
 
@@ -726,6 +921,43 @@ changeScene:二周目剧情.txt;
   `),
 };
 
+const localKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'local',
+  insertText: 'local',
+  detail: '局部变量',
+  documentation: markdown(`
+写入当前场景的局部变量，也就是 \`callScene\` 传进来的参数所在的那个命名空间。局部变量随场景调用结束而消失，不会影响调用方的同名变量。
+
+\`\`\`ws
+; battle.txt，由 callScene:battle.txt -hp=100 调用
+setVar:hp=hp-30 -local;
+旁白:受到攻击，剩余血量 {hp}。;
+\`\`\`
+
+不加 \`-local\` 写的是普通变量，而读取时局部变量优先，这次写入将读不出来。要改传进来的参数，必须加 \`-local\`。
+
+\`-local\` 与 \`-global\` 互斥，同时写时按 \`-global\` 处理。
+  `),
+};
+
+const writeReturnToKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'writeReturnTo',
+  insertText: 'writeReturnTo=',
+  detail: '返回值写回的变量',
+  documentation: markdown(`
+指定被调用场景的返回值写回调用方的哪个变量，写入方式与不带参数的 \`setVar\` 相同。
+
+\`\`\`ws
+callScene:battle.txt -enemy=史莱姆 -writeReturnTo=result;
+旁白:战斗结果是 {result}。;
+\`\`\`
+
+被调用的场景没有执行 \`return\` 而自然结束时，写回的是空字符串。
+  `),
+};
+
 const nameKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'name',
@@ -743,6 +975,16 @@ const backgroundColorKey: CompletionItem = {
   detail: '背景颜色',
   documentation: markdown(`
 指定背景颜色
+  `),
+};
+
+const backgroundImageKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'backgroundImage',
+  insertText: 'backgroundImage=',
+  detail: '背景图片',
+  documentation: markdown(`
+指定背景图片
   `),
 };
 
@@ -823,7 +1065,7 @@ const enterAnimationKey: CompletionItem = {
   insertText: 'enter=',
   detail: '入场动画',
   documentation: markdown(`
-设置入场动画
+设置入场动画（来自 \`game/animation\` 目录，通常不带 \`.json\` 后缀）
   `),
 };
 
@@ -833,7 +1075,7 @@ const exitAnimationKey: CompletionItem = {
   insertText: 'exit=',
   detail: '退场动画',
   documentation: markdown(`
-设置退场动画
+设置退场动画（来自 \`game/animation\` 目录，通常不带 \`.json\` 后缀）
   `),
 };
 
@@ -877,6 +1119,46 @@ const defaultValueKey: CompletionItem = {
   `),
 };
 
+const ruleKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'rule',
+  insertText: 'rule=',
+  detail: '输入校验正则',
+  documentation: markdown(`
+为 getUserInput 添加正则校验。
+  `),
+};
+
+const ruleFlagKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'ruleFlag',
+  insertText: 'ruleFlag=',
+  detail: '正则标记',
+  documentation: markdown(`
+传给正则表达式的标记，例如 i。
+  `),
+};
+
+const ruleTextKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'ruleText',
+  insertText: 'ruleText=',
+  detail: '校验失败提示',
+  documentation: markdown(`
+输入不匹配 rule 时显示的提示，文本中可用 $0 表示当前输入。
+  `),
+};
+
+const ruleButtonTextKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'ruleButtonText',
+  insertText: 'ruleButtonText=',
+  detail: '校验提示按钮文本',
+  documentation: markdown(`
+校验失败提示框的按钮文本。
+  `),
+};
+
 const vocalKey: CompletionItem = {
   kind: CompletionItemKind.Constant,
   label: 'vocal',
@@ -904,5 +1186,25 @@ const clearKey: CompletionItem = {
   detail: '清除说话者',
   documentation: markdown(`
 清除说话者
+  `),
+};
+
+const achievementIdKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'achievementId',
+  insertText: 'achievementId=',
+  detail: '成就ID',
+  documentation: markdown(`
+成就ID
+  `),
+};
+
+const nobreakKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'nobreak',
+  insertText: 'nobreak',
+  detail: '禁止跳过等待',
+  documentation: markdown(`
+用于 wait 指令，开启后等待期间不能被跳过。
   `),
 };

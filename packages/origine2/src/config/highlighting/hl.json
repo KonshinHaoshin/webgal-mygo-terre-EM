@@ -70,7 +70,7 @@
       "name": "support.function.command.webgal"
     },
     "comment-line": {
-      "match": "\\;.*?$",
+      "match": "(?<!\\\\);.*?$",
       "name": "comment.line.webgal"
     },
     "operator": {
@@ -99,7 +99,7 @@
               ]
             },
             "3": {
-              "name": "markup.quote"
+              "name": "variable.other.webgal"
             }
           }
         }
@@ -136,7 +136,7 @@
     },
     "character-colon": {
       "comment": "[char]:[utt[ -args]][;cmt]",
-      "match": "^(?!(?:intro|changeBg|changeFigure|miniAvatar|playEffect|changeScene|choose|end|bgm|playVideo|setComplexAnimation|setFilter|pixiInit|pixiPerform|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|say|filmMode|callScene|setTextbox|setAnimation|setTransition|setTransform|say|getUserInput|applyStyle|wait|manopedia|pediaUpdate|addItem|showItem|clearItem|presentTheEvidence|judgment|refute|thinking|testimony|clearTestimony)\\:)(.*?)(\\:)([^\\;\\n]*?)($|\\;.*?$)",
+      "match": "^(?!(?:say|changeBg|changeFigure|bgm|playVideo|pixiPerform|pixiInit|intro|miniAvatar|changeScene|choose|end|setComplexAnimation|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|filmMode|setTextbox|setAnimation|playEffect|setTempAnimation|setTransform|setTransition|getUserInput|applyStyle|wait|callSteam)\\:)((?:\\\\.|[^\\n;])*?)(\\:)((?:\\\\.|[^\\n])*?)($|(?<!\\\\);.*?$)",
       "captures": {
         "1": {
           "name": "meta.character.webgal",
@@ -171,7 +171,7 @@
     },
     "command-colon": {
       "comment": "cmd:[arg0[ -args]][;cmt]",
-      "match": "^(intro|changeBg|changeFigure|playEffect|miniAvatar|changeScene|choose|end|bgm|playVideo|setComplexAnimation|setFilter|pixiInit|pixiPerform|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|say|filmMode|callScene|setTextbox|setAnimation|setTransition|setTransform|say|getUserInput|applyStyle|wait|manopedia|pediaUpdate|addItem|showItem|clearItem|presentTheEvidence|judgment|refute|thinking|testimony|clearTestimony)(\\:)([^\\;\\n]*?)($|\\;.*?$)",
+      "match": "^(say|changeBg|changeFigure|bgm|playVideo|pixiPerform|pixiInit|intro|miniAvatar|changeScene|choose|end|setComplexAnimation|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|filmMode|setTextbox|setAnimation|playEffect|setTempAnimation|setTransform|setTransition|getUserInput|applyStyle|wait|callSteam)(\\:)((?:\\\\.|[^\\n])*?)($|(?<!\\\\);.*?$)",
       "captures": {
         "1": {
           "name": "meta.command.webgal",
@@ -206,7 +206,7 @@
     },
     "command-semicolon": {
       "comment": "cmd;[cmt]",
-      "match": "^(intro|changeBg|changeFigure|playEffect|miniAvatar|changeScene|choose|end|bgm|playVideo|setComplexAnimation|setFilter|pixiInit|pixiPerform|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|say|filmMode|callScene|setTextbox|setAnimation|setTransition|setTransform|say|getUserInput|applyStyle|wait|manopedia|pediaUpdate|addItem|showItem|clearItem|presentTheEvidence|judgment|refute|thinking|testimony|clearTestimony)($|\\;.*?$)",
+      "match": "^(say|changeBg|changeFigure|bgm|playVideo|pixiPerform|pixiInit|intro|miniAvatar|changeScene|choose|end|setComplexAnimation|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|filmMode|setTextbox|setAnimation|playEffect|setTempAnimation|setTransform|setTransition|getUserInput|applyStyle|wait|callSteam)($|(?<!\\\\);.*?$)",
       "captures": {
         "1": {
           "name": "meta.command.webgal",
@@ -227,7 +227,7 @@
     },
     "utterance-semicolon": {
       "comment": "utt[ -args];[cmt]",
-      "match": "^(?!(?:intro|changeBg|changeFigure|playEffect|miniAvatar|changeScene|choose|end|bgm|playVideo|setComplexAnimation|setFilter|pixiInit|pixiPerform|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|say|filmMode|callScene|setTextbox|setAnimation|setTransition|setTransform|say|getUserInput|applyStyle|wait|manopedia|pediaUpdate|addItem|showItem|clearItem|presentTheEvidence|judgment|refute|thinking|testimony|clearTestimony)\\;)([^\\:\\;\\n]+?)(\\;.*?$)",
+      "match": "^(?!(?:say|changeBg|changeFigure|bgm|playVideo|pixiPerform|pixiInit|intro|miniAvatar|changeScene|choose|end|setComplexAnimation|label|jumpLabel|setVar|callScene|showVars|unlockCg|unlockBgm|filmMode|setTextbox|setAnimation|playEffect|setTempAnimation|setTransform|setTransition|getUserInput|applyStyle|wait|callSteam)\\;)((?:\\\\.|[^\\n])+?)($|(?<!\\\\);.*?$)",
       "captures": {
         "1": {
           "patterns": [
@@ -245,8 +245,62 @@
         }
       }
     },
+    "continuation-arguments": {
+      "comment": "多行语句的参数续行，ie `  -kwarg0=val0 -kwarg1`。行首空白提供了 argument-list 需要的分隔空格",
+      "match": "^(\\s+\\-(?:\\\\.|[^\\n;])*)($|(?<!\\\\);.*?$)",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#argument-list"
+            }
+          ]
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#comment-line"
+            }
+          ]
+        }
+      }
+    },
+    "continuation-text": {
+      "comment": "多行语句的文本续行，ie `  |第二段文字 -hold`",
+      "match": "^\\s+(\\|)((?:\\\\.|[^\\n;])*)($|(?<!\\\\);.*?$)",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#operator"
+            }
+          ]
+        },
+        "2": {
+          "patterns": [
+            {
+              "include": "#utterance"
+            }
+          ]
+        },
+        "3": {
+          "patterns": [
+            {
+              "include": "#comment-line"
+            }
+          ]
+        }
+      }
+    },
     "statement": {
       "patterns": [
+        {
+          "comment": "续行必须排在普通语句之前，否则会被当成对白正文",
+          "include": "#continuation-arguments"
+        },
+        {
+          "include": "#continuation-text"
+        },
         {
           "include": "#character-colon"
         },

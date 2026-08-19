@@ -5,14 +5,19 @@ import {
   TextDocumentChangeEvent,
 } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { IScene } from 'webgal-parser/build/types/interface/sceneInterface';
-import { pprintJSON } from '../../../util/strings';
+import {
+  IScene,
+  ISentence,
+} from 'webgal-parser/build/types/interface/sceneInterface';
 import { webgalParser } from '../../../util/webgal-parser';
-import { handleFileSuggestions } from './fileSuggestion';
+import {
+  handleAnimationFileSuggestions,
+  handleFileSuggestions,
+} from './fileSuggestion';
 import { commandType } from './commandArgs';
-import { lastVariables } from '../webgalLsp';
 import { getCommands } from '../suggestionRules/getCommands';
 import { getArgsKey } from '../suggestionRules/getArgsKey';
+import { findSentenceByLine, parseSentences } from '../sentenceLocator';
 
 /**
  * Cache the last document lines
@@ -65,7 +70,6 @@ export function checkTriggerCompletion(
 
   if (changedLine > 0) {
     const line = currentDocumentLines[changedLine];
-    console.debug(`changed line: ${line}`);
     if (line.trimEnd().endsWith(':')) {
       triggerCompletionCallback();
     }
@@ -86,6 +90,35 @@ function suggestVariables(params: CompletionParams) {
   });
 
   return result;
+}
+
+/**
+ * 取出光标所在的语句。
+ *
+ * 光标落在多行语句的续行上时，这一行单独看既没有命令也不成句，必须回到整条语句
+ * 的解析结果，参数建议才会对应正确的命令。其余情况仍然只解析光标之前的这一段，
+ * 这样对还没写完的语句（例如刚敲下 `changeFigure:`）也能给出建议。
+ */
+function resolveSentencesAtCursor(
+  params: CompletionParams,
+  document: TextDocument,
+  linePrefix: string,
+): ISentence[] {
+  const sentence = findSentenceByLine(
+    parseSentences(document.getText(), params.textDocument.uri),
+    params.position.line,
+  );
+
+  if (sentence && sentence.startLine !== params.position.line) {
+    return [sentence];
+  }
+
+  const scene: IScene = webgalParser.parse(
+    linePrefix,
+    'scene.txt',
+    params.textDocument.uri,
+  );
+  return scene.sentenceList;
 }
 
 export async function complete(
@@ -114,28 +147,29 @@ export async function complete(
     return getCommands();
   }
 
-  console.debug(`Line to complete: ${line}`);
-
   let suggestions: CompletionItem[] = [];
 
   // FIXME: Known bug: `getUserInput` returns commandType 0 (say)
   // FIXME: Known bug: `setTransition` returns commandType 0 (say)
-  const scene: IScene = webgalParser.parse(
-    line,
-    'scene.txt',
-    params.textDocument.uri,
-  );
+  const sentences = resolveSentencesAtCursor(params, document, line);
 
   // Currently, there SHOULD be only one sentence. But we still handle
   // potential modifications to the language specification.
-  for (const sentence of scene.sentenceList) {
-    console.debug(`Sentence: ${pprintJSON(sentence, true)}`);
-
+  for (const sentence of sentences) {
     let newSuggestions: CompletionItem[] = [];
 
     if (line.includes(' -')) {
       if (line.match('\\s\\-(\\w*?)$')) {
         newSuggestions = getArgsKey(line, sentence.command);
+      } else if (
+        line.match('\\s\\-(enter|exit)=[^\\s;]*$') &&
+        [
+          commandType.changeBg,
+          commandType.changeFigure,
+          commandType.setTransition,
+        ].includes(sentence.command)
+      ) {
+        newSuggestions = await handleAnimationFileSuggestions(basePath, line);
       }
     } else {
       switch (sentence.command) {
@@ -235,8 +269,6 @@ export async function complete(
 
     suggestions = suggestions.concat(newSuggestions);
   }
-
-  console.debug(`onCompletion: suggestions: ${pprintJSON(suggestions, true)}`);
 
   return suggestions;
 }

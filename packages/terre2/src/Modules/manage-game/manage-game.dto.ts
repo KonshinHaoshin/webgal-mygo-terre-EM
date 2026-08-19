@@ -16,6 +16,11 @@ export class CreateGameDto {
     required: false,
   })
   templateDir?: string;
+  @ApiProperty({
+    description: 'Whether to ignore the template when creating the game',
+    required: false,
+  })
+  ignoreTemplate?: boolean;
 }
 
 export class EditFileNameDto {
@@ -65,6 +70,11 @@ export class EditTextFileDto {
   textFile: string;
 }
 
+export class UpdateAnimationTableDto {
+  @ApiProperty({ description: 'The name of the game directory' })
+  gameName: string;
+}
+
 // game-config.dto.ts
 export class GameConfigDto {
   @ApiProperty({ description: 'The name of the game' })
@@ -81,7 +91,11 @@ export class GameInfoDto {
   dir: string;
   @ApiProperty({ description: 'The cover of the game' })
   cover: string;
-  @ApiProperty({ description: 'The template config of the game' })
+  @ApiProperty({
+    description: 'The template config of the game',
+    nullable: true,
+    type: () => TemplateConfigDto,
+  })
   template: TemplateConfigDto | null;
 }
 
@@ -117,6 +131,13 @@ export class RenameDto {
   newName: string;
 }
 
+export class TrashDto {
+  @ApiProperty({
+    description: 'The source path of the file or directory to be trashed',
+  })
+  gameName: string;
+}
+
 export type Platform = 'web' | 'electron' | 'android';
 
 export const platforms: Platform[] = ['web', 'electron', 'android'];
@@ -124,4 +145,9 @@ export const platforms: Platform[] = ['web', 'electron', 'android'];
 export class IconsDto {
   @ApiProperty({ description: 'The icons of the game' })
   platforms: Platform[];
+}
+
+export class SetFlowchartDto {
+  @ApiProperty({ description: 'The flowchart content in JSON format' })
+  flowchartContent: string;
 }

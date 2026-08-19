@@ -21,6 +21,9 @@ import {
   RenameFileDto,
   UploadFilesDto,
   EditTextFileDto,
+  ImageDimensionsResponseDto,
+  CopyFileWithIncrementDto,
+  TrashFileOrDirDto,
 } from './assets.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { _open } from '../../util/open';
@@ -150,6 +153,26 @@ export class AssetsController {
     );
   }
 
+  @Post('trash')
+  @ApiOperation({ summary: 'trash File or Directory' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully trash the file or directory.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Failed to trash the file or directory.',
+  })
+  async trashFileOrDir(@Body() fileOperationDto: TrashFileOrDirDto) {
+    const result = await this.webgalFs.trashFileOrDirectory(
+      this.webgalFs.getPathFromRoot(`public/${fileOperationDto.source}`),
+    );
+    if (!result) {
+      throw new BadRequestException('Failed to trash the file or directory.');
+    }
+    return result;
+  }
+
   @Post('editTextFile')
   @ApiOperation({ summary: 'Edit Text File' })
   @ApiResponse({ status: 200, description: 'File edited successfully.' })
@@ -158,5 +181,35 @@ export class AssetsController {
     const path = editTextFileData.path;
     const filePath = this.webgalFs.getPathFromRoot(`public/${path}`);
     return this.webgalFs.updateTextFile(filePath, editTextFileData.textFile);
+  }
+
+  @Get('getImageDimensions/:imagePath(*)')
+  @ApiOperation({ summary: 'Get Image Dimensions' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the width, height, and type of the image.',
+    type: ImageDimensionsResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Failed to get image dimensions.',
+  })
+  @ApiParam({
+    name: 'imagePath',
+    type: String,
+    description: 'Path to the image file relative to public/',
+  })
+  async getImageDimensions(@Param('imagePath') imagePath: string) {
+    return this.assets.getImageDimensions(imagePath);
+  }
+
+  @Post('copyFileWithIncrement')
+  @ApiOperation({ summary: 'Copy File With Increment' })
+  @ApiResponse({ status: 200, description: 'File copied successfully.' })
+  @ApiResponse({ status: 400, description: 'Failed to copy the file.' })
+  async copyFileWithIncrement(@Body() copyFileDto: CopyFileWithIncrementDto) {
+    const { source } = copyFileDto;
+    const sourcePath = this.webgalFs.getPathFromRoot(`public/${source}`);
+    return this.webgalFs.copyFileWithIncrement(sourcePath);
   }
 }

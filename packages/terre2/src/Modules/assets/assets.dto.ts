@@ -42,6 +42,18 @@ export class RenameFileDto {
   newName: string;
 }
 
+export class TrashFileOrDirDto {
+  @ApiProperty({
+    description: 'The source path of the file or directory to be thrashed',
+  })
+  source: string;
+}
+
+export class CopyFileWithIncrementDto {
+  @ApiProperty({ description: 'The source path of the file to be copied' })
+  source: string;
+}
+
 export class EditTextFileDto {
   @ApiProperty({ description: 'The path of textfile' })
   path: string;
@@ -61,4 +73,15 @@ export class ApplyTemplateToGameDto {
     description: 'The game name to be applied.',
   })
   gameDir: string;
+}
+
+export class ImageDimensionsResponseDto {
+  @ApiProperty({ description: 'Width of the image in pixels' })
+  width: number;
+
+  @ApiProperty({ description: 'Height of the image in pixels' })
+  height: number;
+
+  @ApiProperty({ description: 'Image file type (e.g., jpg, png, gif, webp)' })
+  type: string;
 }

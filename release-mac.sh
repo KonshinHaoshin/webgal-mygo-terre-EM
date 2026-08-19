@@ -9,7 +9,7 @@ mkdir release
 
 # 进入 Terre 目录
 cd packages/terre2
-yarn run build
+yarn run build-standalone
 yarn run pkg
 cd dist
 cp -r WebGAL_Terre  ../../../release
@@ -18,6 +18,11 @@ cd ../
 mkdir Exported_Games
 cp -r public assets Exported_Games ../../release
 cd ../../
+
+# 复制 trash 库的原生二进制
+mkdir release/lib
+cp node_modules/trash/lib/macos-trash release/lib
+chmod +x release/lib/macos-trash
 
 # 进入 Origine 目录
 cd packages/origine2
@@ -31,6 +36,15 @@ cd ../../
 cd packages/WebGAL-electron
 yarn install --frozen-lockfile
 yarn run build-universal
+# 拷贝 mac Steam API 动态库
+STEAM_API_DYLIB="node_modules/steamworks.js/dist/osx/libsteam_api.dylib"
+if [ -f "$STEAM_API_DYLIB" ]; then
+    TARGET_DIR="build/mac-universal/WebGAL.app/Contents/Resources/app/node_modules/steamworks.js/dist/osx"
+    mkdir -p "$TARGET_DIR"
+    cp "$STEAM_API_DYLIB" "$TARGET_DIR/"
+else
+    echo "warning: Steamworks redistributable not found at $STEAM_API_DYLIB" >&2
+fi
 mkdir ../../release/assets/templates/WebGAL_Electron_Template
 cp -rf build/mac-universal/WebGAL.app/* ../../release/assets/templates/WebGAL_Electron_Template/
 cd ../../
@@ -69,6 +83,9 @@ cd release
 # 写脚本
 echo 'cd "$(dirname "$0")"' >> run-webgal-on-mac.command
 echo 'cd WebGAL' >> run-webgal-on-mac.command
+# 压缩包不保留执行权限，且下载后会被 Gatekeeper 隔离，启动时修复回收站二进制
+echo 'chmod +x lib/macos-trash 2>/dev/null' >> run-webgal-on-mac.command
+echo 'xattr -c lib/macos-trash 2>/dev/null' >> run-webgal-on-mac.command
 echo './WebGAL_Terre' >> run-webgal-on-mac.command
 chmod +x run-webgal-on-mac.command
 chmod +x WebGAL/WebGAL_Terre

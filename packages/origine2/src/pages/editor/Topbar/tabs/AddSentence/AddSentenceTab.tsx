@@ -5,50 +5,40 @@ import {ISentenceEditorConfig, sentenceEditorConfig} from "@/pages/editor/Graphi
 import {cloneElement} from "react";
 import {eventBus} from "@/utils/eventBus";
 import {t} from "@lingui/macro";
+import {commandType} from "webgal-parser/src/interface/sceneInterface";
 
 function addSentenceText(text: string) {
-  console.log(text);
-  eventBus.emit('topbar-add-sentence', text);
+  eventBus.emit('editor:topbar-add-sentence', { sentence: text });
 }
 
-function pickSentenceType(indexes: Array<number>) {
-  return indexes.map(index => sentenceEditorConfig[index]).filter(item => item !== undefined).map((e, index) => convertSentenceToNode(e, index));
+function pickSentenceType(types: Array<commandType>) {
+  return types
+    .map(type => sentenceEditorConfig.find(item => item.type === type))
+    .filter((item): item is ISentenceEditorConfig => item !== undefined)
+    .map(convertSentenceToNode);
 }
 
-function pickSentenceTypeWithKey(indexes: Array<number>, keyPrefix: string) {
-  return indexes
-    .map(index => sentenceEditorConfig[index])
-    .filter(item => item !== undefined)
-    .map((e, index) => convertSentenceToNode(e, `${keyPrefix}-${index}`));
-}
-
-function chunkList<T>(items: Array<T>, size: number): Array<Array<T>> {
-  const result: Array<Array<T>> = [];
-  for (let i = 0; i < items.length; i += size) {
-    result.push(items.slice(i, i + size));
-  }
-  return result;
-}
-
-function convertSentenceToNode(sentence: ISentenceEditorConfig, index: number | string) {
+function convertSentenceToNode(sentence: ISentenceEditorConfig) {
   const iconSmall = cloneElement(sentence.icon, {size: "18px"});
-  return <IconWithTextItemSmall key={`sentenceAddSmall${index}`} onClick={() => addSentenceText(sentence.initialText())}
+  return <IconWithTextItemSmall key={`sentenceAddSmall${sentence.type}`} onClick={() => addSentenceText(sentence.initialText())}
     icon={iconSmall}
     text={sentence.title()}/>;
 }
 
 export function AddSentenceTab() {
 
-  const btsCommon1 = pickSentenceType([0, 1, 2]);
-  const btsCommon2 = pickSentenceType([4, 5]);
-  const btsSpecial = pickSentenceType([8, 12, 13]);
-  const btsSpecial2 = pickSentenceType([6, 7, 22]);
-  const btsBranch1 = pickSentenceType([9, 10, 11]);
-  const btsBranch2 = pickSentenceType([28, 29]);
-  const btsExtra = pickSentenceType([14, 15]);
-  const btsSystemAll = pickSentenceTypeWithKey([16, 17, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 18], "system");
-  const btsSystemColumns = chunkList(btsSystemAll, 3);
-  const btsControl = pickSentenceType([3, 20, 21]);
+  const btsCommon1 = pickSentenceType([commandType.say, commandType.changeBg, commandType.changeFigure]);
+  const btsCommon2 = pickSentenceType([commandType.bgm, commandType.video, commandType.playEffect]);
+  const btsControl = pickSentenceType([commandType.setAnimation, commandType.setComplexAnimation, commandType.setTransform]);
+  const btsControl2 = pickSentenceType([commandType.setTempAnimation, commandType.setTransition]);
+  const btsSpecial = pickSentenceType([commandType.pixi, commandType.pixiInit, commandType.intro]);
+  const btsSpecial2 = pickSentenceType([commandType.miniAvatar, commandType.setTextbox, commandType.filmMode]);
+  const btsBranch = pickSentenceType([commandType.callScene, commandType.changeScene, commandType.choose]);
+  const btsBranch2 = pickSentenceType([commandType.label, commandType.jumpLabel, commandType.return]);
+  const btsExtra = pickSentenceType([commandType.unlockCg, commandType.unlockBgm]);
+  const btsSystem = pickSentenceType([commandType.getUserInput, commandType.setVar, commandType.showVars]);
+  const btsSystem2 = pickSentenceType([commandType.wait, commandType.applyStyle, commandType.callSteam]);
+  const btsSystem3 = pickSentenceType([commandType.end]);
 
   return <TopbarTab>
     <TabItem title={t`常规演出`}>
@@ -63,6 +53,9 @@ export function AddSentenceTab() {
       <div>
         {btsControl}
       </div>
+      <div>
+        {btsControl2}
+      </div>
     </TabItem>
     <TabItem title={t`特殊演出`}>
       <div>
@@ -74,7 +67,7 @@ export function AddSentenceTab() {
     </TabItem>
     <TabItem title={t`场景与分支`}>
       <div>
-        {btsBranch1}
+        {btsBranch}
       </div>
       <div>
         {btsBranch2}
@@ -86,11 +79,15 @@ export function AddSentenceTab() {
       </div>
     </TabItem>
     <TabItem title={t`游戏控制`}>
-      {btsSystemColumns.map((column, index) => (
-        <div key={`system-col-${index}`}>
-          {column}
-        </div>
-      ))}
+      <div>
+        {btsSystem}
+      </div>
+      <div>
+        {btsSystem2}
+      </div>
+      <div>
+        {btsSystem3}
+      </div>
     </TabItem>
   </TopbarTab>;
 }

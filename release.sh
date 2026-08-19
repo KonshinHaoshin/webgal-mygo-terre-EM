@@ -9,7 +9,7 @@ mkdir release
 
 # 进入 Terre 目录
 cd packages/terre2
-yarn run build
+yarn run build-standalone
 yarn run pkg
 yarn run update-exe-resources
 cd dist
@@ -24,6 +24,9 @@ cd ../../
 mkdir release/lib
 curl -L https://github.com/electron/rcedit/releases/latest/download/rcedit-x64.exe -o release/lib/rcedit-x64.exe
 
+# 复制 trash 库的原生二进制
+cp node_modules/trash/lib/windows-trash.exe release/lib
+
 # 进入 Origine 目录
 cd packages/origine2
 yarn run build
@@ -34,6 +37,13 @@ cd ../../
 cd packages/WebGAL-electron
 yarn install --frozen-lockfile
 yarn run build
+# 拷贝 Windows Steam API 动态库
+STEAM_API_DLL="node_modules/steamworks.js/dist/win64/steam_api64.dll"
+if [ -f "$STEAM_API_DLL" ]; then
+    cp "$STEAM_API_DLL" build/win-unpacked/
+else
+    echo "warning: Steamworks redistributable not found at $STEAM_API_DLL" >&2
+fi
 mkdir ../../release/assets/templates/WebGAL_Electron_Template
 cp -rf build/win-unpacked/* ../../release/assets/templates/WebGAL_Electron_Template/
 cd ../../

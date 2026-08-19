@@ -11,7 +11,7 @@ import { extNameMap } from "../../ChooseFile/chooseFileConfig";
 
 export default function PlayEffect(props: ISentenceEditorProps) {
   const fileName = useValue(props.sentence.content);
-  const isNoFile = props.sentence.content === "";
+  const isNoFile = props.sentence.content === "" || props.sentence.content === "none";
   const id = useValue(getArgByKey(props.sentence, "id").toString() ?? "");
   const volume = useValue(getArgByKey(props.sentence, "volume").toString() ?? "");
   const submit = () => {
@@ -23,13 +23,14 @@ export default function PlayEffect(props: ISentenceEditorProps) {
         {key: "volume", value: volume.value},
         {key: "id", value: id.value},
       ],
+      props.sentence.inlineComment,
     );
     props.onSubmit(submitString);
   };
 
   return <div className={styles.sentenceEditorContent}>
     <div className={styles.editItem}>
-      <CommonOptions key="isNoDialog" title={t`关闭效果音`}>
+      <CommonOptions key="isNoDialog" title={t`效果音播放状态`}>
         <TerreToggle title="" onChange={(newValue) => {
           if (!newValue) {
             fileName.set(t`选择效果音文件`);
@@ -72,6 +73,7 @@ export default function PlayEffect(props: ISentenceEditorProps) {
           style={{ width: "100%" }}
         />
       </CommonOptions>
+      {props.extraOptions}
     </div>
   </div>;
 }

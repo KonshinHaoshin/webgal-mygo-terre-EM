@@ -40,17 +40,8 @@ export enum commandType {
   getUserInput = 31,
   applyStyle = 32,
   wait = 33,
-  manopedia = 34,
-  pediaUpdate = 35,
-  addItem = 36,
-  showItem = 37,
-  clearItem = 38,
-  presentTheEvidence = 39,
-  judgment = 40,
-  refute = 41,
-  thinking = 42,
-  testimony = 43,
-  clearTestimony = 44
+  callSteam = 34,
+  return = 35,
 }
 
 export function markdown(content: string): MarkupContent {
