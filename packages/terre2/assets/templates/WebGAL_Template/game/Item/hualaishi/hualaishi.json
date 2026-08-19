@@ -1,0 +1,12 @@
+{
+  "id": "hualaishi",
+  "name": "被使用过的透明手套",
+  "description": "手套上的水迹似乎已经干涸\n\n但是上面依然散发着和刚刚找到的指套相似的味道",
+  "icon": "hualaishi.png",
+  "image": "hualaishi.png",
+  "category": "weapon",
+  "allowMultipleInCategory": false,
+  "effects": ["say:哈哈;"],
+  "maxStack": 1,
+  "consumable": false
+}

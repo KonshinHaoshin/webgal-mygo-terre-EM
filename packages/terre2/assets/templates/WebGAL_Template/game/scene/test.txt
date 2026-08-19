@@ -1,0 +1,7 @@
+judgment:begins -timer=13:20:000 -timeout=1.txt;
+label:label_1;
+setTextbox:hide;
+testimony:你好，我是东山燃灯 -left -y=400 -refutes={"东山燃灯":"thinking:@back"};
+testimony:感觉画质……不如原神 -left -y=600;
+clearTestimony:;
+jumpLabel:label_1;

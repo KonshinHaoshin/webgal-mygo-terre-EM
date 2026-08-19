@@ -1,0 +1,12 @@
+{
+  "id": "SAPPHO",
+  "name": "被使用过的情趣手指套",
+  "description": "指套约半指节长，硅胶表面布满细密的褶皱。\n\n似乎是几天前使用的，上面有股子味道。就放在祥子的床上",
+  "icon": "SAPPHO.png",
+  "image": "SAPPHO.png",
+  "category": "weapon",
+  "allowMultipleInCategory": false,
+  "effects": ["say:哈哈;"],
+  "maxStack": 1,
+  "consumable": false
+}
