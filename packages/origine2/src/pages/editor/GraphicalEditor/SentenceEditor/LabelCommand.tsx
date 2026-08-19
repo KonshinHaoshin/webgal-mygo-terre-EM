@@ -21,9 +21,10 @@ export default function LabelCommand(props: ISentenceEditorProps) {
     const submitString = combineSubmitString(
       commandKey,
       labelName.value,
-      props.sentence.args,
-      [],
-    );
+        props.sentence.args,
+        [],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

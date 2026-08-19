@@ -110,6 +110,9 @@ msgstr "Live2D 动作"
 msgid "Live2D 表情"
 msgstr "Live2D 表情"
 
+msgid "LUT 滤镜"
+msgstr "LUT 滤镜"
+
 msgid "miniAvatar:选择小头像;"
 msgstr "miniAvatar:选择小头像;"
 
@@ -161,6 +164,9 @@ msgstr "showVars 通常不需要内容"
 msgid "showVars;"
 msgstr "showVars;"
 
+msgid "Spine"
+msgstr "Spine"
+
 msgid "Spine 动画"
 msgstr "Spine 动画"
 
@@ -179,17 +185,29 @@ msgstr "unlockCg:;"
 msgid "wait:1000;"
 msgstr "wait:1000;"
 
+msgid "WebGAL Mano"
+msgstr "WebGAL Mano"
+
 msgid "WebGAL Standard"
 msgstr "WebGAL Standard"
 
 msgid "WebGAL Terre 4.6 使用新的用户数据目录。建议检查并迁移旧版本数据。"
 msgstr "WebGAL Terre 4.6 使用新的用户数据目录。建议检查并迁移旧版本数据。"
 
+msgid "X 轴位置"
+msgstr "X 轴位置"
+
 msgid "X轴位移"
 msgstr "X轴位移"
 
 msgid "X轴缩放"
 msgstr "X轴缩放"
+
+msgid "Y 轴位置"
+msgstr "Y 轴位置"
+
+msgid "Y 轴高度"
+msgstr "Y 轴高度"
 
 msgid "Y轴位移"
 msgstr "Y轴位移"
@@ -338,6 +356,9 @@ msgstr "例如：-100,-100,100,100"
 msgid "例如：^.{regexRange}$"
 msgstr "例如：^.{regexRange}$"
 
+msgid "例如：13:20:000"
+msgstr "例如：13:20:000"
+
 msgid "例如：a=1 或 name=WebGAL"
 msgstr "例如：a=1 或 name=WebGAL"
 
@@ -349,6 +370,9 @@ msgstr "例如：fig-center"
 
 msgid "例如：i"
 msgstr "例如：i"
+
+msgid "例如：label_1"
+msgstr "例如：label_1"
 
 msgid "例如：universalSoftIn"
 msgstr "例如：universalSoftIn"
@@ -491,6 +515,9 @@ msgstr "写入变量"
 msgid "写入哪里"
 msgstr "写入哪里"
 
+msgid "出示证物"
+msgstr "出示证物"
+
 msgid "分支选择"
 msgstr "分支选择"
 
@@ -530,8 +557,14 @@ msgstr "创建新模板"
 msgid "创建新游戏"
 msgstr "创建新游戏"
 
+msgid "创建标签供 jumpLabel 或分支选项跳转"
+msgstr "创建标签供 jumpLabel 或分支选项跳转"
+
 msgid "删除"
 msgstr "删除"
+
+msgid "删除关键词"
+msgstr "删除关键词"
 
 msgid "删除参数"
 msgstr "删除参数"
@@ -547,6 +580,9 @@ msgstr "删除模板"
 
 msgid "删除游戏"
 msgstr "删除游戏"
+
+msgid "删除选项"
+msgstr "删除选项"
 
 msgid "刷新"
 msgstr "刷新"
@@ -571,6 +607,9 @@ msgstr "动画名"
 
 msgid "动画帧控制"
 msgstr "动画帧控制"
+
+msgid "匹配文本"
+msgstr "匹配文本"
 
 msgid "半张嘴"
 msgstr "半张嘴"
@@ -607,6 +646,15 @@ msgstr "参数名"
 
 msgid "反射电影滤镜"
 msgstr "反射电影滤镜"
+
+msgid "反驳"
+msgstr "反驳"
+
+msgid "反驳与高亮"
+msgstr "反驳与高亮"
+
+msgid "反驳素材"
+msgstr "反驳素材"
 
 msgid "发布的游戏可以在 <0>https://www.openwebgal.com/games/</0> 展示，欢迎分享你的作品！"
 msgstr "发布的游戏可以在 <0>https://www.openwebgal.com/games/</0> 展示，欢迎分享你的作品！"
@@ -704,6 +752,9 @@ msgstr "图片"
 msgid "图片差分"
 msgstr "图片差分"
 
+msgid "图鉴更新"
+msgstr "图鉴更新"
+
 msgid "圆形"
 msgstr "圆形"
 
@@ -749,6 +800,9 @@ msgstr "场景与分支"
 msgid "场景文件"
 msgstr "场景文件"
 
+msgid "场景文件或标签名"
+msgstr "场景文件或标签名"
+
 msgid "场景返回"
 msgstr "场景返回"
 
@@ -778,6 +832,9 @@ msgstr "大雪"
 
 msgid "如果使用了自定义模板导致预览效果异常，请关闭此选项。"
 msgstr "如果使用了自定义模板导致预览效果异常，请关闭此选项。"
+
+msgid "姿势（pose）"
+msgstr "姿势（pose）"
 
 msgid "字体"
 msgstr "字体"
@@ -836,6 +893,15 @@ msgstr "实时预览打开"
 msgid "实验性快速预览"
 msgstr "实验性快速预览"
 
+msgid "审判时间"
+msgstr "审判时间"
+
+msgid "审判流程控制"
+msgstr "审判流程控制"
+
+msgid "审判状态"
+msgstr "审判状态"
+
 msgid "宽度"
 msgstr "宽度"
 
@@ -887,6 +953,9 @@ msgstr "将文本框文本设置为已读"
 msgid "将文本框文本设置为未读"
 msgstr "将文本框文本设置为未读"
 
+msgid "将物品加入魔女图鉴, 物品放置在Item文件夹下"
+msgstr "将物品加入魔女图鉴, 物品放置在Item文件夹下"
+
 msgid "小"
 msgstr "小"
 
@@ -928,6 +997,12 @@ msgstr "展示小头像"
 
 msgid "展示未解锁节点"
 msgstr "展示未解锁节点"
+
+msgid "展示证物"
+msgstr "展示证物"
+
+msgid "展示魔女图鉴中的物品, 物品放置在Item文件夹下"
+msgstr "展示魔女图鉴中的物品, 物品放置在Item文件夹下"
 
 msgid "属性"
 msgstr "属性"
@@ -1007,6 +1082,9 @@ msgstr "应用的模板"
 msgid "应用颜色变化"
 msgstr "应用颜色变化"
 
+msgid "庭审"
+msgstr "庭审"
+
 msgid "延迟时间（秒）"
 msgstr "延迟时间（秒）"
 
@@ -1016,11 +1094,17 @@ msgstr "开启"
 msgid "开始"
 msgstr "开始"
 
+msgid "开始审判"
+msgstr "开始审判"
+
 msgid "开始迁移"
 msgstr "开始迁移"
 
 msgid "张开嘴"
 msgstr "张开嘴"
+
+msgid "强制弹出魔女图鉴，选择证物后跳转"
+msgstr "强制弹出魔女图鉴，选择证物后跳转"
 
 msgid "强度"
 msgstr "强度"
@@ -1076,6 +1160,15 @@ msgstr "忽略"
 msgid "忽略此版本"
 msgstr "忽略此版本"
 
+msgid "思考"
+msgstr "思考"
+
+msgid "思考内容"
+msgstr "思考内容"
+
+msgid "思考图片"
+msgstr "思考图片"
+
 msgid "恢复默认目录"
 msgstr "恢复默认目录"
 
@@ -1105,6 +1198,9 @@ msgstr "打开用户数据目录"
 
 msgid "打开设置"
 msgstr "打开设置"
+
+msgid "打开证物选择"
+msgstr "打开证物选择"
 
 msgid "打开配置目录"
 msgstr "打开配置目录"
@@ -1136,8 +1232,14 @@ msgstr "指针"
 msgid "排序方式"
 msgstr "排序方式"
 
+msgid "控制庭审流程"
+msgstr "控制庭审流程"
+
 msgid "控制是否要显示文本框"
 msgstr "控制是否要显示文本框"
+
+msgid "控制魔女图鉴"
+msgstr "控制魔女图鉴"
 
 msgid "提交"
 msgstr "提交"
@@ -1172,6 +1274,9 @@ msgstr "提示：效果只有在切换到不同背景或关闭之前的背景再
 msgid "提示：样式中用到的资源放在 assets 目录下"
 msgstr "提示：样式中用到的资源放在 assets 目录下"
 
+msgid "提示：每个选项的跳转目标支持场景文件或标签名，思考图片放在thinking文件夹内，选项图标放在thinking_button文件夹内"
+msgstr "提示：每个选项的跳转目标支持场景文件或标签名，思考图片放在thinking文件夹内，选项图标放在thinking_button文件夹内"
+
 msgid "提示按钮文本"
 msgstr "提示按钮文本"
 
@@ -1183,6 +1288,12 @@ msgstr "播放一小段视频"
 
 msgid "播放一段效果音"
 msgstr "播放一段效果音"
+
+msgid "播放反驳并跳转"
+msgstr "播放反驳并跳转"
+
+msgid "播放反驳素材并跳转"
+msgstr "播放反驳素材并跳转"
 
 msgid "播放效果音"
 msgstr "播放效果音"
@@ -1376,6 +1487,9 @@ msgstr "显示侧边栏"
 msgid "显示变量"
 msgstr "显示变量"
 
+msgid "显示图鉴更新提示"
+msgstr "显示图鉴更新提示"
+
 msgid "显示效果"
 msgstr "显示效果"
 
@@ -1388,8 +1502,14 @@ msgstr "显示立绘"
 msgid "显示背景"
 msgstr "显示背景"
 
+msgid "显示返回选项"
+msgstr "显示返回选项"
+
 msgid "显示预览窗口"
 msgstr "显示预览窗口"
+
+msgid "显示魔女图鉴"
+msgstr "显示魔女图鉴"
 
 msgid "普通对话"
 msgstr "普通对话"
@@ -1418,14 +1538,23 @@ msgstr "替换 UI 样式标签"
 msgid "替换同目标动画"
 msgstr "替换同目标动画"
 
+msgid "未找到 Item 文件夹"
+msgstr "未找到 Item 文件夹"
+
 msgid "未指定"
 msgstr "未指定"
+
+msgid "未设置"
+msgstr "未设置"
 
 msgid "未识别"
 msgstr "未识别"
 
 msgid "未识别的指令"
 msgstr "未识别的指令"
+
+msgid "未选择"
+msgstr "未选择"
 
 msgid "未选择跳转目标"
 msgstr "未选择跳转目标"
@@ -1559,6 +1688,12 @@ msgstr "正常播放 BGM"
 msgid "正片叠底"
 msgstr "正片叠底"
 
+msgid "正确触发"
+msgstr "正确触发"
+
+msgid "此指令将弹出魔女图鉴更新的提示"
+msgstr "此指令将弹出魔女图鉴更新的提示"
+
 msgid "此指令将结束游戏"
 msgstr "此指令将结束游戏"
 
@@ -1628,6 +1763,9 @@ msgstr "添加一行注释"
 msgid "添加一首音乐到音乐鉴赏界面"
 msgstr "添加一首音乐到音乐鉴赏界面"
 
+msgid "添加关键词"
+msgstr "添加关键词"
+
 msgid "添加动画帧"
 msgstr "添加动画帧"
 
@@ -1652,11 +1790,29 @@ msgstr "添加自定义属性"
 msgid "添加节点"
 msgstr "添加节点"
 
+msgid "添加证物"
+msgstr "添加证物"
+
+msgid "添加证物到图鉴"
+msgstr "添加证物到图鉴"
+
 msgid "添加语句"
 msgstr "添加语句"
 
+msgid "添加选项"
+msgstr "添加选项"
+
+msgid "清除"
+msgstr "清除"
+
+msgid "清除全部证物"
+msgstr "清除全部证物"
+
 msgid "清除当前舞台的特殊效果"
 msgstr "清除当前舞台的特殊效果"
+
+msgid "清除当前证词展示内容"
+msgstr "清除当前证词展示内容"
 
 msgid "清除提示"
 msgstr "清除提示"
@@ -1669,6 +1825,15 @@ msgstr "清除立绘"
 
 msgid "清除角色名，留空角色名的语句不再显示角色名"
 msgstr "清除角色名，留空角色名的语句不再显示角色名"
+
+msgid "清除证物"
+msgstr "清除证物"
+
+msgid "清除证言"
+msgstr "清除证言"
+
+msgid "清除魔女图鉴中的所有证物"
+msgstr "清除魔女图鉴中的所有证物"
 
 msgid "游戏"
 msgstr "游戏"
@@ -1715,6 +1880,9 @@ msgstr "点击或拖拽文件至此上传"
 msgid "点状电影滤镜"
 msgstr "点状电影滤镜"
 
+msgid "物品 ID"
+msgstr "物品 ID"
+
 msgid "特效来源"
 msgstr "特效来源"
 
@@ -1756,6 +1924,9 @@ msgstr "留空表示不返回值。可填数字、true/false、字符串或表�
 
 msgid "百分比。 0-100 有效"
 msgstr "百分比。 0-100 有效"
+
+msgid "百叶窗"
+msgstr "百叶窗"
 
 msgid "目前没有打开任何文件"
 msgstr "目前没有打开任何文件"
@@ -1847,6 +2018,9 @@ msgstr "立绘文件"
 msgid "立绘清除参数"
 msgstr "立绘清除参数"
 
+msgid "立绘类型"
+msgstr "立绘类型"
+
 msgid "等待"
 msgstr "等待"
 
@@ -1885,6 +2059,9 @@ msgstr "终点弹跳"
 
 msgid "结束后保持"
 msgstr "结束后保持"
+
+msgid "结束审判 (会播放动画)"
+msgstr "结束审判 (会播放动画)"
 
 msgid "结束当前 BGM 的播放"
 msgstr "结束当前 BGM 的播放"
@@ -1925,6 +2102,9 @@ msgstr "缓动类型"
 msgid "编辑图标"
 msgstr "编辑图标"
 
+msgid "编辑思考选项"
+msgstr "编辑思考选项"
+
 msgid "编辑更多选项"
 msgstr "编辑更多选项"
 
@@ -1939,6 +2119,12 @@ msgstr "编辑游戏"
 
 msgid "编辑组件"
 msgstr "编辑组件"
+
+msgid "编辑证言与反驳"
+msgstr "编辑证言与反驳"
+
+msgid "编辑魔女图鉴物品, 物品放置在Item文件夹下"
+msgstr "编辑魔女图鉴物品, 物品放置在Item文件夹下"
 
 msgid "繁体中文"
 msgstr "繁体中文"
@@ -2120,6 +2306,15 @@ msgstr "设置立绘或背景的进出场动画"
 msgid "设置自定义级联选择器分隔符（输入后按回车键确认）"
 msgstr "设置自定义级联选择器分隔符（输入后按回车键确认）"
 
+msgid "证物 ID"
+msgstr "证物 ID"
+
+msgid "证言"
+msgstr "证言"
+
+msgid "证词文本"
+msgstr "证词文本"
+
 msgid "该指令会在文本框显示当前变量。"
 msgstr "该指令会在文本框显示当前变量。"
 
@@ -2195,6 +2390,9 @@ msgstr "起点回弹"
 msgid "起点弹跳"
 msgstr "起点弹跳"
 
+msgid "超时跳转"
+msgstr "超时跳转"
+
 msgid "跨语句动画"
 msgstr "跨语句动画"
 
@@ -2207,11 +2405,23 @@ msgstr "跳转到场景"
 msgid "跳转到当前场景内的标签"
 msgstr "跳转到当前场景内的标签"
 
+msgid "跳转到指定标签"
+msgstr "跳转到指定标签"
+
 msgid "跳转到本场景标签"
 msgstr "跳转到本场景标签"
 
+msgid "跳转场景或标签"
+msgstr "跳转场景或标签"
+
 msgid "跳转标签"
 msgstr "跳转标签"
+
+msgid "跳转目标"
+msgstr "跳转目标"
+
+msgid "转场类型"
+msgstr "转场类型"
 
 msgid "软化（0-1）"
 msgstr "软化（0-1）"
@@ -2233,6 +2443,9 @@ msgstr "输入校验正则"
 
 msgid "输入目标 ID"
 msgstr "输入目标 ID"
+
+msgid "输入证词文本"
+msgstr "输入证词文本"
 
 msgid "迁移到此目录"
 msgstr "迁移到此目录"
@@ -2261,17 +2474,26 @@ msgstr "进出场动画"
 msgid "连续执行"
 msgstr "连续执行"
 
+msgid "退出审判 (不会播放动画)"
+msgstr "退出审判 (不会播放动画)"
+
 msgid "退场时长（单位为毫秒）"
 msgstr "退场时长（单位为毫秒）"
 
 msgid "选择"
 msgstr "选择"
 
+msgid "选择 LUT 文件"
+msgstr "选择 LUT 文件"
+
 msgid "选择动画"
 msgstr "选择动画"
 
 msgid "选择动画文件"
 msgstr "选择动画文件"
+
+msgid "选择反驳素材"
+msgstr "选择反驳素材"
 
 msgid "选择图片"
 msgstr "选择图片"
@@ -2291,6 +2513,9 @@ msgstr "选择小头像文件"
 msgid "选择应用的模板"
 msgstr "选择应用的模板"
 
+msgid "选择思考图片"
+msgstr "选择思考图片"
+
 msgid "选择效果音文件"
 msgstr "选择效果音文件"
 
@@ -2299,6 +2524,9 @@ msgstr "选择文件"
 
 msgid "选择游戏引擎版本"
 msgstr "选择游戏引擎版本"
+
+msgid "选择物品"
+msgstr "选择物品"
 
 msgid "选择目录"
 msgstr "选择目录"
@@ -2309,6 +2537,9 @@ msgstr "选择视频文件"
 msgid "选择立绘文件"
 msgstr "选择立绘文件"
 
+msgid "选择素材文件"
+msgstr "选择素材文件"
+
 msgid "选择背景图片"
 msgstr "选择背景图片"
 
@@ -2317,6 +2548,9 @@ msgstr "选择背景文件"
 
 msgid "选择背景音乐"
 msgstr "选择背景音乐"
+
+msgid "选择证物"
+msgstr "选择证物"
 
 msgid "选择语音文件"
 msgstr "选择语音文件"
@@ -2339,6 +2573,9 @@ msgstr "选择退出动画"
 msgid "选择退出动画文件"
 msgstr "选择退出动画文件"
 
+msgid "选择选项图标"
+msgstr "选择选项图标"
+
 msgid "选择鉴赏资源文件"
 msgstr "选择鉴赏资源文件"
 
@@ -2357,6 +2594,9 @@ msgstr "选项列表"
 msgid "选项名称"
 msgstr "选项名称"
 
+msgid "选项图标"
+msgstr "选项图标"
+
 msgid "选项按钮"
 msgstr "选项按钮"
 
@@ -2365,6 +2605,9 @@ msgstr "选项按钮（禁用）"
 
 msgid "选项按钮外层"
 msgstr "选项按钮外层"
+
+msgid "选项文本"
+msgstr "选项文本"
 
 msgid "透明度（0-1）"
 msgstr "透明度（0-1）"
@@ -2417,6 +2660,9 @@ msgstr "鉴赏资源文件"
 msgid "鉴赏音乐"
 msgstr "鉴赏音乐"
 
+msgid "错误触发"
+msgstr "错误触发"
+
 msgid "长效"
 msgstr "长效"
 
@@ -2443,6 +2689,12 @@ msgstr "隐藏侧边栏"
 
 msgid "隐藏文本框"
 msgstr "隐藏文本框"
+
+msgid "隐藏返回选项"
+msgstr "隐藏返回选项"
+
+msgid "隐藏魔女图鉴"
+msgstr "隐藏魔女图鉴"
 
 msgid "雨"
 msgstr "雨"
@@ -2503,6 +2755,12 @@ msgstr "高度"
 
 msgid "高斯模糊"
 msgstr "高斯模糊"
+
+msgid "魔女图鉴"
+msgstr "魔女图鉴"
+
+msgid "魔女图鉴显示"
+msgstr "魔女图鉴显示"
 
 msgid "默认"
 msgstr "默认"

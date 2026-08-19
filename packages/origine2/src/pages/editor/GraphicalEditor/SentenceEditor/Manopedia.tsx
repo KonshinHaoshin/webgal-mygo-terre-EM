@@ -12,9 +12,10 @@ export default function Manopedia(props: ISentenceEditorProps) {
     const submitString = combineSubmitString(
       props.sentence.commandRaw,
       isShowManopedia.value ? "on" : "off",
-      props.sentence.args,
-      [],
-    );
+        props.sentence.args,
+        [],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

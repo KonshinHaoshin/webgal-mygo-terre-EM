@@ -445,4 +445,23 @@ callSteam: -achievementId=achievementId;
 \`\`\``,
     ),
   },
+  ...[
+    ['manopedia', '魔女图鉴显示', 'manopedia:on;'],
+    ['pediaUpdate', '魔女图鉴更新', 'pediaUpdate:;'],
+    ['addItem', '添加证物', 'addItem:SAPPHO;'],
+    ['showItem', '展示证物', 'showItem:SAPPHO;'],
+    ['clearItem', '清除证物', 'clearItem:;'],
+    ['presentTheEvidence', '出示证物', 'presentTheEvidence:success|fail @SAPPHO;'],
+    ['judgment', '审判', 'judgment:begins -timer=13:20:000 -timeout=scene.txt;'],
+    ['refute', '反驳', 'refute:refute.webm -goto=label_1;'],
+    ['thinking', '思考', 'thinking:avatar.png 选项:label_1|@back;'],
+    ['testimony', '证词', 'testimony:证词文本 -left -y=400;'],
+    ['clearTestimony', '清除证词', 'clearTestimony:;'],
+  ].map(([label, detail, example]) => ({
+    kind: CompletionItemKind.Function,
+    label,
+    insertText: makeInsertText(label),
+    detail,
+    documentation: markdown(`\`\`\`\n${example}\n\`\`\``),
+  })),
 ];

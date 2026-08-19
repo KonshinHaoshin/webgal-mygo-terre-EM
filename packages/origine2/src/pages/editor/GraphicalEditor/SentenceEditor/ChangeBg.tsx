@@ -13,6 +13,7 @@ import { EditorPreviewClient } from "@/utils/editorPreviewClient";
 import { AssetPreview } from "../components/AssetPreview";
 import { useGlobalEffectEditor } from "@/hooks/useGlobalEffectEditor";
 import { IgnoreDefaultOption } from "../components/IgnoreDefaultOption";
+import WheelDropdown from "../components/WheelDropdown";
 
 export default function ChangeBg(props: ISentenceEditorProps) {
   const isNoFile = props.sentence.content === "" || props.sentence.content === "none";
@@ -29,6 +30,12 @@ export default function ChangeBg(props: ISentenceEditorProps) {
   const exitAnimation = useValue(getArgByKey(props.sentence, 'exit').toString() ?? "");
   const ease = useValue(getArgByKey(props.sentence, 'ease').toString() ?? '');
   const ignoreDefault = useValue(getArgByKey(props.sentence, 'ignoreDefault') === true);
+  const transitionType = useValue(getArgByKey(props.sentence, 'type').toString() ?? '');
+  const lut = useValue(getArgByKey(props.sentence, 'lut').toString() ?? '');
+  const transitionTypes = new Map<string, string>([
+    ['', t`默认`],
+    ['blinds', t`百叶窗`],
+  ]);
   const submit = () => {
     const submitString = combineSubmitString(
       props.sentence.commandRaw,
@@ -38,12 +45,16 @@ export default function ChangeBg(props: ISentenceEditorProps) {
         ...(bgFile.value !== "none" ? [
           {key: "transform", value: json.value},
           {key: "ease", value: ease.value},
+          {key: "type", value: transitionType.value},
+          {key: "lut", value: lut.value},
           {key: "unlockname", value: unlockName.value},
           {key: "series", value: unlockSeries.value},
           {key: "order", value: unlockOrder.value},
         ] : [
           {key: "transform", value: ""},
           {key: "ease", value: ""},
+          {key: "type", value: ""},
+          {key: "lut", value: ""},
           {key: "unlockname", value: ""},
           {key: "series", value: ""},
           {key: "order", value: ""},
@@ -113,6 +124,31 @@ export default function ChangeBg(props: ISentenceEditorProps) {
             submit();
           }}
           extNames={[...extNameMap.get('image') ?? [], ...extNameMap.get('video') ?? []]}/>
+        </div>
+      </CommonOptions>}
+      {!isNoFile && <CommonOptions key="transition-type" title={t`转场类型`}>
+        <WheelDropdown
+          options={transitionTypes}
+          value={transitionType.value}
+          onValueChange={(value) => {
+            transitionType.set(value?.toString() ?? "");
+            submit();
+          }}
+        />
+      </CommonOptions>}
+      {!isNoFile && <CommonOptions key="lut" title={t`LUT 滤镜`}>
+        <div className={styles.filePreviewRow}>
+          <span>{lut.value || t`未设置`}</span>
+          <ChooseFile
+            title={t`选择 LUT 文件`}
+            basePath={['lut']}
+            selectedFilePath={lut.value}
+            onChange={(fileDesc) => {
+              lut.set(fileDesc?.name ?? "");
+              submit();
+            }}
+            extNames={extNameMap.get('image')}
+          />
         </div>
       </CommonOptions>}
       {!isNoFile && <CommonOptions key="3" title={t`解锁名称`}>

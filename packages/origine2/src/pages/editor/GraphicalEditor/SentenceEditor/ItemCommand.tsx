@@ -25,9 +25,10 @@ export default function ItemCommand(props: ISentenceEditorProps) {
     const submitString = combineSubmitString(
       commandKey,
       itemId.value,
-      props.sentence.args,
-      [],
-    );
+        props.sentence.args,
+        [],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

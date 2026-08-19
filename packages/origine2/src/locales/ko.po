@@ -110,6 +110,9 @@ msgstr "Live2D 모션"
 msgid "Live2D 表情"
 msgstr "Live2D 표정"
 
+msgid "LUT 滤镜"
+msgstr ""
+
 msgid "miniAvatar:选择小头像;"
 msgstr "miniAvatar:미니 프로필 선택;"
 
@@ -161,6 +164,9 @@ msgstr "showVars는 일반적으로 내용이 필요하지 않습니다"
 msgid "showVars;"
 msgstr "showVars;"
 
+msgid "Spine"
+msgstr ""
+
 msgid "Spine 动画"
 msgstr "Spine 애니메이션"
 
@@ -179,17 +185,29 @@ msgstr "unlockCg:;"
 msgid "wait:1000;"
 msgstr "wait:1000;"
 
+msgid "WebGAL Mano"
+msgstr ""
+
 msgid "WebGAL Standard"
 msgstr "WebGAL Standard"
 
 msgid "WebGAL Terre 4.6 使用新的用户数据目录。建议检查并迁移旧版本数据。"
 msgstr "WebGAL Terre 4.6 은 새로운 사용자 데이터 목록을 사용합니다. 구버전 데이터를 검사하거나 옮기는 것을 권장합니다."
 
+msgid "X 轴位置"
+msgstr ""
+
 msgid "X轴位移"
 msgstr "X축 이동"
 
 msgid "X轴缩放"
 msgstr "X축 비율"
+
+msgid "Y 轴位置"
+msgstr ""
+
+msgid "Y 轴高度"
+msgstr ""
 
 msgid "Y轴位移"
 msgstr "Y축 이동"
@@ -338,6 +356,9 @@ msgstr "예: -100,-100,100,100"
 msgid "例如：^.{regexRange}$"
 msgstr "예: ^.{regexRange}$"
 
+msgid "例如：13:20:000"
+msgstr ""
+
 msgid "例如：a=1 或 name=WebGAL"
 msgstr "예: a=1 또는 name=WebGAL"
 
@@ -349,6 +370,9 @@ msgstr "예: fig-center"
 
 msgid "例如：i"
 msgstr "예: i"
+
+msgid "例如：label_1"
+msgstr ""
 
 msgid "例如：universalSoftIn"
 msgstr "예: universalSoftIn"
@@ -491,6 +515,9 @@ msgstr "변수에 저장하기"
 msgid "写入哪里"
 msgstr "기록 위치"
 
+msgid "出示证物"
+msgstr ""
+
 msgid "分支选择"
 msgstr "분기 선택"
 
@@ -530,8 +557,14 @@ msgstr "새 템플릿 생성"
 msgid "创建新游戏"
 msgstr "새 게임 생성"
 
+msgid "创建标签供 jumpLabel 或分支选项跳转"
+msgstr ""
+
 msgid "删除"
 msgstr "삭제"
+
+msgid "删除关键词"
+msgstr ""
 
 msgid "删除参数"
 msgstr "인자 삭제"
@@ -547,6 +580,9 @@ msgstr "템플릿 삭제"
 
 msgid "删除游戏"
 msgstr "게임 삭제"
+
+msgid "删除选项"
+msgstr ""
 
 msgid "刷新"
 msgstr "새로고침"
@@ -571,6 +607,9 @@ msgstr "애니메이션 이름"
 
 msgid "动画帧控制"
 msgstr "애니메이션 프레임 제어"
+
+msgid "匹配文本"
+msgstr ""
 
 msgid "半张嘴"
 msgstr "반쯤 벌린 입"
@@ -607,6 +646,15 @@ msgstr "인자 이름"
 
 msgid "反射电影滤镜"
 msgstr "반사 영화 필터"
+
+msgid "反驳"
+msgstr ""
+
+msgid "反驳与高亮"
+msgstr ""
+
+msgid "反驳素材"
+msgstr ""
 
 msgid "发布的游戏可以在 <0>https://www.openwebgal.com/games/</0> 展示，欢迎分享你的作品！"
 msgstr "배포된 게임은 <0>https://www.openwebgal.com/games/</0> 에 전시됩니다. 여러분의 작품을 공유해 주세요!"
@@ -704,6 +752,9 @@ msgstr "그림"
 msgid "图片差分"
 msgstr "이미지 차분"
 
+msgid "图鉴更新"
+msgstr ""
+
 msgid "圆形"
 msgstr "원형"
 
@@ -749,6 +800,9 @@ msgstr "장면 및 분기"
 msgid "场景文件"
 msgstr "장면 파일"
 
+msgid "场景文件或标签名"
+msgstr ""
+
 msgid "场景返回"
 msgstr "씬 반환"
 
@@ -778,6 +832,9 @@ msgstr "폭설"
 
 msgid "如果使用了自定义模板导致预览效果异常，请关闭此选项。"
 msgstr "커스텀 템플릿 사용으로 인해 미리보기에 이상이 발생할 경우, 이 옵션을 끄시길 바랍니다."
+
+msgid "姿势（pose）"
+msgstr ""
 
 msgid "字体"
 msgstr "폰트"
@@ -836,6 +893,15 @@ msgstr "실시간 미리보기 켜짐"
 msgid "实验性快速预览"
 msgstr "실험적 빠른 미리보기"
 
+msgid "审判时间"
+msgstr ""
+
+msgid "审判流程控制"
+msgstr ""
+
+msgid "审判状态"
+msgstr ""
+
 msgid "宽度"
 msgstr "너비"
 
@@ -887,6 +953,9 @@ msgstr "텍스트 창의 텍스트를 읽음으로 설정"
 msgid "将文本框文本设置为未读"
 msgstr "텍스트 창의 텍스트를 읽지 않음으로 설정"
 
+msgid "将物品加入魔女图鉴, 物品放置在Item文件夹下"
+msgstr ""
+
 msgid "小"
 msgstr "소"
 
@@ -928,6 +997,12 @@ msgstr "미니 프로필 표시"
 
 msgid "展示未解锁节点"
 msgstr "잠금 해제되지 않은 노드 표시"
+
+msgid "展示证物"
+msgstr ""
+
+msgid "展示魔女图鉴中的物品, 物品放置在Item文件夹下"
+msgstr ""
 
 msgid "属性"
 msgstr "속성"
@@ -1007,6 +1082,9 @@ msgstr "적용된 템플릿"
 msgid "应用颜色变化"
 msgstr "색상 변경 적용"
 
+msgid "庭审"
+msgstr ""
+
 msgid "延迟时间（秒）"
 msgstr "지연 시간(초)"
 
@@ -1016,11 +1094,17 @@ msgstr "켜기"
 msgid "开始"
 msgstr "시작"
 
+msgid "开始审判"
+msgstr ""
+
 msgid "开始迁移"
 msgstr "이동 시작"
 
 msgid "张开嘴"
 msgstr "벌린 입"
+
+msgid "强制弹出魔女图鉴，选择证物后跳转"
+msgstr ""
 
 msgid "强度"
 msgstr "강도"
@@ -1076,6 +1160,15 @@ msgstr "무시"
 msgid "忽略此版本"
 msgstr "이 버전 무시"
 
+msgid "思考"
+msgstr ""
+
+msgid "思考内容"
+msgstr ""
+
+msgid "思考图片"
+msgstr ""
+
 msgid "恢复默认目录"
 msgstr "기본 목록으로 복원"
 
@@ -1105,6 +1198,9 @@ msgstr "사용자 데이터 목록 열기"
 
 msgid "打开设置"
 msgstr "설정 열기"
+
+msgid "打开证物选择"
+msgstr ""
 
 msgid "打开配置目录"
 msgstr "설정 디렉터리 열기"
@@ -1136,8 +1232,14 @@ msgstr "포인터"
 msgid "排序方式"
 msgstr "정렬 방식"
 
+msgid "控制庭审流程"
+msgstr ""
+
 msgid "控制是否要显示文本框"
 msgstr "텍스트 창 표시 여부 제어"
+
+msgid "控制魔女图鉴"
+msgstr ""
 
 msgid "提交"
 msgstr "제출"
@@ -1172,6 +1274,9 @@ msgstr "알림: 이펙트는 다른 배경으로 전환하거나 이전 배경�
 msgid "提示：样式中用到的资源放在 assets 目录下"
 msgstr "알림: 스타일에 사용되는 리소스는 assets 목록 안에 배치하세요"
 
+msgid "提示：每个选项的跳转目标支持场景文件或标签名，思考图片放在thinking文件夹内，选项图标放在thinking_button文件夹内"
+msgstr ""
+
 msgid "提示按钮文本"
 msgstr "힌트 버튼 텍스트"
 
@@ -1183,6 +1288,12 @@ msgstr "비디오 클립 재생"
 
 msgid "播放一段效果音"
 msgstr "효과음 클립 재생"
+
+msgid "播放反驳并跳转"
+msgstr ""
+
+msgid "播放反驳素材并跳转"
+msgstr ""
 
 msgid "播放效果音"
 msgstr "효과음 재생"
@@ -1376,6 +1487,9 @@ msgstr "사이드바 표시"
 msgid "显示变量"
 msgstr "변수 표시"
 
+msgid "显示图鉴更新提示"
+msgstr ""
+
 msgid "显示效果"
 msgstr "이펙트 표시"
 
@@ -1388,8 +1502,14 @@ msgstr "스탠딩 표시"
 msgid "显示背景"
 msgstr "배경 표시"
 
+msgid "显示返回选项"
+msgstr ""
+
 msgid "显示预览窗口"
 msgstr "미리보기 창 표시"
+
+msgid "显示魔女图鉴"
+msgstr ""
 
 msgid "普通对话"
 msgstr "일반 대화"
@@ -1418,14 +1538,23 @@ msgstr "UI 스타일 태그 교체"
 msgid "替换同目标动画"
 msgstr "동일 대상 애니메이션 교체"
 
+msgid "未找到 Item 文件夹"
+msgstr ""
+
 msgid "未指定"
 msgstr "지정되지 않음"
+
+msgid "未设置"
+msgstr ""
 
 msgid "未识别"
 msgstr "인식되지 않음"
 
 msgid "未识别的指令"
 msgstr "인식되지 않은 명령어"
+
+msgid "未选择"
+msgstr ""
 
 msgid "未选择跳转目标"
 msgstr "이동 대상이 선택되지 않았습니다"
@@ -1559,6 +1688,12 @@ msgstr "정상적으로 BGM 재생"
 msgid "正片叠底"
 msgstr "곱하기"
 
+msgid "正确触发"
+msgstr ""
+
+msgid "此指令将弹出魔女图鉴更新的提示"
+msgstr ""
+
 msgid "此指令将结束游戏"
 msgstr "이 명령어는 게임을 종료시킵니다."
 
@@ -1628,6 +1763,9 @@ msgstr "주석 한 줄 추가"
 msgid "添加一首音乐到音乐鉴赏界面"
 msgstr "음악 감상 인터페이스에 음악 한 곡 추가"
 
+msgid "添加关键词"
+msgstr ""
+
 msgid "添加动画帧"
 msgstr "애니메이션 프레임 추가"
 
@@ -1652,11 +1790,29 @@ msgstr "커스텀 속성 추가"
 msgid "添加节点"
 msgstr "노드 추가"
 
+msgid "添加证物"
+msgstr ""
+
+msgid "添加证物到图鉴"
+msgstr ""
+
 msgid "添加语句"
 msgstr "문장 추가"
 
+msgid "添加选项"
+msgstr ""
+
+msgid "清除"
+msgstr ""
+
+msgid "清除全部证物"
+msgstr ""
+
 msgid "清除当前舞台的特殊效果"
 msgstr "현재 스테이지의 이펙트 초기화"
+
+msgid "清除当前证词展示内容"
+msgstr ""
 
 msgid "清除提示"
 msgstr "알림 초기화"
@@ -1669,6 +1825,15 @@ msgstr "스탠딩 초기화"
 
 msgid "清除角色名，留空角色名的语句不再显示角色名"
 msgstr "캐릭터 이름을 초기화하며, 캐릭터 이름을 비워 둔 문장에는 캐릭터 이름이 표시되지 않음"
+
+msgid "清除证物"
+msgstr ""
+
+msgid "清除证言"
+msgstr ""
+
+msgid "清除魔女图鉴中的所有证物"
+msgstr ""
 
 msgid "游戏"
 msgstr "게임"
@@ -1715,6 +1880,9 @@ msgstr "파일을 클릭하거나 여기로 드래그하여 업로드"
 msgid "点状电影滤镜"
 msgstr "점박이 영화 필터"
 
+msgid "物品 ID"
+msgstr ""
+
 msgid "特效来源"
 msgstr "특수 효과 출처"
 
@@ -1756,6 +1924,9 @@ msgstr "비워 두면 반환값이 없습니다. 숫자, true/false, 문자열, 
 
 msgid "百分比。 0-100 有效"
 msgstr "백분율. 0-100 유효"
+
+msgid "百叶窗"
+msgstr ""
 
 msgid "目前没有打开任何文件"
 msgstr "현재 열려 있는 파일이 없습니다"
@@ -1847,6 +2018,9 @@ msgstr "스탠딩 파일"
 msgid "立绘清除参数"
 msgstr "스탠딩 초기화 매개변수"
 
+msgid "立绘类型"
+msgstr ""
+
 msgid "等待"
 msgstr "대기"
 
@@ -1885,6 +2059,9 @@ msgstr "종점 튕김"
 
 msgid "结束后保持"
 msgstr "종료 후 유지"
+
+msgid "结束审判 (会播放动画)"
+msgstr ""
 
 msgid "结束当前 BGM 的播放"
 msgstr "현재 BGM 재생 종료"
@@ -1925,6 +2102,9 @@ msgstr "이징 유형"
 msgid "编辑图标"
 msgstr "아이콘 편집"
 
+msgid "编辑思考选项"
+msgstr ""
+
 msgid "编辑更多选项"
 msgstr "더 많은 옵션 편집"
 
@@ -1939,6 +2119,12 @@ msgstr "게임 편집"
 
 msgid "编辑组件"
 msgstr "편집 위젯"
+
+msgid "编辑证言与反驳"
+msgstr ""
+
+msgid "编辑魔女图鉴物品, 物品放置在Item文件夹下"
+msgstr ""
 
 msgid "繁体中文"
 msgstr "중국어 번체"
@@ -2120,6 +2306,15 @@ msgstr "스탠딩 또는 배경의 입/퇴장 애니메이션 설정"
 msgid "设置自定义级联选择器分隔符（输入后按回车键确认）"
 msgstr "커스텀 캐스케이드 선택기 구분 기호 설정 (입력 후 Enter 키를 눌러 확인)"
 
+msgid "证物 ID"
+msgstr ""
+
+msgid "证言"
+msgstr ""
+
+msgid "证词文本"
+msgstr ""
+
 msgid "该指令会在文本框显示当前变量。"
 msgstr "이 명령어는 텍스트 창에 현재 변수를 표시합니다."
 
@@ -2195,6 +2390,9 @@ msgstr "시점 반동"
 msgid "起点弹跳"
 msgstr "시점 튕김"
 
+msgid "超时跳转"
+msgstr ""
+
 msgid "跨语句动画"
 msgstr "문장 간 애니메이션"
 
@@ -2207,11 +2405,23 @@ msgstr "장면으로 이동"
 msgid "跳转到当前场景内的标签"
 msgstr "현재 장면 내의 태그으로 이동"
 
+msgid "跳转到指定标签"
+msgstr ""
+
 msgid "跳转到本场景标签"
 msgstr "현재 장면 태그로 이동"
 
+msgid "跳转场景或标签"
+msgstr ""
+
 msgid "跳转标签"
 msgstr "이동 태그"
+
+msgid "跳转目标"
+msgstr ""
+
+msgid "转场类型"
+msgstr ""
 
 msgid "软化（0-1）"
 msgstr "부드럽게(0-1)"
@@ -2233,6 +2443,9 @@ msgstr "검증 정규식 입력"
 
 msgid "输入目标 ID"
 msgstr "대상 ID 입력"
+
+msgid "输入证词文本"
+msgstr ""
 
 msgid "迁移到此目录"
 msgstr "이 목록으로 이동"
@@ -2261,17 +2474,26 @@ msgstr "입/퇴장 애니메이션"
 msgid "连续执行"
 msgstr "연속 실행"
 
+msgid "退出审判 (不会播放动画)"
+msgstr ""
+
 msgid "退场时长（单位为毫秒）"
 msgstr "퇴장 시간(단위: 밀리초)"
 
 msgid "选择"
 msgstr "선택"
 
+msgid "选择 LUT 文件"
+msgstr ""
+
 msgid "选择动画"
 msgstr "애니메이션 선택"
 
 msgid "选择动画文件"
 msgstr "애니메이션 파일 선택"
+
+msgid "选择反驳素材"
+msgstr ""
 
 msgid "选择图片"
 msgstr "이미지 선택"
@@ -2291,6 +2513,9 @@ msgstr "미니 프로필 파일 선택"
 msgid "选择应用的模板"
 msgstr "적용할 템플릿 선택"
 
+msgid "选择思考图片"
+msgstr ""
+
 msgid "选择效果音文件"
 msgstr "효과음 파일 선택"
 
@@ -2299,6 +2524,9 @@ msgstr "파일 선택"
 
 msgid "选择游戏引擎版本"
 msgstr "게임 엔진 버전 선택"
+
+msgid "选择物品"
+msgstr ""
 
 msgid "选择目录"
 msgstr "디렉터리 선택"
@@ -2309,6 +2537,9 @@ msgstr "비디오 파일 선택"
 msgid "选择立绘文件"
 msgstr "스탠딩 파일 선택"
 
+msgid "选择素材文件"
+msgstr ""
+
 msgid "选择背景图片"
 msgstr "배경 이미지 선택"
 
@@ -2317,6 +2548,9 @@ msgstr "배경 파일 선택"
 
 msgid "选择背景音乐"
 msgstr "배경음악 선택"
+
+msgid "选择证物"
+msgstr ""
 
 msgid "选择语音文件"
 msgstr "음성 파일 선택"
@@ -2339,6 +2573,9 @@ msgstr "퇴장 애니메이션 선택"
 msgid "选择退出动画文件"
 msgstr "퇴장 애니메이션 파일 선택"
 
+msgid "选择选项图标"
+msgstr ""
+
 msgid "选择鉴赏资源文件"
 msgstr "갤러리 리소스 파일 선택"
 
@@ -2357,6 +2594,9 @@ msgstr "옵션 목록"
 msgid "选项名称"
 msgstr "옵션 이름"
 
+msgid "选项图标"
+msgstr ""
+
 msgid "选项按钮"
 msgstr "선택지 버튼"
 
@@ -2365,6 +2605,9 @@ msgstr "선택지 버튼(비활성화)"
 
 msgid "选项按钮外层"
 msgstr "선택지 버튼 외층"
+
+msgid "选项文本"
+msgstr ""
 
 msgid "透明度（0-1）"
 msgstr "투명도(0-1)"
@@ -2417,6 +2660,9 @@ msgstr "감상 리소스 파일"
 msgid "鉴赏音乐"
 msgstr "음악 감상"
 
+msgid "错误触发"
+msgstr ""
+
 msgid "长效"
 msgstr "장기"
 
@@ -2443,6 +2689,12 @@ msgstr "사이드바 숨기기"
 
 msgid "隐藏文本框"
 msgstr "대화창 숨기기"
+
+msgid "隐藏返回选项"
+msgstr ""
+
+msgid "隐藏魔女图鉴"
+msgstr ""
 
 msgid "雨"
 msgstr "비"
@@ -2503,6 +2755,12 @@ msgstr "높이"
 
 msgid "高斯模糊"
 msgstr "가우시안 흐림"
+
+msgid "魔女图鉴"
+msgstr ""
+
+msgid "魔女图鉴显示"
+msgstr ""
 
 msgid "默认"
 msgstr "기본값"

@@ -37,9 +37,10 @@ export default function Judgment(props: ISentenceEditorProps) {
       props.sentence.args,
       [
         { key: "timer", value: timerValue },
-        { key: "timeout", value: timeoutValue },
-      ],
-    );
+          { key: "timeout", value: timeoutValue },
+        ],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

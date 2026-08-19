@@ -125,9 +125,10 @@ export default function Testimony(props: ISentenceEditorProps) {
         { key: "refutes", value: refutesValue },
         { key: "colors", value: colorsValue },
         { key: "vocal", value: false },
-        ...(vocal.value !== "" ? [{ key: vocal.value, value: true }] : []),
-      ],
-    );
+          ...(vocal.value !== "" ? [{ key: vocal.value, value: true }] : []),
+        ],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

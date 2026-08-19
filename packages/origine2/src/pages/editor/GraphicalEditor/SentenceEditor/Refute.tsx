@@ -20,9 +20,10 @@ export default function Refute(props: ISentenceEditorProps) {
     const submitString = combineSubmitString(
       commandKey,
       refuteFile.value,
-      props.sentence.args,
-      [{ key: "goto", value: gotoTarget.value }],
-    );
+        props.sentence.args,
+        [{ key: "goto", value: gotoTarget.value }],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

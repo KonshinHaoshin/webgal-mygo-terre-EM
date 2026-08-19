@@ -32,8 +32,10 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
   const panelType = useValue<PanelType>("effect");
   const updateExpand = useEditorStore.use.updateExpand();
   const isGoNext = useValue(!!getArgByKey(props.sentence, "next"));
-  const figureFile = useValue(props.sentence.content);
-  const isHaveSpineArg = figureFile.value.includes('?type=spine');
+  const [initialFigurePath, initialFigureQuery = ''] = props.sentence.content.split('?', 2);
+  const initialFigureParams = new URLSearchParams(initialFigureQuery);
+  const figureFile = useValue(initialFigurePath);
+  const figureType = useValue(initialFigureParams.get('type') ?? '');
   const figurePosition = useValue<FigurePosition>("");
   const isNoFile = props.sentence.content === "" || props.sentence.content === "none";
   const clear = useValue(getArgByKey(props.sentence, "clear") === true);
@@ -56,6 +58,8 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
   const focus = useValue<string>(getArgByKey(props.sentence, "focus").toString() ?? "");
   const blendMode = useValue<string>(getArgByKey(props.sentence, "blendMode").toString() ?? "");
   const ignoreDefault = useValue(getArgByKey(props.sentence, "ignoreDefault") === true);
+  const pose = useValue(getArgByKey(props.sentence, "pose").toString().replace(/^\{|\}$/g, '') ?? "");
+  const lut = useValue(getArgByKey(props.sentence, "lut").toString() ?? "");
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [l2dMotionsList, setL2dMotionsList] = useState<string[]>([]);
   const [l2dExpressionsList, setL2dExpressionsList] = useState<string[]>([]);
@@ -81,6 +85,11 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
   const animationFlags = new Map<AnimationFlag, string>([
     ["", "OFF"],
     ["on", "ON"],
+  ]);
+  const figureTypes = new Map<string, string>([
+    ["", t`默认`],
+    ["spine", t`Spine`],
+    ["webgal_mano", t`WebGAL Mano`],
   ]);
 
   const ease = useValue(getArgByKey(props.sentence, 'ease').toString() ?? '');
@@ -248,9 +257,12 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
     }
   }, [animationFlag.value]);
   const submit = () => {
-    const contentWithType = isSpineJsonFormat && !isHaveSpineArg
-      ? `${figureFile.value}?type=spine`
-      : figureFile.value;
+    const contentParams = new URLSearchParams(initialFigureQuery);
+    const selectedType = figureType.value || (isSpineJsonFormat ? 'spine' : '');
+    if (selectedType) contentParams.set('type', selectedType);
+    else contentParams.delete('type');
+    const query = contentParams.toString();
+    const contentWithType = query ? `${figureFile.value}?${query}` : figureFile.value;
     const submitString = combineSubmitString(
       props.sentence.commandRaw,
       contentWithType,
@@ -285,6 +297,8 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
         {key: "motion", value: currentMotion.value},
         {key: "expression", value: currentExpression.value},
         {key: "skin", value: currentSkin.value},
+        {key: "pose", value: figureType.value === "webgal_mano" && pose.value ? `{${pose.value}}` : ""},
+        {key: "lut", value: lut.value},
         {key: "bounds", value: bounds.value},
         {key: "blink", value: updateBlinkParam()},
         {key: "focus", value: updateFocusParam()},
@@ -558,6 +572,39 @@ export default function ChangeFigure(props: ISentenceEditorProps) {
             />
           </div>
         </CommonOptions>}
+      {!isNoFile && <CommonOptions key="figure-type" title={t`立绘类型`}>
+        <WheelDropdown
+          options={figureTypes}
+          value={figureType.value}
+          onValueChange={(value) => {
+            figureType.set(value?.toString() ?? "");
+            submit();
+          }}
+        />
+      </CommonOptions>}
+      {figureType.value === "webgal_mano" && <CommonOptions key="mano-pose" title={t`姿势（pose）`}>
+        <Input
+          value={pose.value}
+          onChange={(_, data) => pose.set(data.value)}
+          onBlur={submit}
+          placeholder="ArmL1,Cry"
+        />
+      </CommonOptions>}
+      {!isNoFile && <CommonOptions key="lut" title={t`LUT 滤镜`}>
+        <div className={styles.filePreviewRow}>
+          <span>{lut.value || t`未设置`}</span>
+          <ChooseFile
+            title={t`选择 LUT 文件`}
+            basePath={['lut']}
+            selectedFilePath={lut.value}
+            onChange={(fileDesc) => {
+              lut.set(fileDesc?.name ?? "");
+              submit();
+            }}
+            extNames={extNameMap.get('image')}
+          />
+        </div>
+      </CommonOptions>}
       <CommonOptions title={t`z-index`} key="z-index">
         <input value={zIndex.value}
           onChange={(ev) => {

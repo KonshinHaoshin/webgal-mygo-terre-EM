@@ -5,7 +5,9 @@ export function getArgsKey(
   line: string,
   command: commandType,
 ): CompletionItem[] {
-  switch (command) {
+  const commandName = line.trimStart().match(/^([A-Za-z][\w]*)/)?.[1];
+  const extendedCommand = customCommandTypes[commandName ?? ''] ?? command;
+  switch (extendedCommand) {
     case commandType.say: {
       return [
         whenKey,
@@ -38,6 +40,7 @@ export function getArgsKey(
         enterAnimationKey,
         exitAnimationKey,
         easeKey,
+        lutKey,
       ];
     }
     case commandType.changeFigure: {
@@ -71,6 +74,8 @@ export function getArgsKey(
         blinkKey,
         focusKey,
         blendModeKey,
+        poseKey,
+        lutKey,
       ];
     }
     case commandType.bgm: {
@@ -212,11 +217,114 @@ export function getArgsKey(
     case commandType.callSteam: {
       return [whenKey, achievementIdKey];
     }
+    case commandType.judgment: {
+      return [whenKey, timerKey, timeoutKey];
+    }
+    case commandType.refute: {
+      return [whenKey, gotoKey];
+    }
+    case commandType.testimony: {
+      return [whenKey, testimonyLeftKey, testimonyRightKey, refutesKey, colorsKey, yKey, vocalKey];
+    }
+    case commandType.manopedia:
+    case commandType.pediaUpdate:
+    case commandType.addItem:
+    case commandType.showItem:
+    case commandType.clearItem:
+    case commandType.presentTheEvidence:
+    case commandType.thinking:
+    case commandType.clearTestimony: {
+      return [whenKey];
+    }
     default: {
       return [whenKey, nextKey, continueKey];
     }
   }
 }
+
+const customCommandTypes: Record<string, commandType> = {
+  manopedia: commandType.manopedia,
+  pediaUpdate: commandType.pediaUpdate,
+  addItem: commandType.addItem,
+  showItem: commandType.showItem,
+  clearItem: commandType.clearItem,
+  presentTheEvidence: commandType.presentTheEvidence,
+  judgment: commandType.judgment,
+  refute: commandType.refute,
+  thinking: commandType.thinking,
+  testimony: commandType.testimony,
+  clearTestimony: commandType.clearTestimony,
+};
+
+const lutKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'lut',
+  insertText: 'lut=',
+  detail: 'LUT 滤镜文件',
+};
+
+const poseKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'pose',
+  insertText: 'pose=',
+  detail: 'webgal_mano 姿势',
+};
+
+const timerKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'timer',
+  insertText: 'timer=',
+  detail: '审判计时（HH:MM:SSS）',
+};
+
+const timeoutKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'timeout',
+  insertText: 'timeout=',
+  detail: '计时结束后的场景或标签',
+};
+
+const gotoKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'goto',
+  insertText: 'goto=',
+  detail: '反驳结束后的场景或标签',
+};
+
+const testimonyLeftKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'left',
+  insertText: 'left',
+  detail: '证词靠左',
+};
+
+const testimonyRightKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'right',
+  insertText: 'right',
+  detail: '证词靠右',
+};
+
+const refutesKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'refutes',
+  insertText: 'refutes=',
+  detail: '证词反驳配置',
+};
+
+const colorsKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'colors',
+  insertText: 'colors=',
+  detail: '证词关键词高亮颜色',
+};
+
+const yKey: CompletionItem = {
+  kind: CompletionItemKind.Constant,
+  label: 'y',
+  insertText: 'y=',
+  detail: '证词 Y 轴位置',
+};
 
 const whenKey: CompletionItem = {
   kind: CompletionItemKind.Constant,

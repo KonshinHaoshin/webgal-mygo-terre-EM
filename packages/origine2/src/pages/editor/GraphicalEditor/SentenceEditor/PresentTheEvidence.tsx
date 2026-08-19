@@ -44,9 +44,10 @@ export default function PresentTheEvidence(props: ISentenceEditorProps) {
     const submitString = combineSubmitString(
       commandKey,
       content,
-      props.sentence.args,
-      [],
-    );
+        props.sentence.args,
+        [],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

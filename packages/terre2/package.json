@@ -110,6 +110,9 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "moduleNameMapper": {
+      "^trash$": "<rootDir>/testUtils/trashMock.ts"
+    },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],

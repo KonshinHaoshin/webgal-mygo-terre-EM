@@ -19,9 +19,10 @@ export default function Thinking(props: ISentenceEditorProps) {
     const submitString = combineSubmitString(
       props.sentence.commandRaw,
       contentStr,
-      props.sentence.args,
-      [],
-    );
+        props.sentence.args,
+        [],
+        props.sentence.inlineComment,
+      );
     props.onSubmit(submitString);
   };
 

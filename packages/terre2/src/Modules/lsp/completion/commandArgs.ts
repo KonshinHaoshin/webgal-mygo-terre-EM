@@ -42,6 +42,17 @@ export enum commandType {
   wait = 33,
   callSteam = 34,
   return = 35,
+  manopedia = 1001,
+  pediaUpdate = 1002,
+  addItem = 1003,
+  showItem = 1004,
+  clearItem = 1005,
+  presentTheEvidence = 1006,
+  judgment = 1007,
+  refute = 1008,
+  thinking = 1009,
+  testimony = 1010,
+  clearTestimony = 1011,
 }
 
 export function markdown(content: string): MarkupContent {

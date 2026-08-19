@@ -26,6 +26,7 @@ import {
   VideoTwo,
   RightSmallUp,
   TrendingUp
+  ,Audit, BookOne, BookOpen, Clear, DeleteOne, Gavel, AddItem, NotebookAndPen, Reject, ViewList, ThinkingProblem
 } from "@icon-park/react";
 import ChangeBg from "./ChangeBg";
 import ChangeFigure from "./ChangeFigure";
@@ -52,6 +53,18 @@ import SetTempAnimation from "@/pages/editor/GraphicalEditor/SentenceEditor/SetT
 import Wait from "@/pages/editor/GraphicalEditor/SentenceEditor/Wait";
 import BasicCommands from "@/pages/editor/GraphicalEditor/SentenceEditor/BasicCommands";
 import { t } from "@lingui/macro";
+import Manopedia from "./Manopedia";
+import PediaUpdate from "./PediaUpdate";
+import ItemCommand from "./ItemCommand";
+import ClearItem from "./ClearItem";
+import PresentTheEvidence from "./PresentTheEvidence";
+import Judgment from "./Judgment";
+import Refute from "./Refute";
+import Thinking from "./Thinking";
+import Testimony from "./Testimony";
+import ClearTestimony from "./ClearTestimony";
+import LabelCommand from "./LabelCommand";
+import { CUSTOM_COMMAND_TYPES, type ExtendedCommandType } from "@/utils/webgalScriptConfig";
 
 export interface ISentenceEditorProps {
   sentence: ISentence;
@@ -63,7 +76,7 @@ export interface ISentenceEditorProps {
 }
 
 export interface ISentenceEditorConfig {
-  type: commandType,
+  type: ExtendedCommandType,
   title: () => string,
   initialText: () => string,
   component: FC<ISentenceEditorProps>,
@@ -198,7 +211,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     type: commandType.label,
     title: () => t`标签`,
     initialText: () => t`label:label_1;`,
-    component: BasicCommands,
+    component: LabelCommand,
     icon: <Code theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`在当前场景内创建跳转标签`
   },
@@ -206,7 +219,7 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     type: commandType.jumpLabel,
     title: () => t`跳转标签`,
     initialText: () => t`jumpLabel:label_1;`,
-    component: BasicCommands,
+    component: LabelCommand,
     icon: <CornerRightUp theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`跳转到当前场景内的标签`
   },
@@ -346,4 +359,15 @@ export const sentenceEditorConfig: ISentenceEditorConfig[] = [
     icon: <TrendingUp theme="multi-color" className={styles.iconSvg} size="24"/>,
     descText: () => t`为立绘或背景图片设置多段动画效果`
   },
+  { type: CUSTOM_COMMAND_TYPES.manopedia, title: () => t`魔女图鉴`, initialText: () => "manopedia:on;", component: Manopedia, icon: <BookOpen className={styles.iconSvg} size="24"/>, descText: () => t`控制魔女图鉴` },
+  { type: CUSTOM_COMMAND_TYPES.pediaUpdate, title: () => t`图鉴更新`, initialText: () => "pediaUpdate:;", component: PediaUpdate, icon: <BookOne className={styles.iconSvg} size="24"/>, descText: () => t`显示图鉴更新提示` },
+  { type: CUSTOM_COMMAND_TYPES.addItem, title: () => t`添加证物`, initialText: () => "addItem:SAPPHO;", component: ItemCommand, icon: <AddItem className={styles.iconSvg} size="24"/>, descText: () => t`添加证物到图鉴` },
+  { type: CUSTOM_COMMAND_TYPES.showItem, title: () => t`展示证物`, initialText: () => "showItem:SAPPHO;", component: ItemCommand, icon: <ViewList className={styles.iconSvg} size="24"/>, descText: () => t`展示证物` },
+  { type: CUSTOM_COMMAND_TYPES.clearItem, title: () => t`清除证物`, initialText: () => "clearItem:;", component: ClearItem, icon: <DeleteOne className={styles.iconSvg} size="24"/>, descText: () => t`清除全部证物` },
+  { type: CUSTOM_COMMAND_TYPES.presentTheEvidence, title: () => t`出示证物`, initialText: () => "presentTheEvidence:target;", component: PresentTheEvidence, icon: <Audit className={styles.iconSvg} size="24"/>, descText: () => t`打开证物选择` },
+  { type: CUSTOM_COMMAND_TYPES.judgment, title: () => t`庭审`, initialText: () => "judgment:begins -timer=13:20:000 -timeout=1.txt;", component: Judgment, icon: <Gavel className={styles.iconSvg} size="24"/>, descText: () => t`控制庭审流程` },
+  { type: CUSTOM_COMMAND_TYPES.refute, title: () => t`反驳`, initialText: () => "refute:refute.webm -goto=next;", component: Refute, icon: <Reject className={styles.iconSvg} size="24"/>, descText: () => t`播放反驳并跳转` },
+  { type: CUSTOM_COMMAND_TYPES.thinking, title: () => t`思考`, initialText: () => "thinking:avatar.png 选项:label;", component: Thinking, icon: <ThinkingProblem className={styles.iconSvg} size="24"/>, descText: () => t`编辑思考选项` },
+  { type: CUSTOM_COMMAND_TYPES.testimony, title: () => t`证言`, initialText: () => "testimony:证言文本 -left;", component: Testimony, icon: <NotebookAndPen className={styles.iconSvg} size="24"/>, descText: () => t`编辑证言与反驳` },
+  { type: CUSTOM_COMMAND_TYPES.clearTestimony, title: () => t`清除证言`, initialText: () => "clearTestimony:;", component: ClearTestimony, icon: <Clear className={styles.iconSvg} size="24"/>, descText: () => t`清除证言` },
 ];

@@ -2,17 +2,19 @@ import { type ISentence, type commandType } from "webgal-parser/src/interface/sc
 import { type ConfigItem, SCRIPT_CONFIG } from "webgal-parser/src/config/scriptConfig";
 
 export const CUSTOM_COMMAND_TYPES = {
-  manopedia: 34,
-  pediaUpdate: 35,
-  addItem: 36,
-  showItem: 37,
-  clearItem: 38,
-  presentTheEvidence: 39,
-  judgment: 40,
-  refute: 41,
-  thinking: 42,
-  testimony: 43,
-  clearTestimony: 44,
+  // Keep extensions outside the parser's published enum range. Parser 4.6.3
+  // added callSteam=34 and return=35, which collided with the legacy values.
+  manopedia: 1001,
+  pediaUpdate: 1002,
+  addItem: 1003,
+  showItem: 1004,
+  clearItem: 1005,
+  presentTheEvidence: 1006,
+  judgment: 1007,
+  refute: 1008,
+  thinking: 1009,
+  testimony: 1010,
+  clearTestimony: 1011,
 } as const;
 
 export type CustomCommandType = (typeof CUSTOM_COMMAND_TYPES)[keyof typeof CUSTOM_COMMAND_TYPES];
